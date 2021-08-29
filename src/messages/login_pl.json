@@ -1,0 +1,10 @@
+{
+    "loginTitle" : "Zaloguj się",
+    "email": "Email",
+    "emailTip" : "Podaj email",
+    "password" : "Hasło",
+    "passwordTip" : "Podaj hasło",
+    "loginButton" : "Zaloguj",
+    "registerButton" : "Zarejestruj się",
+    "or": "lub"
+}

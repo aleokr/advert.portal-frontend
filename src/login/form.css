@@ -1,0 +1,117 @@
+.form-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+  
+  .form-box h2 {
+    margin: 0 0 0;
+    padding: 0;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-style: italic;
+    color: #fff;
+    text-align: center;
+  }
+  .form-box h3 {
+    margin: 0px  0px 0px;
+    padding: 5;
+    color: rgb(252, 250, 250);
+    text-align: center;
+    font-size: 20px;
+  }
+  
+  .form-box .user-box {
+    position: relative;
+  }
+  
+  .form-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .form-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .form-box .user-box input:focus ~ label,
+  .form-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #f6f8f8;
+    font-size: 12px;
+  }
+  
+  .form-box form a {
+    position: relative;
+    display: inline-table;
+    padding: 10px 0px;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    width: 100%;
+  }
+  
+  .form-box a:hover {
+    background: #e64303;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #d1545b,
+                0 0 25px #b65607,
+                0 0 50px #532805;
+  }
+
+
+  .box select {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 12px;
+    width: 100%;
+    height: 45px;
+    border: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    margin-bottom: 30px ;
+  }
+
+  
+  .box option {
+    padding: 30px;
+    background-color:#69482a;
+  }
+
+  .error_message {
+    margin: 10px 0px;
+    padding:15px;
+    color: #D8000C;
+    background-color: #FFD2D2;
+    font-size:14px;
+  }

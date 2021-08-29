@@ -1,0 +1,11 @@
+{
+    "loginTitle" : "Log in",
+    "email": "Email",
+    "emailTip" : "Enter email",
+    "password" : "Password",
+    "passwordTip" : "Enter password",
+    "loginButton" : "Log in",
+    "registerButton" : "Register",
+    "or": "or"
+
+}
