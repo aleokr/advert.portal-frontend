@@ -1,18 +1,31 @@
 import './form.css'
 import { withTranslation } from "react-i18next";
 import { Component } from 'react';
-// import Select from 'react-select';
+import { Redirect } from 'react-router-dom';
+import React from 'react';
+
+type CompaniesData = {
+    id: number;
+    name: string;
+}
+
+type UserType = {
+    name: string;
+}
 
 type State = {
     name: string;
     surname: string;
+    username: string;
     email: string;
     password: string;
     userType: string;
     companyUser: boolean;
     companyAdmin: boolean;
     companyName: string;
-    companyId: number;
+    companyId: string;
+    companies: CompaniesData[];
+    userTypes: UserType[];
     errorMessage?: string;
     success: boolean;
 };
@@ -20,26 +33,29 @@ type State = {
 let initialState: State = {
     name: '',
     surname: '',
+    username: '',
     email: '',
     password: '',
     userType: 'INDIVIDUAL_USER',
     companyUser: false,
     companyAdmin: false,
     companyName: '',
-    companyId: 0,
+    companyId: '',
+    companies: [],
+    userTypes: [],
     errorMessage: '',
     success: false
 }
 
+
 type Action = { type: 'setName', payload: string }
     | { type: 'setSurname', payload: string }
+    | { type: 'setUsername', payload: string }
     | { type: 'setEmail', payload: string }
     | { type: 'setPassword', payload: string }
-    | { type: 'setCompanyUser', payload: boolean }
-    | { type: 'setCompanyAdmin', payload: boolean }
     | { type: 'setUserType', payload: string }
     | { type: 'setCompanyName', payload: string }
-    | { type: 'setCompanyId', payload: number }
+    | { type: 'setCompanyId', payload: string }
     | { type: 'registerSuccess', payload: string }
     | { type: 'registerFailed', payload: string }
     | { type: 'setError', payload: string };
@@ -55,6 +71,11 @@ function reducer(state: State, action: Action): State {
             return {
                 ...state,
                 surname: action.payload
+            };
+        case 'setUsername':
+            return {
+                ...state,
+                username: action.payload
             };
         case 'setEmail':
             return {
@@ -72,16 +93,6 @@ function reducer(state: State, action: Action): State {
                 userType: action.payload,
                 companyAdmin: action.payload === "COMPANY_ADMIN",
                 companyUser: action.payload === "COMPANY_USER"
-            };
-        case 'setCompanyUser':
-            return {
-                ...state,
-                companyUser: action.payload
-            };
-        case 'setCompanyAdmin':
-            return {
-                ...state,
-                companyAdmin: action.payload
             };
         case 'setCompanyName':
             return {
@@ -112,11 +123,6 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-const userTypes = [
-    { value: 'INDIVIDUAL_USER', label: 'Individual User' },
-    { value: 'COMPANY_ADMIN', label: 'Company Admin' },
-    { value: 'COMPANY_USER', label: 'Company User' }
-];
 
 class RegisterView extends Component {
     state = initialState;
@@ -125,63 +131,174 @@ class RegisterView extends Component {
         this.setState(state => reducer(this.state, action));
     }
 
+    componentDidMount() {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/list')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ companies: data });
+            });
+
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/users/roles')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ userTypes: data });
+            });
+
+    }
+
     handleUserTypeInput(event: React.ChangeEvent<HTMLSelectElement>) {
         this.dispatch({
             type: 'setUserType',
             payload: event.target.value
         });
+
     };
+
+    handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setName',
+            payload: event.target.value
+        });
+    };
+
+    handleSurnameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setSurname',
+            payload: event.target.value
+        });
+    };
+
+    handleUsernameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setSurname',
+            payload: event.target.value
+        });
+    };
+
+    handleEmailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setUsername',
+            payload: event.target.value
+        });
+    };
+
+    handlePasswordInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setPassword',
+            payload: event.target.value
+        });
+    };
+
+    handleCompanyNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setCompanyName',
+            payload: event.target.value
+        });
+    };
+
+    handleCompanyIdInput = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        this.dispatch({
+            type: 'setCompanyId',
+            payload: event.target.value
+        });
+    };
+
+    handleSubmitRegister = (event: React.FormEvent) => {
+        event.preventDefault();
+
+
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/addUser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors',
+            body: JSON.stringify({
+                name: this.state.name,
+                surname: this.state.surname,
+                login: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                userRole: this.state.userType,
+                companyId: this.state.companyId
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    event.preventDefault();
+                    this.dispatch({
+                        type: 'registerFailed',
+                        payload: 'Register failed'
+
+                    })
+                    this.setState({ errorMessage: response.json().toString() });
+                    return Promise.reject('error code: ' + response.status)
+                } else return response.json();
+            })
+            .then(result => {
+                this.dispatch({
+                    type: 'registerSuccess',
+                    payload: ''
+                })
+            })
+    }
 
     render() {
         return (
-            <div className="form-box">
-                <h2>Advert portal</h2>
-                <form>
-                    <div className="user-box">
-                        <input type="text" required />
-                        <label>Name</label>
-                    </div>
-                    <div className="user-box">
-                        <input type="text" required />
-                        <label>Surname</label>
-                    </div>
-                    <div className="user-box">
-                        <input type="email" required />
-                        <label>Email</label>
-                    </div>
-                    <div className="user-box">
-                        <input type="password" name="" required />
-                        <label>Password</label>
-                    </div>
-                    <div className="box">
-                        <select onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
-                            {userTypes.map(type => (
-                                <option key={type.label} value={type.value}>
-                                    {type.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    {this.state.companyAdmin &&
+            <React.Fragment>
+                {this.state.success &&
+                    <Redirect to='/login' />}
+
+                {this.state.errorMessage !== '' &&
+                    <div className="error_message">
+                        Error message
+                    </div>}
+                <div className="form-box">
+                    <h2>Advert portal</h2>
+                    <form >
                         <div className="user-box">
-                            <input type="text" required />
-                            <label>Company Name</label>
+                            <input type="text" onChange={this.handleNameInput} required/>
+                            <label>Name</label>
                         </div>
-                    }
-                    {this.state.companyUser &&
-                        <div className="box">
-                            <select>
-                                <option>Company 1</option>
-                                <option>Company 2</option>
-                                <option>Company 3</option>
+                        <div className="user-box">
+                            <input type="text" onChange={this.handleSurnameInput} required/>
+                            <label>Surname</label>
+                        </div>
+                        <div className="user-box">
+                            <input type="text" onChange={this.handleUsernameInput} required/>
+                            <label>Username</label>
+                        </div>
+                        <div className="user-box">
+                            <input type="email" onChange={this.handleEmailInput} required/>
+                            <label>Email</label>
+                        </div>
+                        <div className="user-box">
+                            <input type="password" name="" onChange={this.handlePasswordInput} required/>
+                            <label>Password</label>
+                        </div>
+                        <div className="select-box">
+                            <select onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
+                                {this.state.userTypes.map(type => (
+                                    <option key={type.name} value={type.name}>
+                                        {type.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
-                    }
+                        {this.state.companyUser &&
+                            <div className="select-box">
+                                <select onChange={e => this.handleCompanyIdInput(e)} value={this.state.userType}>
+                                    {this.state.companies.map(company => (
+                                        <option key={company.name} value={company.id}>
+                                            {company.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        }
 
-                    <a href="button">Submit</a>
-                </form>
-            </div>
-
+                        <a href="button" type="submit" onClick={this.handleSubmitRegister}>Submit</a>
+                    </form>
+                </div>
+            </React.Fragment>
         );
     }
 

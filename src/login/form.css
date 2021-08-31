@@ -87,7 +87,7 @@
   }
 
 
-  .box select {
+  .select-box select {
     background-color: transparent;
     color: rgb(255, 255, 255);
     padding: 12px;
@@ -103,7 +103,7 @@
   }
 
   
-  .box option {
+  .select-box option {
     padding: 30px;
     background-color:#69482a;
   }
@@ -112,6 +112,14 @@
     margin: 10px 0px;
     padding:15px;
     color: #D8000C;
+    background-color: #FFD2D2;
+    font-size:14px;
+  }
+
+  .success_message {
+    margin: 10px 0px;
+    padding:15px;
+    color: #23750e;
     background-color: #FFD2D2;
     font-size:14px;
   }
