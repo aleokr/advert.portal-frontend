@@ -1,10 +1,8 @@
 {
-    "loginTitle" : "Zaloguj się",
-    "email": "Email",
-    "emailTip" : "Podaj email",
-    "password" : "Hasło",
-    "passwordTip" : "Podaj hasło",
-    "loginButton" : "Zaloguj",
-    "registerButton" : "Zarejestruj się",
-    "or": "lub"
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "loginButton": "Zaloguj",
+    "registerButton": "Zarejestruj się",
+    "or": "lub",
+    "error": "Logowanie nie powiodło się. Sprawdź login, hasło i spróbuj jeszcze raz."
 }

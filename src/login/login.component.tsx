@@ -1,8 +1,9 @@
 import { Link, Redirect } from "react-router-dom";
 import './form.css'
-import { withTranslation } from "react-i18next";
 import { Component } from "react";
 import React from "react";
+import i18n from "../messages/i18n"
+
 
 type State = {
     username: string;
@@ -118,25 +119,24 @@ class LoginView extends Component {
                 {this.state.success &&
                     <Redirect to='/' />
                 }
-
-                {this.state.errorMessage !== '' &&
+                {!this.state.success && this.state.errorMessage !== '' &&
                     <div className="error_message">
-                        Error message
+                        {i18n.t('login.error')}
                     </div>}
                 < div className="form-box" >
                     <h2>Advert portal</h2>
                     <form>
                         <div className="user-box">
                             <input type="text" onChange={this.handleUsernameInput} required />
-                            <label>Username</label>
+                            <label>{i18n.t('login.username')}</label>
                         </div>
                         <div className="user-box">
                             <input type="password" onChange={this.handlePasswordInput} required />
-                            <label>Password</label>
+                            <label>{i18n.t('login.password')}</label>
                         </div>
-                        <a href="button" onClick={this.handleSubmitLogin}>Sign in</a>
-                        <h3>or</h3>
-                        <Link to="/register" >Register</Link>
+                        <a href="button" onClick={this.handleSubmitLogin}>{i18n.t('login.loginButton')}</a>
+                        <h3>{i18n.t('or')}</h3>
+                        <Link to="/register" >{i18n.t('login.registerButton')}</Link>
                     </form>
                 </div >
             </React.Fragment>
@@ -144,4 +144,4 @@ class LoginView extends Component {
     }
 }
 
-export default withTranslation('login')(LoginView)
+export default LoginView;

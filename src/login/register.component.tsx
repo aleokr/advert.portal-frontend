@@ -1,8 +1,8 @@
 import './form.css'
-import { withTranslation } from "react-i18next";
 import { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import React from 'react';
+import i18n from "../messages/i18n"
 
 type CompaniesData = {
     id: number;
@@ -177,7 +177,7 @@ class RegisterView extends Component {
 
     handleEmailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.dispatch({
-            type: 'setUsername',
+            type: 'setEmail',
             payload: event.target.value
         });
     };
@@ -222,6 +222,7 @@ class RegisterView extends Component {
             })
         })
             .then(response => {
+                event.preventDefault();
                 if (!response.ok) {
                     event.preventDefault();
                     this.dispatch({
@@ -249,36 +250,36 @@ class RegisterView extends Component {
 
                 {this.state.errorMessage !== '' &&
                     <div className="error_message">
-                        Error message
+                        {i18n.t('register.error')}
                     </div>}
                 <div className="form-box">
                     <h2>Advert portal</h2>
-                    <form >
+                    <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleNameInput} required/>
-                            <label>Name</label>
+                            <input type="text" onChange={this.handleNameInput} required />
+                            <label>{i18n.t('register.name')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleSurnameInput} required/>
-                            <label>Surname</label>
+                            <input type="text" onChange={this.handleSurnameInput} required />
+                            <label>{i18n.t('register.surname')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} required/>
-                            <label>Username</label>
+                            <input type="text" onChange={this.handleUsernameInput} required />
+                            <label>{i18n.t('register.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="email" onChange={this.handleEmailInput} required/>
-                            <label>Email</label>
+                            <input type="email" onChange={this.handleEmailInput} required />
+                            <label>{i18n.t('register.email')}</label>
                         </div>
                         <div className="user-box">
                             <input type="password" name="" onChange={this.handlePasswordInput} required/>
-                            <label>Password</label>
+                            <label>{i18n.t('register.password')}</label>
                         </div>
                         <div className="select-box">
                             <select onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
                                 {this.state.userTypes.map(type => (
                                     <option key={type.name} value={type.name}>
-                                        {type.name}
+                                        {i18n.t('register.'+type.name)}
                                     </option>
                                 ))}
                             </select>
@@ -295,7 +296,7 @@ class RegisterView extends Component {
                             </div>
                         }
 
-                        <a href="button" type="submit" onClick={this.handleSubmitRegister}>Submit</a>
+                        <button className="form-button" type ="submit">{i18n.t('register.submit')}</button>
                     </form>
                 </div>
             </React.Fragment>
@@ -305,4 +306,4 @@ class RegisterView extends Component {
 
 }
 
-export default withTranslation('register')(RegisterView)
+export default RegisterView;

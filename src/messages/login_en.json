@@ -1,11 +1,8 @@
 {
-    "loginTitle" : "Log in",
-    "email": "Email",
-    "emailTip" : "Enter email",
-    "password" : "Password",
-    "passwordTip" : "Enter password",
-    "loginButton" : "Log in",
-    "registerButton" : "Register",
-    "or": "or"
-
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Sign in",
+    "registerButton": "Register",
+    "or": "or",
+    "error": "Login failed. Check your login, password and try again."
 }

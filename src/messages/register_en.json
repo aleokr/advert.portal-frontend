@@ -1,0 +1,12 @@
+{
+    "name": "Name",
+    "surname": "Surname",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "INDIVIDUAL_USER": "Individual user",
+    "COMPANY_USER": "Company user",
+    "COMPANY_ADMIN": "Company admin",
+    "submit": "Submit",
+    "error": "Register failed. Try again."
+}

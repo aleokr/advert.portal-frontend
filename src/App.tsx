@@ -4,10 +4,10 @@ import RegisterView from "./login/register.component"
 import './App.css';
 import { withTranslation } from "react-i18next";
 
-
 function App() {
   require('dotenv').config();
-  return (<Router>
+  return (
+  <Router>
     <div className="App">
       <div className="outer">
         <div className="inner">
