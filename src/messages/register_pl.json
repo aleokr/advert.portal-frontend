@@ -1,0 +1,12 @@
+{
+    "name": "Imię",
+    "surname": "Nazwisko",
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "password": "Hasło",
+    "INDIVIDUAL_USER": "Użytkownik prywatny",
+    "COMPANY_USER": "Użytkownik firmowy",
+    "COMPANY_ADMIN": "Administrator firmy",
+    "submit": "Potwierdź",
+    "error": "Rejestracja nie powiodła sie. Spróbuj jeszcze raz."
+}

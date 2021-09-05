@@ -1,15 +1,19 @@
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Test from "./user/test.component"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LoginView from "./login/login.component"
+import RegisterView from "./login/register.component"
 import './App.css';
+import { withTranslation } from "react-i18next";
 
 function App() {
   require('dotenv').config();
-  return (<Router>
+  return (
+  <Router>
     <div className="App">
       <div className="outer">
         <div className="inner">
           <Switch>
-            <Route exact path='/test' component={Test} />
+            <Route exact path='/login' component={LoginView} />
+            <Route exact path='/register' component={RegisterView} />
           </Switch>
         </div>
       </div>
@@ -17,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTranslation()(App);

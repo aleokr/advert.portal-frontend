@@ -1,0 +1,8 @@
+{
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Sign in",
+    "registerButton": "Register",
+    "or": "or",
+    "error": "Login failed. Check your login, password and try again."
+}

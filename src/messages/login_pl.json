@@ -1,0 +1,8 @@
+{
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "loginButton": "Zaloguj",
+    "registerButton": "Zarejestruj się",
+    "or": "lub",
+    "error": "Logowanie nie powiodło się. Sprawdź login, hasło i spróbuj jeszcze raz."
+}
