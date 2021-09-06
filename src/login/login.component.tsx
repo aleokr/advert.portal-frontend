@@ -125,7 +125,7 @@ class LoginView extends Component {
                     </div>}
                 < div className="form-box" >
                     <h2>Advert portal</h2>
-                    <form>
+                    <form action="./login" onSubmit={this.handleSubmitLogin}>
                         <div className="user-box">
                             <input type="text" onChange={this.handleUsernameInput} required />
                             <label>{i18n.t('login.username')}</label>
@@ -134,8 +134,8 @@ class LoginView extends Component {
                             <input type="password" onChange={this.handlePasswordInput} required />
                             <label>{i18n.t('login.password')}</label>
                         </div>
-                        <a href="button" onClick={this.handleSubmitLogin}>{i18n.t('login.loginButton')}</a>
-                        <h3>{i18n.t('or')}</h3>
+                        <button className="form-button" type ="submit">{i18n.t('login.loginButton')}</button>
+                        <h3>{i18n.t('login.or')}</h3>
                         <Link to="/register" >{i18n.t('login.registerButton')}</Link>
                     </form>
                 </div >

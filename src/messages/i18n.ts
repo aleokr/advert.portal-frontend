@@ -5,6 +5,8 @@ import login_pl from "./login_pl.json"
 import login_en from "./login_en.json"
 import register_pl from "./register_pl.json"
 import register_en from "./register_en.json"
+import navBar_pl from "./navBar_pl.json"
+import navBar_en from "./navBar_en.json"
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -14,13 +16,15 @@ i18n.use(LanguageDetector)
             en: {
                 translations: {
                     login: login_en,
-                    register: register_en
+                    register: register_en,
+                    navBar: navBar_en
                 }
             },
             pl: {
                 translations: {
                     login: login_pl,
-                    register: register_pl
+                    register: register_pl,
+                    navBar:navBar_pl
                 }
             }
         },
