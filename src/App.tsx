@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginView from "./login/login.component"
 import RegisterView from "./login/register.component"
-import NavBar from "./navigation/navBar.component"
+import Dashboard from "./dashboard/dashboard.component"
 import './App.css';
 import { withTranslation } from "react-i18next";
 
@@ -15,7 +15,7 @@ function App() {
           <Switch>
             <Route exact path='/login' component={LoginView} />
             <Route exact path='/register' component={RegisterView} />
-            <Route exact path='/nav' component={NavBar} />
+            <Route exact path='/' component={Dashboard} />
           </Switch>
         </div>
       </div>

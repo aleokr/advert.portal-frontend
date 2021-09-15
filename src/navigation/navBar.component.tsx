@@ -3,6 +3,8 @@ import React from 'react';
 import { Container } from "react-bootstrap";
 import './navBar.component.css'
 import i18n from "../messages/i18n"
+import logo from '../assets/logo.png';
+
 
 class NavBar extends Component {
 
@@ -15,18 +17,17 @@ class NavBar extends Component {
     render() {
         return (
             <React.Fragment>
-                {localStorage.getItem('access_token') !== '' ?
+                {localStorage.getItem('access_token') === '' ?
                     <Container className="menuContainer">
                         <nav className="navMenu">
-                            <a href="/">{i18n.t('navBar.home')}</a>
-                            <a href="/user">{i18n.t('navBar.user')}</a>
-                            <a href="/addAdvert">{i18n.t('navBar.advert')}</a>
-                            <a href="/settings">{i18n.t('navBar.settings')}</a>
+                            <img className="advertLogo" src={logo} alt='logo' />
+                            <a className="links" href="/">{i18n.t('navBar.home')}</a>
+                            <a className="links" href="/user">{i18n.t('navBar.user')}</a>
+                            <a className="links" href="/addAdvert">{i18n.t('navBar.advert')}</a>
+                            <a className="links" href="/settings">{i18n.t('navBar.settings')}</a>
+                            <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
                         </nav>
-                        <button className="nav-login" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
-
-                    </Container>
-                    :
+                    </Container> :
                     <Container className="menuContainer">
                         <nav className="navMenu">
                             <a className="nav-login" href="/login" >{i18n.t('navBar.login')}</a>

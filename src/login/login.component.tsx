@@ -3,7 +3,7 @@ import './form.css'
 import { Component } from "react";
 import React from "react";
 import i18n from "../messages/i18n"
-
+import logo from '../assets/logo_black.png';
 
 type State = {
     username: string;
@@ -124,7 +124,7 @@ class LoginView extends Component {
                         {i18n.t('login.error')}
                     </div>}
                 < div className="form-box" >
-                    <h2>Advert portal</h2>
+                <img className="advertBlackLogo" src={logo} alt ='logo'/>
                     <form action="./login" onSubmit={this.handleSubmitLogin}>
                         <div className="user-box">
                             <input type="text" onChange={this.handleUsernameInput} required />
@@ -134,9 +134,9 @@ class LoginView extends Component {
                             <input type="password" onChange={this.handlePasswordInput} required />
                             <label>{i18n.t('login.password')}</label>
                         </div>
-                        <button className="form-button" type ="submit">{i18n.t('login.loginButton')}</button>
+                        <button className="form-button" type="submit">{i18n.t('login.loginButton')}</button>
                         <h3>{i18n.t('login.or')}</h3>
-                        <Link to="/register" >{i18n.t('login.registerButton')}</Link>
+                        <Link className="form-button" to="/register" >{i18n.t('login.registerButton')}</Link>
                     </form>
                 </div >
             </React.Fragment>

@@ -1,11 +1,11 @@
 body {
-	background: linear-gradient(-45deg, #db2d2d, #f08040, #ec9f57, #fde1c6);
+	background: linear-gradient(-45deg, #ce4d4d, #d66d4d, #e4842b, #dd9a5c);
     background-size: 400% 400%;
     animation: gradient 20s ease infinite;
-	display: flex;
-	flex-direction: column;
+    color: rgb(53, 12, 6);
 	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
+    margin: 0 auto;
+    height: 100vh;
 }
 @keyframes gradient {
     0% {

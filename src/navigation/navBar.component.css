@@ -1,32 +1,29 @@
 .menuContainer {
-    position: static;
-    height: 70px;
+    position: fixed;
+    width: 100%;
+    height: inherit;
+    background: linear-gradient(-45deg,  #da6542, #e27610, #e29954);
+    
 }
+
 .navMenu {
-  position: relative;
-  top: 50%;
-  right: 50%;
-  left: 50%;
-  align-content: center;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 80%;
 }
 
 .navMenu a {
-    position: relative;
-    display: inline;
-    padding: 10px 20px;
+    padding: 15px 15px;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     text-decoration: none;
+    border-radius: 10%;
     text-transform: uppercase;
-    margin-top: 10px;
     margin-right: 20px;
     margin-left: 20px;
-    margin-bottom: 10px;
-    letter-spacing: 3px;
-    width: 100%;
 }
 
 .navMenu a:hover {
@@ -38,13 +35,27 @@
                 0 0 50px #884209;
 }
 
-.nav-login{
+.nav-logout{
     position: fixed;
     color: #ffffff;
     background: transparent;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    left: 90%;
+}
+
+.nav-login{
+    position: relative;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -60,4 +71,9 @@
                 0 0 25px #b65607,
                 0 0 50px #884209;
 
+}
+
+.advertLogo {
+    width: max-content;
+    height: 50px;
 }
