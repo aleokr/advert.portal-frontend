@@ -1,5 +1,5 @@
 import { Link, Redirect } from "react-router-dom";
-import './form.css'
+import '../css/form.css'
 import { Component } from "react";
 import React from "react";
 import i18n from "../messages/i18n"
@@ -104,6 +104,8 @@ class LoginView extends Component {
             })
             .then(result => {
                 localStorage.setItem('access_token', result.access_token);
+                console.log(result.access_token);
+                console.log(localStorage.getItem("access_token"))
                 localStorage.setItem('refresh_token', result.refresh_token);
                 this.dispatch({
                     type: 'loginSuccess',
@@ -123,15 +125,15 @@ class LoginView extends Component {
                     <div className="error_message">
                         {i18n.t('login.error')}
                     </div>}
-                < div className="form-box" >
-                <img className="advertBlackLogo" src={logo} alt ='logo'/>
+                <div className="form-box">
+                    <img className="advertBlackLogo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitLogin}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} required />
+                            <input type="text" onChange={this.handleUsernameInput} maxLength={100} required />
                             <label>{i18n.t('login.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="password" onChange={this.handlePasswordInput} required />
+                            <input type="password" onChange={this.handlePasswordInput} maxLength={100} required />
                             <label>{i18n.t('login.password')}</label>
                         </div>
                         <button className="form-button" type="submit">{i18n.t('login.loginButton')}</button>

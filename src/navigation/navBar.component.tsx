@@ -1,7 +1,7 @@
 import { Component } from "react";
 import React from 'react';
 import { Container } from "react-bootstrap";
-import './navBar.component.css'
+import '../css/navBar.component.css'
 import i18n from "../messages/i18n"
 import logo from '../assets/logo.png';
 
@@ -17,7 +17,7 @@ class NavBar extends Component {
     render() {
         return (
             <React.Fragment>
-                {localStorage.getItem('access_token') === '' ?
+                {localStorage.getItem('access_token') !== '' ?
                     <Container className="menuContainer">
                         <nav className="navMenu">
                             <img className="advertLogo" src={logo} alt='logo' />

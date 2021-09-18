@@ -9,6 +9,8 @@ import navBar_pl from "./navBar_pl.json"
 import navBar_en from "./navBar_en.json"
 import advertList_pl from "./advertList_pl.json"
 import advertList_en from "./advertList_en.json"
+import newAdvert_pl from "./newAdvert_pl.json"
+import newAdvert_en from "./newAdvert_en.json"
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -20,7 +22,8 @@ i18n.use(LanguageDetector)
                     login: login_en,
                     register: register_en,
                     navBar: navBar_en,
-                    advertList: advertList_en
+                    advertList: advertList_en,
+                    newAdvert: newAdvert_en
                 }
             },
             pl: {
@@ -28,7 +31,8 @@ i18n.use(LanguageDetector)
                     login: login_pl,
                     register: register_pl,
                     navBar:navBar_pl,
-                    advertList: advertList_pl
+                    advertList: advertList_pl,
+                    newAdvert: newAdvert_pl
                 }
             }
         },

@@ -2,7 +2,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
+    width: 500px;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.8);
@@ -15,8 +15,9 @@
     margin: 0 0 0;
     padding: 0;
     font-size: 30px;
+    margin-top: 30px;
     margin-bottom: 30px;
-    font-style: italic;
+    font-style: normal;
     text-align: center;
   }
   .form-box h3 {
@@ -51,7 +52,8 @@
   }
   
   .form-box .user-box input:focus ~ label,
-  .form-box .user-box input:valid ~ label {
+  .form-box .user-box input:valid ~ label,
+  .form-box .user-box textarea:focus ~ label {
     top: -20px;
     left: 0;
     font-size: 12px;
@@ -117,6 +119,7 @@
     appearance: button;
     outline: none;
     margin-bottom: 30px ;
+    margin-top: 10px;
   }
 
   
@@ -147,4 +150,15 @@
     margin-right: auto;
     margin-bottom: 10px;
     width: 50%;
+  }
+
+  .advert-area{
+    border: none;
+    width: 100%;
+    height: auto;
+    outline: none;
+    resize: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.5);
   }

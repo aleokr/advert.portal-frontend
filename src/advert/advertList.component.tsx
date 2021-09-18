@@ -1,6 +1,6 @@
 import { Component } from "react";
 import i18n from "../messages/i18n";
-import './advertPage.component.css'
+import '../css/advertList.component.css'
 
 type AdvertType = {
     title: string;

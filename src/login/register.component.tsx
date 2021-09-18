@@ -1,4 +1,4 @@
-import './form.css'
+import '../css/form.css'
 import { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import React from 'react';
@@ -257,23 +257,23 @@ class RegisterView extends Component {
                 <img className="advertBlackLogo" src={logo} alt ='logo'/>
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleNameInput} required />
+                            <input type="text" onChange={this.handleNameInput} maxLength={100} required />
                             <label>{i18n.t('register.name')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleSurnameInput} required />
+                            <input type="text" onChange={this.handleSurnameInput} maxLength={100} required />
                             <label>{i18n.t('register.surname')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} required />
+                            <input type="text" onChange={this.handleUsernameInput} maxLength={100} required />
                             <label>{i18n.t('register.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="email" onChange={this.handleEmailInput} required />
+                            <input type="email" onChange={this.handleEmailInput} maxLength={100} required />
                             <label>{i18n.t('register.email')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="password" name="" onChange={this.handlePasswordInput} required />
+                            <input type="password" name="" onChange={this.handlePasswordInput} maxLength={100} required />
                             <label>{i18n.t('register.password')}</label>
                         </div>
                         <div className="select-box">
