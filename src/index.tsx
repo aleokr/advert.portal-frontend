@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 import './messages/i18n';
 import App from './App';
 import "./messages/i18n";

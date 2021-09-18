@@ -1,8 +1,9 @@
-import './form.css'
+import '../css/form.css'
 import { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import React from 'react';
 import i18n from "../messages/i18n"
+import logo from '../assets/logo_black.png';
 
 type CompaniesData = {
     id: number;
@@ -170,7 +171,7 @@ class RegisterView extends Component {
 
     handleUsernameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.dispatch({
-            type: 'setSurname',
+            type: 'setUsername',
             payload: event.target.value
         });
     };
@@ -253,33 +254,33 @@ class RegisterView extends Component {
                         {i18n.t('register.error')}
                     </div>}
                 <div className="form-box">
-                    <h2>Advert portal</h2>
+                <img className="advertBlackLogo" src={logo} alt ='logo'/>
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleNameInput} required />
+                            <input type="text" onChange={this.handleNameInput} maxLength={100} required />
                             <label>{i18n.t('register.name')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleSurnameInput} required />
+                            <input type="text" onChange={this.handleSurnameInput} maxLength={100} required />
                             <label>{i18n.t('register.surname')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} required />
+                            <input type="text" onChange={this.handleUsernameInput} maxLength={100} required />
                             <label>{i18n.t('register.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="email" onChange={this.handleEmailInput} required />
+                            <input type="email" onChange={this.handleEmailInput} maxLength={100} required />
                             <label>{i18n.t('register.email')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="password" name="" onChange={this.handlePasswordInput} required/>
+                            <input type="password" name="" onChange={this.handlePasswordInput} maxLength={100} required />
                             <label>{i18n.t('register.password')}</label>
                         </div>
                         <div className="select-box">
                             <select onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
                                 {this.state.userTypes.map(type => (
                                     <option key={type.name} value={type.name}>
-                                        {i18n.t('register.'+type.name)}
+                                        {i18n.t('register.' + type.name)}
                                     </option>
                                 ))}
                             </select>
@@ -296,7 +297,7 @@ class RegisterView extends Component {
                             </div>
                         }
 
-                        <button className="form-button" type ="submit">{i18n.t('register.submit')}</button>
+                        <button className="form-button" type="submit">{i18n.t('register.submit')}</button>
                     </form>
                 </div>
             </React.Fragment>

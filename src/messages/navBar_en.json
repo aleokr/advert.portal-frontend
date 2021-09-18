@@ -1,0 +1,8 @@
+{
+    "login": "login",
+    "logout": "logout",
+    "home": "home",
+    "settings": "settings",
+    "user": "your profile",
+    "advert": "add advert"
+}
