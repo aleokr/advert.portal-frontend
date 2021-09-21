@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LoginView from "./login/login.component"
-import RegisterView from "./login/register.component"
-import Dashboard from "./dashboard/dashboard.component"
-import NewAdvertView from "./advert/newAdvert.component"
+import LoginView from "./login/login.component";
+import RegisterView from "./login/register.component";
+import Dashboard from "./dashboard/dashboard.component";
+import NewAdvertView from "./advert/newAdvert.component";
+import NewCompanyView from "./company/newCompany.component";
 import { withTranslation } from "react-i18next";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
               <Route exact path='/register' component={RegisterView} />
               <Route exact path='/' component={Dashboard} />
               <Route exact path='/addAdvert' component={NewAdvertView} />
+              <Route exact path='/addCompany' component={NewCompanyView} />
+
             </Switch>
           </div>
         </div>

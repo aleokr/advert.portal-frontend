@@ -30,6 +30,7 @@ class NavBar extends Component {
                     </Container> :
                     <Container className="menuContainer">
                         <nav className="navMenu">
+                        <img className="advertLogo" src={logo} alt='logo' />
                             <a className="nav-login" href="/login" >{i18n.t('navBar.login')}</a>
                         </nav>
                     </Container>
