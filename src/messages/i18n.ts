@@ -11,6 +11,9 @@ import advertList_pl from "./advertList_pl.json"
 import advertList_en from "./advertList_en.json"
 import newAdvert_pl from "./newAdvert_pl.json"
 import newAdvert_en from "./newAdvert_en.json"
+import newCompany_pl from "./newCompany_pl.json"
+import newCompany_en from "./newCompany_en.json"
+
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -23,7 +26,8 @@ i18n.use(LanguageDetector)
                     register: register_en,
                     navBar: navBar_en,
                     advertList: advertList_en,
-                    newAdvert: newAdvert_en
+                    newAdvert: newAdvert_en,
+                    newCompany: newCompany_en
                 }
             },
             pl: {
@@ -32,11 +36,12 @@ i18n.use(LanguageDetector)
                     register: register_pl,
                     navBar:navBar_pl,
                     advertList: advertList_pl,
-                    newAdvert: newAdvert_pl
+                    newAdvert: newAdvert_pl,
+                    newCompany: newCompany_pl
                 }
             }
         },
-        lng: 'pl',
+        lng: 'en',
         fallbackLng: 'en',
         debug: true,
         ns: ["translations"],

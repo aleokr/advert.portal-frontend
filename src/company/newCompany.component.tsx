@@ -1,67 +1,48 @@
 import { Component } from "react";
 import '../css/form.css'
 import i18n from "../messages/i18n"
-import logo from '../assets/logo_black.png';
+import logo from '../assets/logo_black.png'
 import React from "react";
 import { Redirect } from "react-router-dom";
-import NavBar from "../navigation/navBar.component"
 
 type State = {
-    title: string;
-    shortDescription: string;
-    longDescription: string;
-    category: string;
-    categories: string[];
+    name: string;
+    description: string;
     errorMessage?: string;
     success: boolean;
 };
 
 let initialState: State = {
-    title: '',
-    shortDescription: '',
-    longDescription: '',
-    category: '',
-    categories: [],
+    name: '',
+    description: '',
     errorMessage: '',
     success: false
 }
-type Action = { type: 'setTitle', payload: string }
-    | { type: 'setShortDescription', payload: string }
-    | { type: 'setLongDescription', payload: string }
-    | { type: 'setCategory', payload: string }
-    | { type: 'addSuccess', payload: string }
-    | { type: 'addFailed', payload: string }
+type Action = { type: 'setName', payload: string }
+    | { type: 'setDescription', payload: string }
+    | { type: 'addCompanySuccess', payload: string }
+    | { type: 'addCompanyFailed', payload: string }
     | { type: 'setError', payload: string };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
-        case 'setTitle':
+        case 'setName':
             return {
                 ...state,
-                title: action.payload
+                name: action.payload
             };
-        case 'setShortDescription':
+        case 'setDescription':
             return {
                 ...state,
-                shortDescription: action.payload
+                description: action.payload
             };
-        case 'setLongDescription':
-            return {
-                ...state,
-                longDescription: action.payload
-            };
-        case 'setCategory':
-            return {
-                ...state,
-                category: action.payload
-            };
-        case 'addSuccess':
+        case 'addCompanySuccess':
             return {
                 ...state,
                 errorMessage: '',
                 success: true
             };
-        case 'addFailed':
+        case 'addCompanyFailed':
             return {
                 ...state,
                 errorMessage: action.payload
@@ -74,62 +55,38 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
-class NewAdvertView extends Component {
+class NewCompanyView extends Component {
     state = initialState;
-
-    handleTitleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.dispatch({
-            type: 'setTitle',
-            payload: event.target.value
-        });
-    };
-
-    handleShortDescriptionInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.dispatch({
-            type: 'setShortDescription',
-            payload: event.target.value
-        });
-    };
-
-    handleLongDescriptionInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        this.dispatch({
-            type: 'setLongDescription',
-            payload: event.target.value
-        });
-    };
-
-    handleAdvertCategoryInput = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        this.dispatch({
-            type: 'setCategory',
-            payload: event.target.value
-        });
-    }
 
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
-    componentDidMount() {
-        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/categories')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ categories: data });
-            });
+    handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.dispatch({
+            type: 'setName',
+            payload: event.target.value
+        });
+    };
 
-    }
+    handleDescriptionInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        this.dispatch({
+            type: 'setDescription',
+            payload: event.target.value
+        });
+    };
 
-    handleAddNewAdvert = (event: React.FormEvent) => {
+    handleAddNewCompany = (event: React.FormEvent) => {
         event.preventDefault();
-        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/save', {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/companies/addCompany', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             },
             body: JSON.stringify({
-                title: this.state.title,
-                shortDescription: this.state.shortDescription,
-                longDescription: this.state.longDescription
+                name: this.state.name,
+                description: this.state.description
             })
         })
             .then(response => {
@@ -153,16 +110,15 @@ class NewAdvertView extends Component {
                         .then(result => {
                             localStorage.setItem('access_token', result.access_token);
                             localStorage.setItem('refresh_token', result.refresh_token);
-                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/save', {
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/companies/addCompany', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                                 },
                                 body: JSON.stringify({
-                                    title: this.state.title,
-                                    shortDescription: this.state.shortDescription,
-                                    longDescription: this.state.longDescription
+                                    name: this.state.name,
+                                    description: this.state.description
                                 })
                             })
                                 .then(result => {
@@ -188,52 +144,37 @@ class NewAdvertView extends Component {
             .then(() => {
                 if (this.state.errorMessage === '') {
                     this.dispatch({
-                        type: 'addSuccess',
+                        type: 'addCompanySuccess',
                         payload: ''
                     })
                 }
             })
     }
 
+
     render() {
         return (
-            
+
             <React.Fragment>
-                <NavBar />
                 {this.state.errorMessage === '' && this.state.success === true &&
-                    <Redirect to='/myPanel' />
+                    <Redirect to='/' />
                 }
                 {this.state.errorMessage === 'UNAUTHORIZED' &&
                     <Redirect to='/login' />
                 }
                 <div className="form-box">
                     <img className="advertBlackLogo" src={logo} alt='logo' />
-                    <h2>{i18n.t('newAdvert.addAdvertTitle')}</h2>
-                    <form action="./addAdvert" onSubmit={this.handleAddNewAdvert} >
-                        <div className="select-box">
-                            <label>{i18n.t('newAdvert.category')}</label>
-                            <select onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
-                                {this.state.categories.map(category => (
-                                    <option key={category} value={category}>
-                                        {i18n.t('newAdvert.' + category)}
-                                    </option>
-                                ))}
-                            </select>
+                    <h2>{i18n.t('newCompany.addCompanyTitle')}</h2>
+                    <form action="./addCompany" onSubmit={this.handleAddNewCompany} >
+                        <div className="user-box">
+                            <input type="text" maxLength={100} onChange={this.handleNameInput} required />
+                            <label>{i18n.t('newCompany.name')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" maxLength={100} onChange={this.handleTitleInput} required />
-                            <label>{i18n.t('newAdvert.title')}</label>
+                            <label>{i18n.t('newCompany.description')}</label>
+                            <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleDescriptionInput}  required />
                         </div>
-                        <div className="user-box">
-                            <input type="text" maxLength={100} onChange={this.handleShortDescriptionInput} required />
-                            <label>{i18n.t('newAdvert.shortDescription')}</label>
-                        </div>
-
-                        <div className="user-box">
-                            <label>{i18n.t('newAdvert.longDescription')}</label>
-                            <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleLongDescriptionInput} required />
-                        </div>
-                        <button className="form-button" type="submit">{i18n.t('newAdvert.addButton')}</button>
+                        <button className="form-button" type="submit">{i18n.t('newCompany.addButton')}</button>
                     </form>
                 </div>
 
@@ -244,4 +185,4 @@ class NewAdvertView extends Component {
 
 }
 
-export default NewAdvertView;
+export default NewCompanyView;
