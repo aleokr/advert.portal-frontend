@@ -5,17 +5,5 @@
     "createdAt" : "data dodania",
     "category": "kategoria",
     "firstTabName" : "ogłoszenia firmowe",
-    "secondTabName" : "ogłoszenia indywidualne",
-    "ADMINISTRATION": "Administracja",
-    "ARCHITECTURE": "Architektura",
-    "BIOLOGY": "Biologia",
-    "CHEMISTRY": "Chemia",
-    "COMPUTER_SCIENCE": "Informatyka",
-    "ELECTRONICS": "Elektronika",
-    "JOURNALISM": "Dziennikarstwo",
-    "MANAGEMENT": "Zarządzanie",
-    "MATHEMATICS": "Matematyka",
-    "OTHER": "Inne",
-    "PHYSICS": "Fizyka",
-    "TRANSPORT": "Transport"
+    "secondTabName" : "ogłoszenia indywidualne"
 }

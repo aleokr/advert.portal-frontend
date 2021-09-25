@@ -166,7 +166,7 @@ class AdvertListView extends Component {
                                         <div className="col col-2">{advert.shortDescription}</div>
                                         <div className="col col-3">{advert.addedBy}</div>
                                         <div className="col col-4">{advert.createdAt}</div>
-                                        <div className="col col-5">{i18n.t('advertList.' + advert.advertCategory)}</div>
+                                        <div className="col col-5">{i18n.t('categories.' + advert.advertCategory)}</div>
                                     </li>
                                 ))}
                             </ul>
@@ -191,7 +191,7 @@ class AdvertListView extends Component {
                                         <div className="col col-2">{advert.shortDescription}</div>
                                         <div className="col col-3">{advert.addedBy}</div>
                                         <div className="col col-4">{advert.createdAt}</div>
-                                        <div className="col col-5">{i18n.t('advertList.' + advert.advertCategory)}</div>
+                                        <div className="col col-5">{i18n.t('categories.' + advert.advertCategory)}</div>
                                     </li>
                                 ))}
                             </ul>

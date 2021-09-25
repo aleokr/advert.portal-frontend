@@ -104,21 +104,49 @@ class LoginView extends Component {
             })
             .then(result => {
                 localStorage.setItem('access_token', result.access_token);
-                console.log(result.access_token);
-                console.log(localStorage.getItem("access_token"))
                 localStorage.setItem('refresh_token', result.refresh_token);
-                this.dispatch({
-                    type: 'loginSuccess',
-                    payload: ''
+                fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/users/loggedUser', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    }
                 })
+                    .then(response => {
+                        if (!response.ok) {
+                            event.preventDefault();
+                            this.dispatch({
+                                type: 'loginFailed',
+                                payload: 'get user info failed'
+
+                            })
+                            return Promise.reject('error code: ' + response.status)
+                        } else return response.json();
+                    })
+                    .then(result => {
+                        localStorage.setItem('user_type', result.type);
+                        if (result.companyId !== null) {
+                            localStorage.setItem('company_id', result.companyId);
+                        } else {
+                            localStorage.removeItem('company_id')
+                        }
+                        console.log(localStorage.getItem('company_id') === null)
+                        this.dispatch({
+                            type: 'loginSuccess',
+                            payload: ''
+                        })
+                    })
             })
+
     }
 
 
     render() {
         return (
             <React.Fragment>
-                {this.state.success &&
+                {this.state.success && localStorage.getItem('user_type') === 'COMPANY_ADMIN' &&
+                    <Redirect to='/addCompany' />
+                }
+                {this.state.success && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
                     <Redirect to='/' />
                 }
                 {!this.state.success && this.state.errorMessage !== '' &&

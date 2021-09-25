@@ -60,7 +60,7 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 3px;
-    left: 80%;
+    left: 78%;
 }
 
 .menuContainer button:hover {
@@ -76,4 +76,11 @@
 .advertLogo {
     width: max-content;
     height: 50px;
+}
+
+.icon {
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    
 }
