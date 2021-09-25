@@ -13,6 +13,10 @@ import newAdvert_pl from "./newAdvert_pl.json"
 import newAdvert_en from "./newAdvert_en.json"
 import newCompany_pl from "./newCompany_pl.json"
 import newCompany_en from "./newCompany_en.json"
+import userPanel_pl from "./userPanel_pl.json"
+import userPanel_en from "./userPanel_en.json"
+import categories_pl from "./categories_pl.json"
+import categories_en from "./categories_en.json"
 
 
 i18n.use(LanguageDetector)
@@ -27,7 +31,9 @@ i18n.use(LanguageDetector)
                     navBar: navBar_en,
                     advertList: advertList_en,
                     newAdvert: newAdvert_en,
-                    newCompany: newCompany_en
+                    newCompany: newCompany_en,
+                    userPanel: userPanel_en,
+                    categories: categories_en
                 }
             },
             pl: {
@@ -37,12 +43,12 @@ i18n.use(LanguageDetector)
                     navBar:navBar_pl,
                     advertList: advertList_pl,
                     newAdvert: newAdvert_pl,
-                    newCompany: newCompany_pl
+                    newCompany: newCompany_pl,
+                    userPanel: userPanel_pl,
+                    categories: categories_pl
                 }
             }
         },
-        lng: 'en',
-        fallbackLng: 'en',
         debug: true,
         ns: ["translations"],
         defaultNS: "translations"

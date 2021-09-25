@@ -4,6 +4,7 @@ import i18n from "../messages/i18n"
 import logo from '../assets/logo_black.png'
 import React from "react";
 import { Redirect } from "react-router-dom";
+import NavBar from "../navigation/navBar.component";
 
 type State = {
     name: string;
@@ -156,6 +157,7 @@ class NewCompanyView extends Component {
         return (
 
             <React.Fragment>
+                <NavBar />
                 {this.state.errorMessage === '' && this.state.success === true &&
                     <Redirect to='/' />
                 }

@@ -5,17 +5,5 @@
     "createdAt" : "created at",
     "category": "category",
     "firstTabName" : "Company adverts",
-    "secondTabName" : "Individual adverts",
-    "ADMINISTRATION": "Administration",
-    "ARCHITECTURE": "Architecture",
-    "BIOLOGY": "Biology",
-    "CHEMISTRY": "Chemistry",
-    "COMPUTER_SCIENCE": "Computer Science",
-    "ELECTRONICS": "Electronics",
-    "JOURNALISM": "Journalism",
-    "MANAGEMENT": "Management",
-    "MATHEMATICS": "Mathematics",
-    "OTHER": "Other",
-    "PHYSICS": "Physics",
-    "TRANSPORT": "Transport"
+    "secondTabName" : "Individual adverts"
 }

@@ -1,0 +1,12 @@
+{
+    "firstTab": "Your adverts",
+    "secondTab": "Your applications",
+    "thirdTab": "Responses for your adverts",
+    "fourthTab": "Your company",
+    "name" : "name",
+    "shortDescription": "short description",
+    "addedBy" : "added by",
+    "createdAt" : "added at",
+    "category": "category",
+    "addedAt": "added at"
+}

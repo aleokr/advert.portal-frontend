@@ -201,7 +201,7 @@ class NewAdvertView extends Component {
             <React.Fragment>
                 <NavBar />
                 {this.state.errorMessage === '' && this.state.success === true &&
-                    <Redirect to='/myPanel' />
+                    <Redirect to='/userPanel' />
                 }
                 {this.state.errorMessage === 'UNAUTHORIZED' &&
                     <Redirect to='/login' />
@@ -215,7 +215,7 @@ class NewAdvertView extends Component {
                             <select onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
                                 {this.state.categories.map(category => (
                                     <option key={category} value={category}>
-                                        {i18n.t('newAdvert.' + category)}
+                                        {i18n.t('categories.' + category)}
                                     </option>
                                 ))}
                             </select>

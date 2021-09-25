@@ -4,17 +4,5 @@
     "longDescription" : "Long description",
     "category" : "Category",
     "addButton" : "Add",
-    "addAdvertTitle" : "New advert",
-    "ADMINISTRATION": "Administration",
-    "ARCHITECTURE": "Architecture",
-    "BIOLOGY": "Biology",
-    "CHEMISTRY": "Chemistry",
-    "COMPUTER_SCIENCE": "Computer Science",
-    "ELECTRONICS": "Electronics",
-    "JOURNALISM": "Journalism",
-    "MANAGEMENT": "Management",
-    "MATHEMATICS": "Mathematics",
-    "OTHER": "Other",
-    "PHYSICS": "Physics",
-    "TRANSPORT": "Transport"
+    "addAdvertTitle" : "New advert"
 }

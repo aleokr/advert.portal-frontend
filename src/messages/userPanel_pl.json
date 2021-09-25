@@ -1,0 +1,12 @@
+{
+    "firstTab": "Twoje ogłoszenia",
+    "secondTab": "Twoje aplikacje",
+    "thirdTab": "Odpowiedzi na Twoje ogłoszenia",
+    "fourthTab": "Twoja firma",
+    "name" : "nazwa",
+    "shortDescription": "krótki opis",
+    "addedBy" : "dodano przez",
+    "createdAt" : "data dodania",
+    "category": "kategoria",
+    "addedAt": "dodano"
+}

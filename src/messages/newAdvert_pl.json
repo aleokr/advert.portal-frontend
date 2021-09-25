@@ -4,17 +4,5 @@
     "longDescription" : "Długi opis",
     "category" : "Kategoria",
     "addButton" : "Dodaj",
-    "addAdvertTitle" : "Nowe ogłoszenie",
-    "ADMINISTRATION": "Administracja",
-    "ARCHITECTURE": "Architektura",
-    "BIOLOGY": "Biologia",
-    "CHEMISTRY": "Chemia",
-    "COMPUTER_SCIENCE": "Informatyka",
-    "ELECTRONICS": "Elektronika",
-    "JOURNALISM": "Dziennikarstwo",
-    "MANAGEMENT": "Zarządzanie",
-    "MATHEMATICS": "Matematyka",
-    "OTHER": "Inne",
-    "PHYSICS": "Fizyka",
-    "TRANSPORT": "Transport"
+    "addAdvertTitle" : "Nowe ogłoszenie"
 }
