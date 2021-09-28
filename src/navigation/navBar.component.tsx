@@ -18,17 +18,30 @@ class NavBar extends Component {
         localStorage.setItem('access_token', '');
         localStorage.setItem('refresh_token', '');
         window.location.reload();
+        window.location.replace("/");
     };
 
 
     render() {
         return (
             <React.Fragment>
-                {localStorage.getItem('access_token') !== '' ?
+                {localStorage.getItem('access_token') !== '' && localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null &&
                     <Container className="menuContainer">
                         <nav className="navMenu">
                             <img className="advertLogo" src={logo} alt='logo' />
-
+                            <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
+                            <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
+                            <a className="disableLink" href="/">{i18n.t('navBar.home')}</a>
+                            <a className="disableLink" href="/userPanel">{i18n.t('navBar.user')}</a>
+                            <a className="disableLink" href="/addAdvert">{i18n.t('navBar.advert')}</a>
+                            <a className="disableLink" href="/settings">{i18n.t('navBar.settings')}</a>
+                            <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
+                        </nav>
+                    </Container>}
+                {localStorage.getItem('access_token') !== '' && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
+                    <Container className="menuContainer">
+                        <nav className="navMenu">
+                            <img className="advertLogo" src={logo} alt='logo' />
                             <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
                             <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
                             <a className="links" href="/">{i18n.t('navBar.home')}</a>
@@ -37,7 +50,8 @@ class NavBar extends Component {
                             <a className="links" href="/settings">{i18n.t('navBar.settings')}</a>
                             <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
                         </nav>
-                    </Container> :
+                    </Container>}
+                {localStorage.getItem('access_token') === '' &&
                     <Container className="menuContainer">
                         <nav className="navMenu">
                             <img className="advertLogo" src={logo} alt='logo' />
@@ -47,6 +61,7 @@ class NavBar extends Component {
                         </nav>
                     </Container>
                 }
+
             </React.Fragment>
 
         );

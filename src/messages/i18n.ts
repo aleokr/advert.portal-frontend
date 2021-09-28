@@ -17,6 +17,8 @@ import userPanel_pl from "./userPanel_pl.json"
 import userPanel_en from "./userPanel_en.json"
 import categories_pl from "./categories_pl.json"
 import categories_en from "./categories_en.json"
+import company_pl from "./company_pl.json"
+import company_en from "./company_en.json"
 
 
 i18n.use(LanguageDetector)
@@ -33,7 +35,8 @@ i18n.use(LanguageDetector)
                     newAdvert: newAdvert_en,
                     newCompany: newCompany_en,
                     userPanel: userPanel_en,
-                    categories: categories_en
+                    categories: categories_en,
+                    company: company_en
                 }
             },
             pl: {
@@ -45,7 +48,8 @@ i18n.use(LanguageDetector)
                     newAdvert: newAdvert_pl,
                     newCompany: newCompany_pl,
                     userPanel: userPanel_pl,
-                    categories: categories_pl
+                    categories: categories_pl,
+                    company: company_pl
                 }
             }
         },

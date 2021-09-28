@@ -62,7 +62,6 @@
 
 .panelTabs [class^="tab"] [type="radio"]+div,
 .panelTabs [class*=" tab"] [type="radio"]+div {
-	display: block;
 	opacity: 0;
 	padding: 2rem 0;
 	width: 90%;

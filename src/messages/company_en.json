@@ -1,0 +1,11 @@
+{
+    "name" : "Company name",
+    "description" : "Company description",
+    "companyMembers" : "Company members",
+    "requests" : "Request to join",
+    "userName": "name",
+    "userSurname" : "surname",
+    "userEmail" : "email",
+    "accept" : "Confirm",
+    "noData" : "No data"
+}

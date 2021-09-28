@@ -4,6 +4,7 @@ import '../css/userPanel.component.css'
 import i18n from "../messages/i18n"
 import React from "react";
 import NavBar from "../navigation/navBar.component"
+import CompanyView from "../company/company.component"
 
 type Advert = {
     title: string;
@@ -364,11 +365,12 @@ class UserPanelView extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.companyAdmin &&
+                        {localStorage.getItem('company_id') !== null &&
                             <div className="tab-2">
                                 <div className="tab-2-4">
                                     <label htmlFor="tab2-4">{i18n.t('userPanel.fourthTab')}</label>
                                     <input id="tab2-4" name="tabs-two" type="radio" />
+                                    <CompanyView/>
                                 </div>
                             </div>
                         }
