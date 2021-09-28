@@ -287,7 +287,7 @@ class RegisterView extends Component {
                         </div>
                         {this.state.companyUser &&
                             <div className="select-box">
-                                <select onChange={e => this.handleCompanyIdInput(e)} value={this.state.userType}>
+                                <select onChange={e => this.handleCompanyIdInput(e)} value={this.state.companyId}>
                                     {this.state.companies.map(company => (
                                         <option key={company.name} value={company.id}>
                                             {company.name}

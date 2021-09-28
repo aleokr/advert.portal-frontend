@@ -1,0 +1,11 @@
+{
+    "name" : "Nazwa firmy",
+    "description" : "Opis firmy",
+    "companyMembers" : "Członkowie firmy",
+    "requests" : "Prośby o dołączenie",
+    "userName": "imię",
+    "userSurname" : "nazwisko",
+    "userEmail" : "email",
+    "accept" : "Zatwierdź",
+    "noData" : "Brak danych"
+}

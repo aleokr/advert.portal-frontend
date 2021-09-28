@@ -21,7 +21,6 @@ function App() {
               <Route exact path='/addAdvert' component={NewAdvertView} />
               <Route exact path='/addCompany' component={NewCompanyView} />
               <Route exact path='/userPanel' component={UserPanelView} />
-
             </Switch>
           </div>
         </div>
