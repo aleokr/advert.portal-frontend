@@ -109,23 +109,24 @@ class LoginView extends Component {
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-                    }})
+                    }
+                })
                     .then(response => {
                         if (!response.ok) {
                             event.preventDefault();
                             this.dispatch({
                                 type: 'loginFailed',
                                 payload: 'get user info failed'
-        
+
                             })
                             return Promise.reject('error code: ' + response.status)
                         } else return response.json();
                     })
                     .then(result => {
                         localStorage.setItem('user_type', result.type);
-                        if(result.companyId !== null && result.active === true){
+                        if (result.companyId !== null && result.active === true) {
                             localStorage.setItem('company_id', result.companyId);
-                        }else{
+                        } else {
                             localStorage.removeItem('company_id')
                         }
                         console.log(localStorage.getItem('company_id') === null)
@@ -135,7 +136,7 @@ class LoginView extends Component {
                         })
                     })
             })
-        
+
     }
 
 

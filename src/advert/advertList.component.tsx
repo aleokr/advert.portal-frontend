@@ -148,7 +148,7 @@ class AdvertListView extends Component {
             <body className="listBody">
                 <div className="tabs">
                     <div className="tab-2">
-                        <label htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
+                        <label className = "list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
                         <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} checked/>
                         <div>
                             <ul className="responsive-table">
@@ -173,7 +173,7 @@ class AdvertListView extends Component {
                         </div>
                     </div>
                     <div className="tab-2">
-                        <label htmlFor="tab2-2">{i18n.t('advertList.secondTabName')}</label>
+                        <label className = "list-label" htmlFor="tab2-2">{i18n.t('advertList.secondTabName')}</label>
                         <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadIndividualAdverts.bind(this)} />
                         <div>
                             <ul className="responsive-table">

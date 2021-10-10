@@ -5,6 +5,7 @@ import Dashboard from "./dashboard/dashboard.component";
 import NewAdvertView from "./advert/newAdvert.component";
 import NewCompanyView from "./company/newCompany.component";
 import UserPanelView from "./user/userPanel.component"
+import SettingsView from "./settings/settings.component"
 import { withTranslation } from "react-i18next";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route exact path='/addAdvert' component={NewAdvertView} />
               <Route exact path='/addCompany' component={NewCompanyView} />
               <Route exact path='/userPanel' component={UserPanelView} />
+              <Route exact path='/settings' component={SettingsView} />
             </Switch>
           </div>
         </div>

@@ -16,8 +16,7 @@
 	overflow: hidden;
 }
 
-.tabs [class^="tab"] label,
-.tabs [class*=" tab"] label {
+.list-label {
 	color: #ffffff;
 	cursor: pointer;
 	display: block;
@@ -62,7 +61,6 @@
 
 .tabs [class^="tab"] [type="radio"]+div,
 .tabs [class*=" tab"] [type="radio"]+div {
-	display: block;
 	opacity: 0;
 	padding: 2rem 0;
 	width: 90%;

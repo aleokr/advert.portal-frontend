@@ -1,0 +1,92 @@
+.settingsListBody {
+	background: transparent;
+	padding: 50px;
+    height: max-content;
+}
+
+.settingsTabs {
+	display: block;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin: 0;
+	overflow: hidden;
+}
+
+.settings-label {
+	color: #ffffff;
+	cursor: pointer;
+	display: block;
+	font-size: 18px;
+	text-transform: uppercase;
+	line-height: 1em;
+	padding: 2rem 0;
+	text-align: center;
+}
+
+.settingsTabs [class^="tab"] [type="radio"],
+.settingsTabs [class*=" tab"] [type="radio"] {
+	border-bottom: 1px solid rgba(163, 120, 84, 0.5);
+	cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	display: block;
+	width: 100%;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.settingsTabs [class^="tab"] [type="radio"]:hover,
+.settingsTabs [class^="tab"] [type="radio"]:focus,
+.settingsTabs [class*=" tab"] [type="radio"]:hover,
+.settingsTabs [class*=" tab"] [type="radio"]:focus {
+	border-bottom: 1px solid #d84d0c;
+}
+
+.settingsTabs [class^="tab"] [type="radio"]:checked,
+.settingsTabs [class*=" tab"] [type="radio"]:checked {
+	border-bottom: 2px solid #d84d0c;
+}
+
+.settingsTabs [class^="tab"] [type="radio"]:checked+div,
+.settingsTabs [class*=" tab"] [type="radio"]:checked+div {
+	opacity: 1;
+}
+
+.settingsTabs [class^="tab"] [type="radio"]+div,
+.settingsTabs [class*=" tab"] [type="radio"]+div {
+	opacity: 0;
+	padding: 2rem 0;
+	width: 90%;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.settingsTabs .tab-2 {
+	width: 50%;
+}
+
+.settingsTabs .tab-2 [type="radio"]+div {
+	width: 200%;
+	margin-left: 200%;
+}
+
+.settingsTabs .tab-2 [type="radio"]:checked+div {
+	margin-left: 0;
+}
+
+.settingsTabs .last [type="radio"]+div {
+	margin-left: 100%;
+}
+
+.settingsTabs .last [type="radio"]:checked+div {
+	margin-left: -100%;
+}

@@ -1,0 +1,128 @@
+
+ .center {
+	display: flex;
+	margin-top: 20px;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 10%;
+}
+ .profile {
+	position: relative;
+	margin-top: 5%;
+	margin-left: 5%;
+}
+ .user-image {
+	position: relative;
+    height: 300px;
+    width: 300px;
+    display: block;
+    border-radius: 50%;
+    background: #f5e8df;
+}
+
+.user-data{
+	position: relative;
+	margin-left: 5%;
+	margin-right: 10%;
+	margin-top: 5%;
+}
+.stats {
+	margin-top: 5%;
+}
+ .stats .box {
+	 box-sizing: border-box;
+	 width: 300px;
+	 height: 100px;
+	 margin-bottom: 10px;
+	 margin-top: 10px;
+	 background: #f5e8df;
+	 text-align: center;
+	 padding-top: 28px;
+	 transition: all 0.4s ease-in-out;
+}
+ .stats .box:hover {
+	background: #786450;
+	color: #fff;
+}
+ .stats .box:nth-child(2) {
+	 margin: 1px 0;
+}
+ .stats span {
+	 display: block;
+}
+ .stats .value {
+	 font-size: 18px;
+	 font-weight: 600;
+}
+ .stats .parameter {
+	 font-size: 11px;
+}
+
+.user-input, .user-input-edit {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	padding: 0.8rem 1.6rem 0.8rem;
+	margin-bottom: 30px;
+	margin-top: 10px;
+	background: rgba(255, 255, 255, 0.7);
+	font-size: 15px;
+	font-weight: bold;
+	min-width: 200px;
+	max-width: 250px;
+	height: fit-content;
+	word-wrap: break-word;
+    resize: none;
+	
+}
+
+.user-input-edit {
+    color: rgba(39, 24, 24, 0.658);
+}
+
+.user-input {
+	color: rgba(77, 74, 74, 0.5);
+}
+
+.user-label {
+	position: relative;
+	margin-bottom: 10px;
+	font-weight: bold;
+    color: rgba(39, 24, 24, 0.658);
+	padding: 8px;
+}
+
+.statistic-label {
+	position: relative;
+	margin-bottom: 20px;
+	margin-left: 100px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.setting-button {
+	position: relative;
+    color: rgb(255, 255, 255);
+    border: none;
+	border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+	margin-right: 20%;
+    letter-spacing: 3px;
+	height: 50px;
+	background: #e6965d;
+}
+
+.setting-button:hover {
+    background: #d4610f;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 5px #d1545b,
+                0 0 25px #b65607,
+                0 0 50px #532805;
+  }
