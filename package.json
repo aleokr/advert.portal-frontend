@@ -62,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "@types/query-string": "^6.3.0",
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-router-dom": "^5.1.8"
   }
