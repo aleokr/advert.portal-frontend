@@ -1,0 +1,14 @@
+{
+    "name" : "Imię",
+    "surname" : "Nazwisko",
+    "login" : "Nazwa użytkownika",
+    "email" : "Email",
+    "password" : "Hasło",
+    "repeatPassword" : "Powtórz hasło",
+    "statistics" : "Statystyki",
+    "adverts" : "Ogłoszenie/Ogłoszenia",
+    "responses" : "Odpowiedz/Odpowiedzi",
+    "applications" : "Aplikacja/Aplikacje",
+    "edit" : "Edytuj dane",
+    "submit" : "Zatwierdź zmiany"
+}

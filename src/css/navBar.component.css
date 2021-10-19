@@ -50,7 +50,7 @@
 }
 
 .nav-login{
-    position: relative;
+    position: fixed;
     color: #ffffff;
     background: transparent;
     border: none;
@@ -60,7 +60,7 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 3px;
-    left: 78%;
+    left: 90%;
 }
 
 .menuContainer button:hover {

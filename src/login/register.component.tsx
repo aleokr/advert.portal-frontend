@@ -137,6 +137,7 @@ class RegisterView extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({ companies: data });
+                this.setState({ companyId: data[0].id })
             });
 
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/users/roles')
@@ -190,14 +191,8 @@ class RegisterView extends Component {
         });
     };
 
-    handleCompanyNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.dispatch({
-            type: 'setCompanyName',
-            payload: event.target.value
-        });
-    };
-
     handleCompanyIdInput = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log("ssss" + event.target.value)
         this.dispatch({
             type: 'setCompanyId',
             payload: event.target.value
@@ -254,7 +249,7 @@ class RegisterView extends Component {
                         {i18n.t('register.error')}
                     </div>}
                 <div className="form-box">
-                <img className="advertBlackLogo" src={logo} alt ='logo'/>
+                    <img className="advertBlackLogo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
                             <input type="text" onChange={this.handleNameInput} maxLength={100} required />

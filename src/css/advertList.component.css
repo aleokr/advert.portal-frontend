@@ -16,8 +16,7 @@
 	overflow: hidden;
 }
 
-.tabs [class^="tab"] label,
-.tabs [class*=" tab"] label {
+.list-label {
 	color: #ffffff;
 	cursor: pointer;
 	display: block;
@@ -62,7 +61,6 @@
 
 .tabs [class^="tab"] [type="radio"]+div,
 .tabs [class*=" tab"] [type="radio"]+div {
-	display: block;
 	opacity: 0;
 	padding: 2rem 0;
 	width: 90%;
@@ -120,6 +118,7 @@ h2 small {
 }
 .responsive-table .table-row {
     background-color: rgba(255, 255, 255, 0.8);
+	cursor: pointer;
 }
 .responsive-table .col-1 {
     flex-basis: 20%;
@@ -136,3 +135,24 @@ h2 small {
 .responsive-table .col-5 {
     flex-basis: 15%;
 }
+
+.advert-link {
+	position: relative;
+    color: rgb(53, 12, 6);
+    border: none;
+	padding: 3px 5px;
+    color: rgb(53, 12, 6);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    background: transparent;
+}
+  
+  .advert-link:hover {
+    background: #e98d4c;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 5px #cc7c80,
+                0 0 25px #bd8456,
+                0 0 50px #6b4a2f;
+  }

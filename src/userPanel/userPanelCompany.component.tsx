@@ -1,7 +1,7 @@
 import { Component } from "react";
 import i18n from "../messages/i18n"
 import "../css/company.component.css"
-import companyImage from "../assets/company.png"
+import companyImage from "../assets/company1.png"
 import React from "react";
 
 type CompanyUser = {
@@ -119,7 +119,6 @@ class CompanyView extends Component {
                         requestToJoin: data.requestToJoin
                     })
                 }
-                console.log(this.state.requestToJoin)
             })
     };
 
@@ -176,8 +175,7 @@ class CompanyView extends Component {
                         })
                 } else return response.json();
             })
-        this.loadData();
-        window.location.reload();
+            .finally(() => this.loadData())
     };
 
     render() {
@@ -186,10 +184,11 @@ class CompanyView extends Component {
                 <div className="companyPage">
                     <div className="company-profile">
                         <img src={companyImage} className="company-image" alt="Company Profile Image" />
+
                         <div className="companyLabel">{i18n.t('company.name')}</div>
-                        <div className="companyValue">{this.state.name}</div>
+                        <div className="companyName">{this.state.name}</div>
                         <div className="companyLabel">{i18n.t('company.description')}</div>
-                        <div>{this.state.name}</div>
+                        <div className="companyDescription">{this.state.description}</div>
                     </div>
                     <div className="company-tabs">
 

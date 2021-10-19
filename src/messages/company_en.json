@@ -7,5 +7,7 @@
     "userSurname" : "surname",
     "userEmail" : "email",
     "accept" : "Confirm",
-    "noData" : "No data"
+    "noData" : "No data",
+    "delete" : "Delete user",
+    "null" : ""
 }

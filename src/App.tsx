@@ -4,7 +4,11 @@ import RegisterView from "./login/register.component";
 import Dashboard from "./dashboard/dashboard.component";
 import NewAdvertView from "./advert/newAdvert.component";
 import NewCompanyView from "./company/newCompany.component";
-import UserPanelView from "./user/userPanel.component"
+import UserPanelView from "./userPanel/userPanel.component"
+import SettingsView from "./settings/settings.component"
+import AdvertDetailsView from "./advert/advertDetails.component"
+import CompanyDetailView from "./company/companyDetails.component"
+import UserDetailView from "./user/userDetails.component"
 import { withTranslation } from "react-i18next";
 
 function App() {
@@ -19,8 +23,12 @@ function App() {
               <Route exact path='/register' component={RegisterView} />
               <Route exact path='/' component={Dashboard} />
               <Route exact path='/addAdvert' component={NewAdvertView} />
+              <Route exact path='/details/:id' component={AdvertDetailsView}  />
               <Route exact path='/addCompany' component={NewCompanyView} />
               <Route exact path='/userPanel' component={UserPanelView} />
+              <Route exact path='/settings' component={SettingsView} />
+              <Route exact path='/company/:id' component={CompanyDetailView}  />
+              <Route exact path='/user/:id' component={UserDetailView}  />
             </Switch>
           </div>
         </div>

@@ -114,6 +114,7 @@ class NewAdvertView extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({ categories: data });
+                this.setState({category : data[0]})
             });
 
     }
@@ -129,7 +130,8 @@ class NewAdvertView extends Component {
             body: JSON.stringify({
                 title: this.state.title,
                 shortDescription: this.state.shortDescription,
-                longDescription: this.state.longDescription
+                longDescription: this.state.longDescription,
+                category: this.state.category
             })
         })
             .then(response => {

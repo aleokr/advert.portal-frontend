@@ -4,9 +4,11 @@ import '../css/userPanel.component.css'
 import i18n from "../messages/i18n"
 import React from "react";
 import NavBar from "../navigation/navBar.component"
-import CompanyView from "../company/company.component"
+import CompanyView from "./userPanelCompany.component"
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 type Advert = {
+    id: number;
     title: string;
     shortDescription: string;
     createdAt: string;
@@ -14,11 +16,15 @@ type Advert = {
 }
 
 type Application = {
+    advertId: number;
     advertTitle: string;
     advertShortDescription: string;
     createdAt: string;
     advertCategory: string;
+    advertType: string;
     addedBy: string;
+    userId: number;
+    companyId: number;
 }
 
 type State = {
@@ -81,7 +87,7 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-class UserPanelView extends Component {
+class UserPanelView extends React.Component<RouteComponentProps> {
     state = initialState;
 
     dispatch(action: Action) {
@@ -285,6 +291,18 @@ class UserPanelView extends Component {
                 }
             })
     }
+    advertDetails = (id: number) => {
+        this.props.history.push('/details/' + id);
+    };
+
+    addedByDetails = (userId: number, companyId: number, advertType: string) => {
+        if(advertType === 'INDIVIDUAL' && companyId !== null){
+            this.props.history.push('/company/' + companyId);
+        }
+        if(advertType === 'COMPANY' && userId !== null){
+            this.props.history.push('/user/' + userId);
+        }
+    };
 
     render() {
         return (
@@ -305,7 +323,7 @@ class UserPanelView extends Component {
                                     </li>
 
                                     {this.state.userAdverts.map(advert => (
-                                        <li className="table-row">
+                                        <li className="table-row" onClick={() => this.advertDetails(advert.id)}>
                                             <div className="col col-1">{advert.title}</div>
                                             <div className="col col-2">{advert.shortDescription}</div>
                                             <div className="col col-3">{advert.createdAt}</div>
@@ -328,7 +346,7 @@ class UserPanelView extends Component {
                                             <div className="col col-4">{i18n.t('userPanel.addedAt')}</div>
                                         </li>
                                         {this.state.userApplications.map(application => (
-                                            <li className="table-row">
+                                            <li className="table-row" onClick={() => this.advertDetails(application.advertId)}>
                                                 <div className="col col-1">{application.advertTitle}</div>
                                                 <div className="col col-2">{application.advertShortDescription}</div>
                                                 <div className="col col-3">{i18n.t('categories.' + application.advertCategory)}</div>
@@ -344,7 +362,7 @@ class UserPanelView extends Component {
 
                             <div className="tab-2-3">
                                 <label htmlFor="tab2-3">{i18n.t('userPanel.thirdTab')}</label>
-                                <input id="tab2-3" name="tabs-two" type="radio"  onChange={this.loadUserResponses.bind(this)} />
+                                <input id="tab2-3" name="tabs-two" type="radio" onChange={this.loadUserResponses.bind(this)} />
                                 <div>
                                     <ul className="responsive-table">
                                         <li className="table-header">
@@ -354,7 +372,7 @@ class UserPanelView extends Component {
                                             <div className="col col-3">{i18n.t('userPanel.addedBy')}</div>
                                         </li>
                                         {this.state.userResponses.map(application => (
-                                            <li className="table-row">
+                                            <li className="table-row"  onClick={() => this.addedByDetails(application.userId, application.companyId, application.advertType)}>
                                                 <div className="col col-1">{application.advertTitle}</div>
                                                 <div className="col col-2">{application.advertShortDescription}</div>
                                                 <div className="col col-3">{application.createdAt}</div>
@@ -370,7 +388,7 @@ class UserPanelView extends Component {
                                 <div className="tab-2-4">
                                     <label htmlFor="tab2-4">{i18n.t('userPanel.fourthTab')}</label>
                                     <input id="tab2-4" name="tabs-two" type="radio" />
-                                    <CompanyView/>
+                                    <CompanyView />
                                 </div>
                             </div>
                         }
@@ -384,4 +402,4 @@ class UserPanelView extends Component {
 
 }
 
-export default UserPanelView;
+export default withRouter(UserPanelView);

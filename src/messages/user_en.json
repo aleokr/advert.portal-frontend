@@ -1,0 +1,14 @@
+{
+    "name" : "Name",
+    "surname" : "Surname",
+    "login" : "Username",
+    "email" : "Email",
+    "password" : "Password",
+    "repeatPassword" : "Repeat password",
+    "statistics" : "Statistics",
+    "adverts" : "Adverts",
+    "responses" : "Responses",
+    "applications" : "Applications",
+    "edit" : "Edit data",
+    "submit" : "Submit Changes"
+}

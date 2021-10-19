@@ -2,12 +2,14 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start; 
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 3%;
+    margin-top: 50px;
 }
 
 .company-profile {
     padding: 1.5rem;
-   width: 30%;
+    width: 30%;
 }
 
 .company-table{
@@ -27,7 +29,7 @@
 }
 .company-table .table-header {
     background-color: transparent;
-    color: white;
+    color: rgba(73, 25, 25, 0.658);
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -40,7 +42,7 @@
     flex-basis: 20%;
 }
 .company-table .col-2 {
-    flex-basis: 35%;
+    flex-basis: 20%;
 }
 .company-table .col-3 {
     flex-basis: 15%;
@@ -55,31 +57,38 @@
     position: relative;
     height: 300px;
     width: 300px;
-
+    display: block;
+    border-radius: 50%;
+    background: #f5e8df;
 }
 
 .company-tabs{
     margin-bottom: 20px;
     margin-top: 20px;
     text-align: center;
-    width: 100%;
+    width: 90%;
     color: #ffff;
 }
 .company-table-header {
     margin-bottom: 0px;
     margin-top: 50px;
     text-align: center;
-    color: #ffff;
+    color: rgba(73, 25, 25, 0.658);
 }
 
 
 .companyLabel{
     font-size: 15px;
     margin-top: 20px;
+    color: rgba(73, 25, 25, 0.658);
 }
 
-.companyValue{
+.companyName{
 	font-size: 20px;
+}
+
+.companyDescription{
+	font-size: 16px;
 }
 
 .accept-user-button{

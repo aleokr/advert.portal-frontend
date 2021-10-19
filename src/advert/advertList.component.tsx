@@ -1,8 +1,10 @@
 import { Component } from "react";
 import i18n from "../messages/i18n";
 import '../css/advertList.component.css'
-
+import React from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 type AdvertType = {
+    id: number;
     title: string;
     shortDescription: string;
     advertCategory: string;
@@ -88,7 +90,7 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
-class AdvertListView extends Component {
+class AdvertListView extends React.Component<RouteComponentProps> {
 
 
     state = initialState;
@@ -121,7 +123,7 @@ class AdvertListView extends Component {
 
     loadIndividualAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=10&type=INDIVIDUAL')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=30&type=INDIVIDUAL')
             .then(response => response.json())
             .then(data => {
                 this.dispatch({
@@ -133,7 +135,7 @@ class AdvertListView extends Component {
 
     loadCompanyAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=10&type=COMPANY')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=30&type=COMPANY')
             .then(response => response.json())
             .then(data => {
                 this.dispatch({
@@ -143,13 +145,16 @@ class AdvertListView extends Component {
             });
     }
 
+    details = (id: number) => {
+        this.props.history.push('/details/' + id);
+    };
     render() {
         return (
-            <body className="listBody">
+            <div className="listBody">
                 <div className="tabs">
                     <div className="tab-2">
-                        <label htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
-                        <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} checked/>
+                        <label className="list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
+                        <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} checked />
                         <div>
                             <ul className="responsive-table">
                                 <li className="table-header">
@@ -158,10 +163,11 @@ class AdvertListView extends Component {
                                     <div className="col col-3">{i18n.t('advertList.addedBy')}</div>
                                     <div className="col col-4">{i18n.t('advertList.createdAt')}</div>
                                     <div className="col col-5">{i18n.t('advertList.category')}</div>
+                                    <div></div>
                                 </li>
 
                                 {this.state.companyAdverts.map(advert => (
-                                    <li className="table-row">
+                                    <li className="table-row" onClick={() => this.details(advert.id)} >
                                         <div className="col col-1">{advert.title}</div>
                                         <div className="col col-2">{advert.shortDescription}</div>
                                         <div className="col col-3">{advert.addedBy}</div>
@@ -173,7 +179,7 @@ class AdvertListView extends Component {
                         </div>
                     </div>
                     <div className="tab-2">
-                        <label htmlFor="tab2-2">{i18n.t('advertList.secondTabName')}</label>
+                        <label className="list-label" htmlFor="tab2-2">{i18n.t('advertList.secondTabName')}</label>
                         <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadIndividualAdverts.bind(this)} />
                         <div>
                             <ul className="responsive-table">
@@ -186,7 +192,7 @@ class AdvertListView extends Component {
                                 </li>
 
                                 {this.state.individualAdverts.map(advert => (
-                                    <li className="table-row">
+                                    <li className="table-row" onClick={() => this.details(advert.id)}>
                                         <div className="col col-1">{advert.title}</div>
                                         <div className="col col-2">{advert.shortDescription}</div>
                                         <div className="col col-3">{advert.addedBy}</div>
@@ -198,9 +204,9 @@ class AdvertListView extends Component {
                         </div>
                     </div>
                 </div>
-            </body>
+            </div>
         );
     }
 }
 
-export default AdvertListView;
+export default withRouter(AdvertListView);
