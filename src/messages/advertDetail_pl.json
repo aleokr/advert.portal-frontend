@@ -1,0 +1,15 @@
+{
+    "advertDetailPageTitle": "Szczegóły ogłoszenia",
+    "advertDataTitle": "Dane ogłoszenia",
+    "ownerDataTitle" : "Dodane przez",
+    "title": "Tytuł",
+    "description": "Opis",
+    "shortDescription": "Krótki opis",
+    "createdAt": "Data utworzenia",
+    "category": "Kategoria",
+    "ownerName": "Nazwa właściciela",
+    "applicate": "Aplikuj",
+    "edit": "Edytuj",
+    "save": "Zapisz zmiany",
+    "applicated": "Zaaplikowano"
+}

@@ -2,6 +2,7 @@ import { Component } from "react";
 import "../css/user.component.css"
 import companyImage from "../assets/company.png"
 import i18n from "../messages/i18n"
+import React from "react";
 
 
 type CompanyUser = {
@@ -17,6 +18,7 @@ type State = {
     description: string;
     logoPath: string;
     members: CompanyUser[];
+    ownCompany: boolean;
     editMode: boolean;
     errorMessage?: string;
     success: boolean;
@@ -28,6 +30,7 @@ let initialState: State = {
     description: '',
     logoPath: '',
     members: [],
+    ownCompany: false,
     editMode: false,
     errorMessage: '',
     success: false
@@ -71,7 +74,8 @@ function reducer(state: State, action: Action): State {
 
 
 
-class CompanyView extends Component {
+class CompanyView extends React.Component<any> {
+
     state = initialState;
 
     dispatch(action: Action) {
@@ -79,8 +83,14 @@ class CompanyView extends Component {
     }
 
     componentDidMount() {
+        this.setParams(this.props)
         this.loadData();
     }
+
+    setParams = (props: any) => {
+        this.state.id = props.id;
+        this.state.ownCompany = props.ownCompany;
+    };
 
     handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.dispatch({
@@ -185,7 +195,9 @@ class CompanyView extends Component {
     }
 
     loadData = () => {
-        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/', {
+        const path  = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
+        
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
@@ -210,7 +222,7 @@ class CompanyView extends Component {
                         })
                         .then(result => {
                             localStorage.setItem('access_token', result.access_token);
-                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/', {
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
                                 method: 'GET',
                                 headers: {
                                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
@@ -318,7 +330,7 @@ class CompanyView extends Component {
                             <div className="user-input">{this.state.description} </div>
                         </div>
                     }
-                    {this.state.editMode &&
+                    {this.state.editMode && this.state.ownCompany &&
                         <div>
                             <label className="user-label" >{i18n.t('company.name')}</label>
                             <input className="user-input-edit" type="text" defaultValue={this.state.name} onChange={this.handleNameInput} />
@@ -343,7 +355,7 @@ class CompanyView extends Component {
                                 <div className="col col-1">{member.name}</div>
                                 <div className="col col-2">{member.surname}</div>
                                 <div className="col col-3">{member.email}</div>
-                                {this.state.editMode &&
+                                {this.state.editMode && this.state.ownCompany && 
                                     <button className="accept-user-button" onClick={() => this.deleteUser(member.id)} >{i18n.t('company.delete')}</button>}
                             </li>
                         ))}
@@ -353,10 +365,10 @@ class CompanyView extends Component {
                     </ul>
                 </div>
                 <div>
-                    {!this.state.editMode &&
+                    {!this.state.editMode && this.state.ownCompany &&
                         <button className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
                     }
-                    {this.state.editMode &&
+                    {this.state.editMode && this.state.ownCompany &&
                         <button className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
 

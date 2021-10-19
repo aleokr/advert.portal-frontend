@@ -2,6 +2,7 @@ import { Component } from "react";
 import "../css/user.component.css"
 import userImage from "../assets/user.png"
 import i18n from "../messages/i18n"
+import React from "react";
 
 type State = {
     id: number;
@@ -14,6 +15,7 @@ type State = {
     advertsCount: number;
     responsesCount: number;
     applicationsCount: number;
+    ownData: boolean;
     editMode: boolean;
     errorMessage?: string;
     success: boolean;
@@ -30,6 +32,7 @@ let initialState: State = {
     advertsCount: 0,
     responsesCount: 0,
     applicationsCount: 0,
+    ownData: false,
     editMode: false,
     errorMessage: '',
     success: false
@@ -91,7 +94,7 @@ function reducer(state: State, action: Action): State {
 
 
 
-class UserView extends Component {
+class UserView extends React.Component<any>  {
     state = initialState;
 
     dispatch(action: Action) {
@@ -99,11 +102,19 @@ class UserView extends Component {
     }
 
     componentDidMount() {
+        this.setParams(this.props)
         this.loadData();
     }
 
+    setParams = (props: any) => {
+        this.state.id = props.id;
+        this.state.ownData = props.ownData;
+    };
+
     loadData = () => {
-        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/users/loggedUser', {
+        const path  = this.state.ownData ? '/api/v1/users/loggedUser' : '/api/v1/users/' + this.state.id;
+        
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
@@ -128,7 +139,7 @@ class UserView extends Component {
                         })
                         .then(result => {
                             localStorage.setItem('access_token', result.access_token);
-                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/users/loggedUser', {
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
                                 method: 'GET',
                                 headers: {
                                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
@@ -213,88 +224,88 @@ class UserView extends Component {
     submitChanges() {
         {
             this.state.password === this.state.confirmPassword &&
-            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/update', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-                },
-                body: JSON.stringify({
-                    id: this.state.id,
-                    name: this.state.name,
-                    surname: this.state.surname,
-                    login: this.state.login,
-                    email: this.state.email,
-                    password: this.state.password
+                fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    },
+                    body: JSON.stringify({
+                        id: this.state.id,
+                        name: this.state.name,
+                        surname: this.state.surname,
+                        login: this.state.login,
+                        email: this.state.email,
+                        password: this.state.password
+                    })
                 })
-            })
-                .then(response => {
-                    if (response.status === 401) {
-                        this.dispatch({
-                            type: 'setError',
-                            payload: 'UNAUTHORIZED'
-                        })
-                        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/auth/refreshToken',
-                            {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')
-                                }
+                    .then(response => {
+                        if (response.status === 401) {
+                            this.dispatch({
+                                type: 'setError',
+                                payload: 'UNAUTHORIZED'
                             })
-                            .then(response => {
-                                return response.json();
-                            })
-                            .then(result => {
-                                localStorage.setItem('access_token', result.access_token);
-                                localStorage.setItem('refresh_token', result.refresh_token);
-                                fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/update', {
-                                    method: 'PUT',
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/auth/refreshToken',
+                                {
+                                    method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json',
-                                        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-                                    },
-                                    body: JSON.stringify({
-                                        id: this.state.id,
-                                        name: this.state.name,
-                                        surname: this.state.surname,
-                                        login: this.state.login,
-                                        email: this.state.email,
-                                        password: this.state.password
-                                    })
-                                })
-                                    .then(result => {
-                                        if (result.status === 401) {
-                                            this.dispatch({
-                                                type: 'setError',
-                                                payload: 'UNAUTHORIZED'
-                                            })
-                                            return response.json();
-                                        }
-                                        else {
-                                            this.dispatch({
-                                                type: 'setError',
-                                                payload: 'UNAUTHORIZED'
-                                            })
-                                            return response.json();
-                                        }
+                                        'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')
                                     }
-                                    )
+                                })
+                                .then(response => {
+                                    return response.json();
+                                })
+                                .then(result => {
+                                    localStorage.setItem('access_token', result.access_token);
+                                    localStorage.setItem('refresh_token', result.refresh_token);
+                                    fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/update', {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                                        },
+                                        body: JSON.stringify({
+                                            id: this.state.id,
+                                            name: this.state.name,
+                                            surname: this.state.surname,
+                                            login: this.state.login,
+                                            email: this.state.email,
+                                            password: this.state.password
+                                        })
+                                    })
+                                        .then(result => {
+                                            if (result.status === 401) {
+                                                this.dispatch({
+                                                    type: 'setError',
+                                                    payload: 'UNAUTHORIZED'
+                                                })
+                                                return response.json();
+                                            }
+                                            else {
+                                                this.dispatch({
+                                                    type: 'setError',
+                                                    payload: 'UNAUTHORIZED'
+                                                })
+                                                return response.json();
+                                            }
+                                        }
+                                        )
+                                })
+                        } else return response.json();
+                    })
+                    .then(data => {
+                        if (this.state.errorMessage === '') {
+                            this.setState({
+                                id: data.id,
+                                name: data.name,
+                                surname: data.surname,
+                                login: data.login,
+                                email: data.email,
+                                editMode: false
                             })
-                    } else return response.json();
-                })
-                .then(data => {
-                    if (this.state.errorMessage === '') {
-                        this.setState({
-                            id: data.id,
-                            name: data.name,
-                            surname: data.surname,
-                            login: data.login,
-                            email: data.email,
-                            editMode: false
-                        })
-                    }
-                });
+                        }
+                    });
 
         }
 
@@ -318,11 +329,15 @@ class UserView extends Component {
                             <div className="user-input">{this.state.surname}</div>
                             <label className="user-label">{i18n.t('user.email')}</label>
                             <div className="user-input">{this.state.email}</div>
-                            <label className="user-label">{i18n.t('user.login')}</label>
-                            <div className="user-input">{this.state.login}</div>
+                            {this.state.ownData &&
+                                <div>
+                                    <label className="user-label">{i18n.t('user.login')}</label>
+                                    <div className="user-input">{this.state.login}</div>
+                                </div>
+                            }
                         </div>
                     }
-                    {this.state.editMode &&
+                    {this.state.editMode && this.state.ownData &&
                         <div>
                             <label className="user-label" >{i18n.t('user.name')}</label>
                             <input className="user-input-edit" type="text" defaultValue={this.state.name} onChange={this.handleNameInput} />
@@ -357,10 +372,10 @@ class UserView extends Component {
                     </div>
                 </div>
                 <div>
-                    {!this.state.editMode &&
+                    {!this.state.editMode && this.state.ownData &&
                         <button className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
                     }
-                    {this.state.editMode &&
+                    {this.state.editMode && this.state.ownData &&
                         <button className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
                 </div>

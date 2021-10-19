@@ -6,9 +6,10 @@ import i18n from "../messages/i18n"
 import logo from '../assets/logo.png';
 import pl_icon from '../assets/pl.png';
 import en_icon from '../assets/eng.png';
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 
-class NavBar extends Component {
+class NavBar extends React.Component<RouteComponentProps> {
 
     changeLanguage = (value: string) => {
         i18n.changeLanguage(value);
@@ -17,8 +18,7 @@ class NavBar extends Component {
     logOut = () => {
         localStorage.setItem('access_token', '');
         localStorage.setItem('refresh_token', '');
-        window.location.reload();
-        window.location.replace("/");
+        this.props.history.push('/');
     };
 
 
@@ -57,6 +57,7 @@ class NavBar extends Component {
                             <img className="advertLogo" src={logo} alt='logo' />
                             <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
                             <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
+                            <a className="links" href="/">{i18n.t('navBar.home')}</a>
                             <a className="nav-login" href="/login" >{i18n.t('navBar.login')}</a>
                         </nav>
                     </Container>
@@ -69,4 +70,4 @@ class NavBar extends Component {
 }
 
 
-export default NavBar;
+export default withRouter(NavBar);

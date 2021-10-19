@@ -36,7 +36,8 @@
 .detail-name-label{
     position: relative;
 	margin-bottom: 20px;
-	font-size: 20px;
+    margin-left: 25%;
+	font-size: 22px;
 	font-weight: bold;
 }
 
@@ -61,8 +62,8 @@
 	background: rgba(255, 255, 255, 0.7);
 	font-size: 15px;
 	font-weight: bold;
-	min-width: 200px;
-	max-width: 250px;
+	min-width: 250px;
+	max-width: 300px;
 	height: fit-content;
 	word-wrap: break-word;
     resize: none;
@@ -107,7 +108,7 @@
   .advert-detail-title{
     position: relative;
 	margin-bottom: 20px;
-	margin-left: 100px;
+	margin-top: 20px;
 	font-size: 25px;
 	font-weight: bold; 
     color: rgb(85, 52, 47);
@@ -120,4 +121,21 @@
     display: block;
     border-radius: 50%;
     background: #f5e8df;
+    cursor: pointer;
+}
+
+.application-button {
+	position: relative;
+    color: rgb(255, 255, 255);
+    border: none;
+	border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+	margin-right: 20%;
+    letter-spacing: 3px;
+	height: 50px;
+	background: #a19e9b;
 }

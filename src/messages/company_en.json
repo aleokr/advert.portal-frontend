@@ -8,5 +8,6 @@
     "userEmail" : "email",
     "accept" : "Confirm",
     "noData" : "No data",
-    "delete" : "Delete user"
+    "delete" : "Delete user",
+    "null" : ""
 }

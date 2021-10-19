@@ -10,5 +10,6 @@
     "MATHEMATICS": "Matematyka",
     "OTHER": "Inne",
     "PHYSICS": "Fizyka",
-    "TRANSPORT": "Transport"
+    "TRANSPORT": "Transport",
+    "null" : ""
 }

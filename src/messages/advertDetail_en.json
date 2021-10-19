@@ -1,0 +1,15 @@
+{
+    "advertDetailPageTitle": "Advert Details",
+    "advertDataTitle": "Advert Data",
+    "ownerDataTitle" : "Added By",
+    "title": "Title",
+    "description": "Description",
+    "shortDescription": "Short description",
+    "createdAt": "Created At",
+    "category": "Category",
+    "ownerName": "Owner name",
+    "applicate": "Applicate",
+    "edit": "Edit",
+    "save": "Save changes",
+    "applicated": "Applicated"
+}

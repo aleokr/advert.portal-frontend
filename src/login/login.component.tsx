@@ -129,7 +129,7 @@ class LoginView extends Component {
                         } else {
                             localStorage.removeItem('company_id')
                         }
-                        console.log(localStorage.getItem('company_id') === null)
+                        localStorage.setItem('user_id', result.id);
                         this.dispatch({
                             type: 'loginSuccess',
                             payload: ''

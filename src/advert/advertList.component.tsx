@@ -1,8 +1,8 @@
 import { Component } from "react";
 import i18n from "../messages/i18n";
 import '../css/advertList.component.css'
-import { Link } from "react-router-dom";
-
+import React from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 type AdvertType = {
     id: number;
     title: string;
@@ -90,7 +90,7 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
-class AdvertListView extends Component {
+class AdvertListView extends React.Component<RouteComponentProps> {
 
 
     state = initialState;
@@ -146,12 +146,11 @@ class AdvertListView extends Component {
     }
 
     details = (id: number) => {
-        window.location.reload();
-        window.location.replace("/details/" + id);
+        this.props.history.push('/details/' + id);
     };
     render() {
         return (
-            <body className="listBody">
+            <div className="listBody">
                 <div className="tabs">
                     <div className="tab-2">
                         <label className="list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
@@ -193,7 +192,7 @@ class AdvertListView extends Component {
                                 </li>
 
                                 {this.state.individualAdverts.map(advert => (
-                                    <li className="table-row">
+                                    <li className="table-row" onClick={() => this.details(advert.id)}>
                                         <div className="col col-1">{advert.title}</div>
                                         <div className="col col-2">{advert.shortDescription}</div>
                                         <div className="col col-3">{advert.addedBy}</div>
@@ -205,9 +204,9 @@ class AdvertListView extends Component {
                         </div>
                     </div>
                 </div>
-            </body>
+            </div>
         );
     }
 }
 
-export default AdvertListView;
+export default withRouter(AdvertListView);
