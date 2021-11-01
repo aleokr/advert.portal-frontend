@@ -15,7 +15,7 @@ class SettingsView  extends React.Component {
                     <div className="settingsTabs">
                         <div className="tab-2">
                             <label className="settings-label" htmlFor="tab2-1">{i18n.t('settings.userTab')}</label>
-                            <input id="tab2-1" name="tabs-two" type="radio" checked />
+                            <input id="tab2-1" name="tabs-two" type="radio" defaultChecked />
                             <UserView ownData = {true}/>
                         </div>
                         {localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') !== null &&
