@@ -74,7 +74,6 @@
 .panelTabs .tab-2 {
 	width: 25%;
 }
-
 .panelTabs .tab-2 [type="radio"]+div {
 	width: 400%;
 }
@@ -89,6 +88,7 @@
 .tab-2-4 [type="radio"]:checked+div {
 	margin-left: -300%;
 }
+
 
 h2 {
     font-size: 26px;

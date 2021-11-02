@@ -1,12 +1,13 @@
 import { Component } from "react";
 import '../css/form.css'
 import '../css/userPanel.component.css'
+
 import i18n from "../messages/i18n"
 import React from "react";
 import NavBar from "../navigation/navBar.component"
 import CompanyView from "./userPanelCompany.component"
 import { RouteComponentProps, withRouter } from "react-router-dom";
-
+import ReactPaginate from "react-paginate";
 type Advert = {
     id: number;
     title: string;
@@ -32,9 +33,13 @@ type State = {
     userAdvertsPage: number;
     userApplicationsPage: number;
     userResponsesPage: number;
+    userAdvertsPagesCount: number;
+    userApplicationsPagesCount: number;
+    userResponsesPagesCount: number;
     userAdverts: Advert[];
     userApplications: Application[];
     userResponses: Application[];
+    tabIndex: number;
     errorMessage?: string;
     success: boolean;
 };
@@ -44,9 +49,13 @@ let initialState: State = {
     userAdvertsPage: 0,
     userApplicationsPage: 0,
     userResponsesPage: 0,
+    userAdvertsPagesCount: 0,
+    userApplicationsPagesCount: 0,
+    userResponsesPagesCount: 0,
     userAdverts: [],
     userApplications: [],
     userResponses: [],
+    tabIndex: 1,
     errorMessage: '',
     success: false
 }
@@ -88,14 +97,18 @@ function reducer(state: State, action: Action): State {
 }
 
 class UserPanelView extends React.Component<RouteComponentProps> {
+
     state = initialState;
 
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
-    loadUserAdverts = (event: React.FormEvent) => {
-        event.preventDefault();
+    componentDidMount() {
+        this.loadUserAdverts();
+    }
+
+    loadUserAdverts = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.userAdvertsPage + '&limit=10', {
             method: 'GET',
@@ -105,7 +118,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             }
         })
             .then(response => {
-                event.preventDefault();
                 if (response.status === 401) {
                     this.dispatch({
                         type: 'setError',
@@ -155,13 +167,17 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
             .then(data => {
                 if (this.state.errorMessage === '') {
-                    this.setState({ userAdverts: data });
+                    this.setState({
+                        userAdverts: data.adverts,
+                        userAdvertsPage: data.paging.page,
+                        userAdvertsPagesCount: data.paging.pagesCount,
+                        tabIndex: 1
+                    });
                 }
             })
     }
 
-    loadUserAppliactions = (event: React.FormEvent) => {
-        event.preventDefault();
+    loadUserAppliactions = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userApplications?offset=' + 10 * this.state.userApplicationsPage + '&limit=10', {
             method: 'GET',
@@ -171,7 +187,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             }
         })
             .then(response => {
-                event.preventDefault();
                 if (response.status === 401) {
                     this.dispatch({
                         type: 'setError',
@@ -221,13 +236,17 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
             .then(data => {
                 if (this.state.errorMessage === '') {
-                    this.setState({ userApplications: data });
+                    this.setState({
+                        userApplications: data.applications,
+                        userApplicationsPage: data.paging.page,
+                        userApplicationsPagesCount: data.paging.pagesCount,
+                        tabIndex: 2
+                    });
                 }
             })
     }
 
-    loadUserResponses = (event: React.FormEvent) => {
-        event.preventDefault();
+    loadUserResponses = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userResponses?offset=' + 10 * this.state.userResponsesPage + '&limit=10', {
             method: 'GET',
@@ -237,7 +256,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             }
         })
             .then(response => {
-                event.preventDefault();
                 if (response.status === 401) {
                     this.dispatch({
                         type: 'setError',
@@ -287,32 +305,69 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
             .then(data => {
                 if (this.state.errorMessage === '') {
-                    this.setState({ userResponses: data });
+                    this.setState({
+                        userResponses: data.applications,
+                        userResponsesPage: data.paging.page,
+                        userResponsesPagesCount: data.paging.pagesCount,
+                        tabIndex: 3
+                    }
+                    );
                 }
             })
+    }
+    loadCompany= () => {
+        this.setState({
+            tabIndex: 4
+        }
+        );
     }
     advertDetails = (id: number) => {
         this.props.history.push('/details/' + id);
     };
 
     addedByDetails = (userId: number, companyId: number, advertType: string) => {
-        if(advertType === 'INDIVIDUAL' && companyId !== null){
+        if (advertType === 'INDIVIDUAL' && companyId !== null) {
             this.props.history.push('/company/' + companyId);
         }
-        if(advertType === 'COMPANY' && userId !== null){
+        if (advertType === 'COMPANY' && userId !== null) {
             this.props.history.push('/user/' + userId);
         }
+    };
+    handleUserAdvertsPage = (e: any) => {
+        this.setState({
+            userAdvertsPage: e.selected,
+        }, () => {
+            this.loadUserAdverts();
+        });
+    };
+
+    handleUserApplicationsPage = (e: any) => {
+        this.setState({
+            userApplicationsPage: e.selected,
+        }, () => {
+            this.loadUserAppliactions();
+        });
+    };
+
+    handleUserResponsesPage = (e: any) => {
+        this.setState({
+            userResponsesPage: e.selected,
+        }, () => {
+            this.loadUserResponses();
+        });
     };
 
     render() {
         return (
-            <React.Fragment>
+            <div>
                 <NavBar />
-                <body className="panelListBody">
+                <div className="panelListBody">
                     <div className="panelTabs">
-                        <div className="tab-2">
+
+                        <label className="tab-2">
                             <label htmlFor="tab2-1">{i18n.t('userPanel.firstTab')}</label>
-                            <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadUserAdverts.bind(this)} />
+                            <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadUserAdverts} defaultChecked />
+                            {this.state.tabIndex === 1 &&
                             <div>
                                 <ul className="responsive-table">
                                     <li className="table-header">
@@ -331,12 +386,26 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
-                        </div>
-                        <div className="tab-2">
+                                {this.state.userAdvertsPagesCount > 1 &&
+                                    <ReactPaginate
+                                        previousLabel={i18n.t('pagination.previous')}
+                                        nextLabel={i18n.t('pagination.next')}
+                                        breakLabel={"..."}
+                                        breakClassName={"break-me"}
+                                        pageCount={this.state.userAdvertsPagesCount}
+                                        marginPagesDisplayed={1}
+                                        pageRangeDisplayed={2}
+                                        onPageChange={this.handleUserAdvertsPage}
+                                        containerClassName={"pagination"}
+                                        activeClassName={"active"} />
+                                }
+                            </div>}
+                        </label>
+                        <label className="tab-2">
                             <div className="tab-2-2">
                                 <label htmlFor="tab2-2">{i18n.t('userPanel.secondTab')}</label>
                                 <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadUserAppliactions.bind(this)} />
+                                {this.state.tabIndex === 2 &&
                                 <div>
                                     <ul className="responsive-table">
                                         <li className="table-header">
@@ -354,15 +423,30 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                                             </li>
                                         ))}
                                     </ul>
-                                </div>
+                                    {this.state.userApplicationsPagesCount > 1 &&
+                                        <ReactPaginate
+                                            previousLabel={i18n.t('pagination.previous')}
+                                            nextLabel={i18n.t('pagination.next')}
+                                            breakLabel={"..."}
+                                            breakClassName={"break-me"}
+                                            pageCount={this.state.userApplicationsPagesCount}
+                                            marginPagesDisplayed={1}
+                                            pageRangeDisplayed={2}
+                                            onPageChange={this.handleUserApplicationsPage}
+                                            containerClassName={"pagination"}
+                                            activeClassName={"active"} />
+                                    }
+                                </div>}
                             </div>
 
-                        </div>
-                        <div className="tab-2">
+
+                        </label>
+                        <label className="tab-2">
 
                             <div className="tab-2-3">
                                 <label htmlFor="tab2-3">{i18n.t('userPanel.thirdTab')}</label>
                                 <input id="tab2-3" name="tabs-two" type="radio" onChange={this.loadUserResponses.bind(this)} />
+                                {this.state.tabIndex === 3 &&
                                 <div>
                                     <ul className="responsive-table">
                                         <li className="table-header">
@@ -372,7 +456,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                                             <div className="col col-3">{i18n.t('userPanel.addedBy')}</div>
                                         </li>
                                         {this.state.userResponses.map(application => (
-                                            <li className="table-row"  onClick={() => this.addedByDetails(application.userId, application.companyId, application.advertType)}>
+                                            <li className="table-row" onClick={() => this.addedByDetails(application.userId, application.companyId, application.advertType)}>
                                                 <div className="col col-1">{application.advertTitle}</div>
                                                 <div className="col col-2">{application.advertShortDescription}</div>
                                                 <div className="col col-3">{application.createdAt}</div>
@@ -380,26 +464,39 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                                             </li>
                                         ))}
                                     </ul>
-                                </div>
+                                    {this.state.userResponsesPagesCount > 1 &&
+                                        <ReactPaginate
+                                            previousLabel={i18n.t('pagination.previous')}
+                                            nextLabel={i18n.t('pagination.next')}
+                                            breakLabel={"..."}
+                                            breakClassName={"break-me"}
+                                            pageCount={this.state.userResponsesPagesCount}
+                                            marginPagesDisplayed={1}
+                                            pageRangeDisplayed={2}
+                                            onPageChange={this.handleUserResponsesPage}
+                                            containerClassName={"pagination"}
+                                            activeClassName={"active"} />
+                                    }
+                                </div>}
                             </div>
-                        </div>
+                        </label>
                         {localStorage.getItem('company_id') !== null &&
                             <div className="tab-2">
                                 <div className="tab-2-4">
                                     <label htmlFor="tab2-4">{i18n.t('userPanel.fourthTab')}</label>
-                                    <input id="tab2-4" name="tabs-two" type="radio" />
-                                    <CompanyView />
+                                    <input id="tab2-4" name="tabs-two" type="radio" onChange={this.loadCompany.bind(this)} />
+                                    {this.state.tabIndex === 4 &&
+                                    <CompanyView />}
                                 </div>
                             </div>
                         }
 
                     </div>
-                </body>
-            </React.Fragment>
+                </div>
+            </div>
+            // </div>
+
         );
     }
-
-
 }
-
 export default withRouter(UserPanelView);

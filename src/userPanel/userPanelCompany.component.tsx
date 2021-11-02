@@ -17,7 +17,9 @@ type State = {
     description: string;
     logoPath: string;
     members: CompanyUser[];
+    membersPage: number;
     requestToJoin: CompanyUser[];
+    requestsPage: number;
     errorMessage: string;
     success: boolean;
 };
@@ -28,7 +30,9 @@ let initialState: State = {
     description: '',
     logoPath: '',
     members: [],
+    membersPage: 0,
     requestToJoin: [],
+    requestsPage: 0,
     errorMessage: '',
     success: false
 }
