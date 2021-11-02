@@ -1,8 +1,10 @@
 import { Component } from "react";
 import i18n from "../messages/i18n";
 import '../css/advertList.component.css'
+import '../css/pagination.css'
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 type AdvertType = {
     id: number;
     title: string;
@@ -25,7 +27,9 @@ type State = {
     companyAdverts: AdvertType[];
     individualAdverts: AdvertType[];
     companyPageNumber: number;
+    companyPagesCount: number;
     individualPageNumber: number;
+    individualPagesCount: number;
     categories: CategoryType[];
     companies: CompaniesData[];
     errorMessage?: string;
@@ -36,7 +40,9 @@ let initialState: State = {
     companyAdverts: [],
     individualAdverts: [],
     companyPageNumber: 0,
+    companyPagesCount: 0,
     individualPageNumber: 0,
+    individualPagesCount: 0,
     categories: [],
     companies: [],
     errorMessage: '',
@@ -58,6 +64,7 @@ function reducer(state: State, action: Action): State {
                 individualPageNumber: action.payload
             };
         case 'setCompanyPageNumber':
+            console.log('sssssssssssssssss' + action.payload)
             return {
                 ...state,
                 companyPageNumber: action.payload
@@ -111,36 +118,31 @@ class AdvertListView extends React.Component<RouteComponentProps> {
             .then(data => {
                 this.setState({ categories: data });
             });
-
-        fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + '&limit=10&type=COMPANY')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ companyAdverts: data });
-            });
-
+        this.loadCompanyAdverts();
     }
 
     loadIndividualAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=30&type=INDIVIDUAL')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.individualPageNumber + '&limit=10&type=INDIVIDUAL')
             .then(response => response.json())
             .then(data => {
-                this.dispatch({
-                    type: 'setIndividualAdverts',
-                    payload: data
+                this.setState({ 
+                    individualAdverts: data.adverts,
+                    individualPageNumber: data.paging.page,
+                    individualPagesCount: data.paging.pagesCount 
                 });
             });
     }
 
     loadCompanyAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * 0 + '&limit=30&type=COMPANY')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + '&limit=10&type=COMPANY')
             .then(response => response.json())
             .then(data => {
-                this.dispatch({
-                    type: 'setComapanyAdverts',
-                    payload: data
+                this.setState({ 
+                    companyAdverts: data.adverts,
+                    companyPageNumber: data.paging.page,
+                    companyPagesCount: data.paging.pagesCount 
                 });
             });
     }
@@ -148,13 +150,30 @@ class AdvertListView extends React.Component<RouteComponentProps> {
     details = (id: number) => {
         this.props.history.push('/details/' + id);
     };
+
+    handleCompanyPageChange = (e: any) => {
+        this.setState({
+            companyPageNumber:  e.selected,
+        }, () => {
+            this.loadCompanyAdverts();
+        });
+    };
+
+    handleIndividualPageChange = (e: any) => {
+        this.setState({
+            individualPageNumber:  e.selected,
+        }, () => {
+            this.loadIndividualAdverts();
+        });
+    };
+
     render() {
         return (
             <div className="listBody">
                 <div className="tabs">
                     <div className="tab-2">
                         <label className="list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
-                        <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} checked />
+                        <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} defaultChecked />
                         <div>
                             <ul className="responsive-table">
                                 <li className="table-header">
@@ -176,6 +195,19 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                                     </li>
                                 ))}
                             </ul>
+                            {this.state.companyPagesCount > 1 &&
+                                <ReactPaginate
+                                    previousLabel={i18n.t('pagination.previous')}
+                                    nextLabel={i18n.t('pagination.next')}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={this.state.companyPagesCount}
+                                    marginPagesDisplayed={1}
+                                    pageRangeDisplayed={2}
+                                    onPageChange={this.handleCompanyPageChange}
+                                    containerClassName={"pagination"}
+                                    activeClassName={"active"} />
+                            }
                         </div>
                     </div>
                     <div className="tab-2">
@@ -201,6 +233,19 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                                     </li>
                                 ))}
                             </ul>
+                            {this.state.individualPagesCount > 1 &&
+                                <ReactPaginate
+                                    previousLabel={i18n.t('pagination.previous')}
+                                    nextLabel={i18n.t('pagination.next')}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={this.state.individualPagesCount}
+                                    marginPagesDisplayed={1}
+                                    pageRangeDisplayed={2}
+                                    onPageChange={this.handleIndividualPageChange}
+                                    containerClassName={"pagination"}
+                                    activeClassName={"active"} />
+                            }
                         </div>
                     </div>
                 </div>

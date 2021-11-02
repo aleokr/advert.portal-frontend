@@ -3,6 +3,7 @@ import "../css/user.component.css"
 import companyImage from "../assets/company.png"
 import i18n from "../messages/i18n"
 import React from "react";
+import ReactPaginate from "react-paginate";
 
 
 type CompanyUser = {
