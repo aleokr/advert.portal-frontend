@@ -139,3 +139,12 @@
 	height: 50px;
 	background: #a19e9b;
 }
+.tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+}
+
+.tag {
+    margin-left: 10px;
+}

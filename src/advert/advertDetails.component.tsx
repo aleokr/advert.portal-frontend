@@ -7,6 +7,11 @@ import advertOwnerImage from "../assets/company.png"
 import i18n from "../messages/i18n"
 
 
+type Tag = {
+    id: number;
+    name: string;
+};
+
 type State = {
     advertId: number;
     advertTitle: string;
@@ -21,6 +26,7 @@ type State = {
     applicationExists: boolean;
     canEdit: boolean;
     editMode: boolean;
+    tags: Tag[];
     errorMessage?: string;
     success: boolean;
 };
@@ -39,6 +45,7 @@ let initialState: State = {
     applicationExists: true,
     canEdit: false,
     editMode: false,
+    tags: [],
     errorMessage: '',
     success: false
 }
@@ -96,7 +103,6 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
-
 
 class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
@@ -158,7 +164,8 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                         applicationExists: data.applicationExists,
                         advertCreatedAt: data.createdAt,
                         canEdit: data.canEdit,
-                        canApplicate: data.canApplicate
+                        canApplicate: data.canApplicate,
+                        tags: data.tags
                     })
                 }
             })
@@ -330,7 +337,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
     };
 
     ownerDetails = () => {
-        if(localStorage.getItem('access_token') === ''){
+        if (localStorage.getItem('access_token') === '') {
             this.props.history.push('/login');
         }
         else if (this.state.advertType === 'INDIVIDUAL') {
@@ -402,12 +409,18 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                                 <img src={advertOwnerImage} className="owner-image" alt="Owner Image" onClick={this.ownerDetails.bind(this)} />
                                 <label className="detail-label">{i18n.t('advertDetail.ownerName')}</label>
                                 <div className="detail-input">{this.state.ownerName}</div>
+                                {this.state.tags.length > 0 && <div>
+                                    <div className="detail-name-label">{i18n.t('advertDetail.tags')}</div>
+                                    <div className ="tags">{this.state.tags.map(tag => <div className = "tag">{tag.name} </div>)}</div>
+                                </div>
+                                }
                             </div>
                         </div>
                     </div>
 
                 </body>
             </React.Fragment >
+
         );
     }
 

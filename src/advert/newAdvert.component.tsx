@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Select, { ValueType } from "react-select";
 import '../css/form.css'
 import i18n from "../messages/i18n"
 import logo from '../assets/logo_black.png';
@@ -12,16 +13,24 @@ type State = {
     longDescription: string;
     category: string;
     categories: string[];
+    tags: Tag[];
+    selectTagIds: number[];
     errorMessage?: string;
     success: boolean;
 };
 
+type Tag = {
+    value: number;
+    label: string;
+};
 let initialState: State = {
     title: '',
     shortDescription: '',
     longDescription: '',
     category: '',
     categories: [],
+    tags: [],
+    selectTagIds: [],
     errorMessage: '',
     success: false
 }
@@ -74,6 +83,9 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
+
+const token: boolean = localStorage.getItem('access_token') !== '';
+
 class NewAdvertView extends Component {
     state = initialState;
 
@@ -105,6 +117,16 @@ class NewAdvertView extends Component {
         });
     }
 
+    handleTagInputChange = (event: ValueType<Tag, true>) =>{
+        let list : Array<Tag> = event as Array<Tag>;
+        let tags : number [] = [];
+
+        list.forEach(element => {
+            tags.push(element.value);
+        });
+        this.setState({ selectTagIds: tags });
+    }
+
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
@@ -114,7 +136,12 @@ class NewAdvertView extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({ categories: data });
-                this.setState({category : data[0]})
+                this.setState({ category: data[0] })
+            });
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/list')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ tags: data });
             });
 
     }
@@ -131,7 +158,8 @@ class NewAdvertView extends Component {
                 title: this.state.title,
                 shortDescription: this.state.shortDescription,
                 longDescription: this.state.longDescription,
-                category: this.state.category
+                category: this.state.category,
+                tagIds: this.state.selectTagIds
             })
         })
             .then(response => {
@@ -164,7 +192,9 @@ class NewAdvertView extends Component {
                                 body: JSON.stringify({
                                     title: this.state.title,
                                     shortDescription: this.state.shortDescription,
-                                    longDescription: this.state.longDescription
+                                    longDescription: this.state.longDescription,
+                                    category: this.state.category,
+                                    tagIds: this.state.selectTagIds
                                 })
                             })
                                 .then(result => {
@@ -199,45 +229,59 @@ class NewAdvertView extends Component {
 
     render() {
         return (
-            
+
             <React.Fragment>
                 <NavBar />
+
                 {this.state.errorMessage === '' && this.state.success === true &&
                     <Redirect to='/userPanel' />
                 }
                 {this.state.errorMessage === 'UNAUTHORIZED' &&
                     <Redirect to='/login' />
                 }
-                <div className="form-box">
-                    <img className="advertBlackLogo" src={logo} alt='logo' />
-                    <h2>{i18n.t('newAdvert.addAdvertTitle')}</h2>
-                    <form action="./addAdvert" onSubmit={this.handleAddNewAdvert} >
-                        <div className="select-box">
-                            <label>{i18n.t('newAdvert.category')}</label>
-                            <select onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
-                                {this.state.categories.map(category => (
-                                    <option key={category} value={category}>
-                                        {i18n.t('categories.' + category)}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="user-box">
-                            <input type="text" maxLength={100} onChange={this.handleTitleInput} required />
-                            <label>{i18n.t('newAdvert.title')}</label>
-                        </div>
-                        <div className="user-box">
-                            <input type="text" maxLength={100} onChange={this.handleShortDescriptionInput} required />
-                            <label>{i18n.t('newAdvert.shortDescription')}</label>
-                        </div>
+                {token &&
+                    <div className="form-box">
+                        <img className="advertBlackLogo" src={logo} alt='logo' />
+                        <h2>{i18n.t('newAdvert.addAdvertTitle')}</h2>
+                        <form action="./addAdvert" onSubmit={this.handleAddNewAdvert} >
+                            <div className="select-box">
+                                <label>{i18n.t('newAdvert.category')}</label>
+                                <select onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
+                                    {this.state.categories.map(category => (
+                                        <option key={category} value={category}>
+                                            {i18n.t('categories.' + category)}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="select-box">
+                                <label>{i18n.t('newAdvert.tags')}</label>
+                                <Select className="multi-select"
+                                    closeMenuOnSelect={false}
+                                    placeholder={i18n.t('newAdvert.select')}
+                                    noOptionsMessage={() => i18n.t('newAdvert.noOptions')}
+                                    isMulti
+                                    onChange={e =>this.handleTagInputChange(e)} 
+                                    options={this.state.tags}
+                                />
+                            </div>
+                            <div className="user-box">
+                                <input type="text" maxLength={100} onChange={this.handleTitleInput} required />
+                                <label>{i18n.t('newAdvert.title')}</label>
+                            </div>
+                            <div className="user-box">
+                                <input type="text" maxLength={100} onChange={this.handleShortDescriptionInput} required />
+                                <label>{i18n.t('newAdvert.shortDescription')}</label>
+                            </div>
 
-                        <div className="user-box">
-                            <label>{i18n.t('newAdvert.longDescription')}</label>
-                            <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleLongDescriptionInput} required />
-                        </div>
-                        <button className="form-button" type="submit">{i18n.t('newAdvert.addButton')}</button>
-                    </form>
-                </div>
+                            <div className="user-box">
+                                <label>{i18n.t('newAdvert.longDescription')}</label>
+                                <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleLongDescriptionInput} required />
+                            </div>
+                            <button className="form-button" type="submit">{i18n.t('newAdvert.addButton')}</button>
+                        </form>
+                    </div>
+                }
 
             </React.Fragment>
         );

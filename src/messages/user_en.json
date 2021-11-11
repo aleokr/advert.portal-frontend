@@ -10,5 +10,13 @@
     "responses" : "Responses",
     "applications" : "Applications",
     "edit" : "Edit data",
-    "submit" : "Submit Changes"
+    "submit" : "Submit Changes",
+    "tags" : "Tags",
+    "subscribedTags" : "Subscribed tags",
+    "subscribeTags" : "Tags to subscribe",
+    "subscribe" : "Subscribe",
+    "select" : "Select...",
+    "noOptions" : "No options",
+    "or" : "or",
+    "create" : "Create New Tag"
 }

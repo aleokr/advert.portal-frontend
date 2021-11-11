@@ -4,5 +4,8 @@
     "longDescription" : "Długi opis",
     "category" : "Kategoria",
     "addButton" : "Dodaj",
-    "addAdvertTitle" : "Nowe ogłoszenie"
+    "addAdvertTitle" : "Nowe ogłoszenie",
+    "tags" : "Tagi",
+    "select" : "Wybierz...",
+    "noOptions" : "Brak opcji"
 }

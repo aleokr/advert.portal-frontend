@@ -123,27 +123,39 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     loadIndividualAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.individualPageNumber + '&limit=10&type=INDIVIDUAL')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.individualPageNumber + '&limit=10&type=INDIVIDUAL', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
             .then(response => response.json())
             .then(data => {
-                this.setState({ 
+                this.setState({
                     individualAdverts: data.adverts,
-                    individualPageNumber: data.paging.page,
-                    individualPagesCount: data.paging.pagesCount 
+                    individualPageNumber: data.paging !== undefined ? data.paging.page : 0,
+                    individualPagesCount: data.paging !== undefined ? data.paging.pagesCount : 0
                 });
             });
     }
 
     loadCompanyAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + '&limit=10&type=COMPANY')
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + '&limit=10&type=COMPANY', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                }
+            })
             .then(response => response.json())
             .then(data => {
-                this.setState({ 
-                    companyAdverts: data.adverts,
-                    companyPageNumber: data.paging.page,
-                    companyPagesCount: data.paging.pagesCount 
-                });
+                if(data !== null){
+                    this.setState({
+                        companyAdverts: data.adverts,
+                        companyPageNumber: data.paging !== undefined ? data.paging.page : 0,
+                        companyPagesCount: data.paging !== undefined ? data.paging.pagesCount : 0
+                    });
+                }
             });
     }
 
@@ -153,7 +165,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     handleCompanyPageChange = (e: any) => {
         this.setState({
-            companyPageNumber:  e.selected,
+            companyPageNumber: e.selected,
         }, () => {
             this.loadCompanyAdverts();
         });
@@ -161,7 +173,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     handleIndividualPageChange = (e: any) => {
         this.setState({
-            individualPageNumber:  e.selected,
+            individualPageNumber: e.selected,
         }, () => {
             this.loadIndividualAdverts();
         });
@@ -185,7 +197,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                                     <div></div>
                                 </li>
 
-                                {this.state.companyAdverts.map(advert => (
+                                {this.state.companyAdverts !== undefined && this.state.companyAdverts.map(advert => (
                                     <li className="table-row" onClick={() => this.details(advert.id)} >
                                         <div className="col col-1">{advert.title}</div>
                                         <div className="col col-2">{advert.shortDescription}</div>
@@ -223,7 +235,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                                     <div className="col col-5">{i18n.t('advertList.category')}</div>
                                 </li>
 
-                                {this.state.individualAdverts.map(advert => (
+                                {this.state.companyAdverts !== undefined && this.state.individualAdverts.map(advert => (
                                     <li className="table-row" onClick={() => this.details(advert.id)}>
                                         <div className="col col-1">{advert.title}</div>
                                         <div className="col col-2">{advert.shortDescription}</div>

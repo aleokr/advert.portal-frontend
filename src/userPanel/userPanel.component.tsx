@@ -96,6 +96,8 @@ function reducer(state: State, action: Action): State {
     }
 }
 
+const token: boolean = localStorage.getItem('access_token') !== '';
+
 class UserPanelView extends React.Component<RouteComponentProps> {
 
     state = initialState;
@@ -361,6 +363,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         return (
             <div>
                 <NavBar />
+                {token &&
                 <div className="panelListBody">
                     <div className="panelTabs">
 
@@ -492,10 +495,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                         }
 
                     </div>
-                </div>
+                </div>}
             </div>
-            // </div>
-
         );
     }
 }

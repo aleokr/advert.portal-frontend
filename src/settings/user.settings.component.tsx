@@ -1,8 +1,13 @@
-import { Component } from "react";
 import "../css/user.component.css"
 import userImage from "../assets/user.png"
 import i18n from "../messages/i18n"
 import React from "react";
+import Select, { ValueType } from "react-select";
+
+type Tag = {
+    id: number;
+    name: string;
+};
 
 type State = {
     id: number;
@@ -17,6 +22,9 @@ type State = {
     applicationsCount: number;
     ownData: boolean;
     editMode: boolean;
+    tags: Tag[];
+    tagsToSubscribe: Tag[];
+    selectedIds: number[];
     errorMessage?: string;
     success: boolean;
 };
@@ -34,6 +42,9 @@ let initialState: State = {
     applicationsCount: 0,
     ownData: false,
     editMode: false,
+    tags: [],
+    tagsToSubscribe: [],
+    selectedIds: [],
     errorMessage: '',
     success: false
 }
@@ -112,8 +123,8 @@ class UserView extends React.Component<any>  {
     };
 
     loadData = () => {
-        const path  = this.state.ownData ? '/api/v1/users/loggedUser' : '/api/v1/users/' + this.state.id;
-        
+        const path = this.state.ownData ? '/api/v1/users/loggedUser' : '/api/v1/users/' + this.state.id;
+
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
             method: 'GET',
             headers: {
@@ -175,10 +186,22 @@ class UserView extends React.Component<any>  {
                         login: data.login,
                         advertsCount: data.advertsCount,
                         responsesCount: data.responsesCount,
-                        applicationsCount: data.applicationsCount
+                        applicationsCount: data.applicationsCount,
+                        tags: data.tags
                     })
                 }
             })
+
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/availableTags', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ tagsToSubscribe: data });
+            });
     };
     editMode() {
         this.dispatch({
@@ -219,6 +242,72 @@ class UserView extends React.Component<any>  {
             type: 'setConfirmPassword',
             payload: event.target.value
         });
+    };
+
+
+    handleTagInputChange = (event: ValueType<Tag, true>) => {
+        let list: Array<any> = event as Array<Tag>;
+        let tags: number[] = [];
+
+        list.forEach(element => {
+            tags.push(element.value);
+        });
+        console.log(list);
+        console.log(tags);
+        this.setState({ selectedIds: tags });
+    }
+
+    subscribeTags = () => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/addResourceTag', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            },
+            body: JSON.stringify({
+                tagIds: this.state.selectedIds,
+                type: 'USER'
+            })
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    this.dispatch({
+                        type: 'setError',
+                        payload: 'UNAUTHORIZED'
+                    })
+                    fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/auth/refreshToken',
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')
+                            }
+                        })
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(result => {
+                            localStorage.setItem('access_token', result.access_token);
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/addResourceTag', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                                },
+                                body: JSON.stringify({
+                                    tagIds: this.state.tagsToSubscribe,
+                                    type: 'USER'
+                                })
+                            })
+                        })
+                }
+            })
+            .then(data => {
+                if (this.state.errorMessage === '') {
+                    window.location.reload();
+                }
+            })
+
     };
 
     submitChanges() {
@@ -371,11 +460,35 @@ class UserView extends React.Component<any>  {
                         <span className="parameter">{i18n.t('user.applications')}</span>
                     </div>
                 </div>
+                <div className="stats">
+                    <div className="statistic-label">{i18n.t('user.tags')}</div>
+                    <div className="tag-label">{i18n.t('user.subscribedTags')}</div>
+                    {this.state.tags.length > 0 && <div>
+                        <div className="tags">{this.state.tags.map(tag => <div className="tag">{tag.name} </div>)}</div>
+                    </div>
+                    }
+                    <div className="tag-label">{i18n.t('user.subscribeTags')}</div>
+                    <Select className="multi-select"
+                        closeMenuOnSelect={false}
+                        placeholder={i18n.t('newAdvert.select')}
+                        noOptionsMessage={() => i18n.t('newAdvert.noOptions')}
+                        isMulti
+                        onChange={e =>this.handleTagInputChange(e)} 
+                        options={this.state.tagsToSubscribe}
+                    />
+                    <button className="tag-button" onClick={this.subscribeTags}>{i18n.t('user.subscribe')}</button>
+                    <div>
+                        <h3 className="or-label">{i18n.t('user.or')} </h3>
+                    </div>
+                    <a className="tag-ref" href="/addTag" >{i18n.t('user.create')}</a>
+
+                </div>
                 <div>
                     {!this.state.editMode && this.state.ownData &&
                         <button className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
                     }
                     {this.state.editMode && this.state.ownData &&
+
                         <button className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
                 </div>

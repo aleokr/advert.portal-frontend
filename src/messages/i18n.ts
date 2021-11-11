@@ -27,6 +27,8 @@ import advertDetail_pl from "./advertDetail_pl.json"
 import advertDetail_en from "./advertDetail_en.json"
 import pagination_pl from "./pagination_pl.json"
 import pagination_en from "./pagination_en.json"
+import tag_pl from "./tag_pl.json"
+import tag_en from "./tag_en.json"
 
 
 i18n.use(LanguageDetector)
@@ -48,7 +50,8 @@ i18n.use(LanguageDetector)
                     settings: settings_en,
                     user: user_en,
                     advertDetail: advertDetail_en,
-                    pagination: pagination_en
+                    pagination: pagination_en,
+                    tag: tag_en
                 }
             },
             pl: {
@@ -65,7 +68,8 @@ i18n.use(LanguageDetector)
                     settings: settings_pl,
                     user: user_pl,
                     advertDetail: advertDetail_pl,
-                    pagination: pagination_pl
+                    pagination: pagination_pl,
+                    tag: tag_pl
                 }
             }
         },

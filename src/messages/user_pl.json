@@ -10,5 +10,13 @@
     "responses" : "Odpowiedz/Odpowiedzi",
     "applications" : "Aplikacja/Aplikacje",
     "edit" : "Edytuj dane",
-    "submit" : "Zatwierdź zmiany"
+    "submit" : "Zatwierdź zmiany",
+    "tags" : "Tagi",
+    "subscribedTags" : "Zasubskrybowane tagi",
+    "subscribeTags" : "Tagi do zasubskrybowania",
+    "subscribe" : "Potwierdź",
+    "select" : "Wybierz...",
+    "noOptions" : "Brak opcji",
+    "or" : "lub",
+    "create" : "Dodaj nowy tag"
 }
