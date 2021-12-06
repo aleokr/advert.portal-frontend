@@ -7,5 +7,7 @@
     "addAdvertTitle" : "Nowe ogłoszenie",
     "tags" : "Tagi",
     "select" : "Wybierz...",
-    "noOptions" : "Brak opcji"
+    "noOptions" : "Brak opcji",
+    "image" : "Dołącz zdjęcie:",
+    "attachment" : "Dołącz załącznik:"
 }

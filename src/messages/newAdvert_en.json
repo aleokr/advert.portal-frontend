@@ -7,5 +7,8 @@
     "addAdvertTitle" : "New advert",
     "tags" : "Tags",
     "select" : "Select...",
-    "noOptions" : "No options"
+    "noOptions" : "No options",
+    "image" : "Add image:",
+    "attachment" : "Add attachment:",
+    "choose": "Choose file"
 }

@@ -2,21 +2,22 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 500px;
+    min-width: 500px;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
+    margin-top: 10px;
   }
   
   .form-box h2 {
     margin: 0 0 0;
     padding: 0;
     font-size: 30px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     font-style: normal;
     text-align: center;
   }
@@ -97,7 +98,7 @@
     width: 100%;
   }
   
-  .form-button:hover {
+  .form-button:hover{
     background: #d4610f;
     color: rgb(255, 255, 255);
     border-radius: 5px;
@@ -118,7 +119,7 @@
     -webkit-appearance: button;
     appearance: button;
     outline: none;
-    margin-bottom: 30px ;
+    margin-bottom: 15px ;
     margin-top: 10px;
   }
 
@@ -148,7 +149,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 10px;
     width: 50%;
   }
 
@@ -159,13 +159,40 @@
     outline: none;
     resize: none;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.5);
   }
 
   .multi-select{
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     box-shadow: 0px 0px 5px  rgb(53, 12, 6);
     font-size: 15px;
+  }
+
+  .file-label {
+    margin-right: 15px;
+  }
+
+  .file-picker{
+    position: relative;
+    display: inline-table;
+    padding: 5px 10px 5px 10px;
+    color: rgb(255, 255, 255);
+    background: #d67c3c;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-right: 5px;
+  }
+
+  .file-label2{
+    background-color: #23750e;
+  }
+
+  .file-label3{
+    background-color: #750e5b;
   }

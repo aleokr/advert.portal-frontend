@@ -26,6 +26,7 @@ type State = {
     applicationExists: boolean;
     canEdit: boolean;
     editMode: boolean;
+    archived: boolean;
     tags: Tag[];
     errorMessage?: string;
     success: boolean;
@@ -45,6 +46,7 @@ let initialState: State = {
     applicationExists: true,
     canEdit: false,
     editMode: false,
+    archived: false,
     tags: [],
     errorMessage: '',
     success: false
@@ -164,6 +166,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                         applicationExists: data.applicationExists,
                         advertCreatedAt: data.createdAt,
                         canEdit: data.canEdit,
+                        archived: data.archived, 
                         canApplicate: data.canApplicate,
                         tags: data.tags
                     })
@@ -360,7 +363,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
                         <div className="application-advert">
                             {this.state.canApplicate && !this.state.applicationExists && <button className="detail-button" onClick={this.applicate.bind(this)} >{i18n.t('advertDetail.applicate')}</button>}
-                            {this.state.canEdit && !this.state.editMode && <button className="detail-button" onClick={this.editMode.bind(this)} >{i18n.t('advertDetail.edit')}</button>}
+                            {this.state.canEdit && !this.state.editMode && !this.state.archived && <button className="detail-button" onClick={this.editMode.bind(this)} >{i18n.t('advertDetail.edit')}</button>}
                             {this.state.editMode && <button className="detail-button" onClick={this.submitChanges.bind(this)}  >{i18n.t('advertDetail.save')}</button>}
                             {this.state.applicationExists && <button className="application-button" >{i18n.t('advertDetail.applicated')}</button>}
 

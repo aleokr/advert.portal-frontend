@@ -114,6 +114,7 @@ class CompanyView extends Component {
                 } else return response.json();
             })
             .then(data => {
+                console.log(data);
                 if (this.state.errorMessage === '') {
                     this.setState({
                         id: data.id,
