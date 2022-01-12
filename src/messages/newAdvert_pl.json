@@ -9,5 +9,6 @@
     "select" : "Wybierz...",
     "noOptions" : "Brak opcji",
     "image" : "Dołącz zdjęcie:",
-    "attachment" : "Dołącz załącznik:"
+    "attachment" : "Dołącz załącznik:",
+    "choose": "Wybierz plik"
 }

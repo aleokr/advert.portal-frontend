@@ -14,37 +14,22 @@ type State = {
     category: string;
     categories: string[];
     tags: Tag[];
-    image: File;
-    attachment: File;
+    attachment: FormData;
+    fileName: string;
     selectTagIds: number[];
     errorMessage?: string;
     success: boolean;
 };
 
 type File = {
-    id: number;
     file: FormData;
     fileName: string;
-    contentType: string;
-    type: string;
-    resourceId: number;
-    resourceType: string;
 
 };
 type Tag = {
     value: number;
     label: string;
 };
-
-let initialFile: File = {
-    id: 0,
-    file: new FormData(),
-    fileName: '',
-    contentType: '',
-    type: '',
-    resourceId: 0,
-    resourceType: ''
-}
 
 let initialState: State = {
     title: '',
@@ -53,8 +38,8 @@ let initialState: State = {
     category: '',
     categories: [],
     tags: [],
-    image: initialFile,
-    attachment: initialFile,
+    attachment: new FormData(),
+    fileName: "",
     selectTagIds: [],
     errorMessage: '',
     success: false
@@ -172,6 +157,13 @@ class NewAdvertView extends Component {
 
     }
 
+    saveFile = () => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
+            method: 'POST',
+            body: this.state.attachment
+          });
+    }
+
     handleAddNewAdvert = (event: React.FormEvent) => {
         event.preventDefault();
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/save', {
@@ -243,28 +235,32 @@ class NewAdvertView extends Component {
                         })
                 } else return response.json();
             })
-            .then(() => {
+            .then(data => {
                 if (this.state.errorMessage === '') {
+                    this.setState({resourceId : data.id});
+                    this.state.attachment.append('resourceId', data.id);
                     this.dispatch({
                         type: 'addSuccess',
                         payload: ''
                     })
+                    this.saveFile();
                 }
             })
+            
     }
 
-    addAttachment = (files: FileList): void => {
-        // console.log(files[0]);
-        // this.setState({ attachment: files[0] });
-        this.state.attachment.fileName = files[0].name;
-        // console.log(this.state.attachment)
-    }
+    addAttachment = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
 
-    addImage = (files: FileList): void => {
-        // console.log(files[0].name);
-        this.setState({ image: files[0] });
-        this.state.image.fileName = files[0].name;
-        console.log(this.state.image)
+        formData.append('file', files[0]);
+        formData.append('contentType', 'application/pdf');
+        formData.append('type', 'ATTACHMENT');
+        formData.append('resourceType', 'ADVERT');
+        formData.append('fileName', files[0].name);
+
+        this.setState({ fileName: files[0].name });
+        this.setState({ attachment: formData });
     }
 
 
@@ -322,18 +318,11 @@ class NewAdvertView extends Component {
 
                             <div className="file-box">
                                 <div>
-                                    <label className="file-label">{i18n.t('newAdvert.image')}</label>
-                                    <label htmlFor="imagePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
-                                    <label className="file-label">{this.state.image.fileName}</label>
-                                    <input type="file" id="imagePicker" accept="image/png, image/jpeg" style={{ visibility: "hidden" }} 
-                                    onChange={(e) => e.target.files != null ? this.addImage.bind(this)(e.target.files) : ""} />
-                                </div>
-                                <div>
                                     <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
                                     <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
-                                    <label htmlFor="filePicker"  className="file-label">{this.state.attachment.fileName}</label>
+                                    <label htmlFor="filePicker"  className="file-label"> {this.state.fileName}</label>
                                     <input type="file" id="filePicker" accept="application/pdf" style={{ visibility: "hidden" }}
-                                        onChange={(e) => e.target.files != null ? this.addAttachment.bind(this)(e.target.files) : ""} />
+                                        onChange={(e) => e.target.files != null ? this.addAttachment.bind(this)(e) : ""} />
                                 </div>
                             </div>
                             <button className="form-button" type="submit">{i18n.t('newAdvert.addButton')}</button>

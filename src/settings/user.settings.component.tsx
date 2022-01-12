@@ -48,7 +48,7 @@ let initialState: State = {
     errorMessage: '',
     success: false
 }
-const path : string = "http://172.18.0.2:9000/adverts/T2fFgm9zemVuaWUgeiBvYnJhemtpZW0gdXBkYXRlYWR2ZXJ0czE2MzcwOTYzNDMyMDg%3D?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=W48TZWOPBJYAT6LMS2QK%2F20211128%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211128T173213Z&X-Amz-Expires=604799&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJXNDhUWldPUEJKWUFUNkxNUzJRSyIsImV4cCI6MTYzODEyNDMwNiwicG9saWN5IjoiY29uc29sZUFkbWluIn0.VWTarOLf90SUlP3nQHW5WuzfjDOUhOEjyGQwaMadKzbqGa_sNJIoRZtMUfj0OUNGhBmOt-G3uMo0SDijClG4AQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=bd5b909f68f05e42c82b029a84f5b7a4a77c7bea94e48d4fa7fbcaf297f15f09";
+const path: string = "http://172.18.0.2:9000/adverts/T2fFgm9zemVuaWUgeiBvYnJhemtpZW0gdXBkYXRlYWR2ZXJ0czE2MzcwOTYzNDMyMDg%3D?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=W48TZWOPBJYAT6LMS2QK%2F20211128%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211128T173213Z&X-Amz-Expires=604799&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJXNDhUWldPUEJKWUFUNkxNUzJRSyIsImV4cCI6MTYzODEyNDMwNiwicG9saWN5IjoiY29uc29sZUFkbWluIn0.VWTarOLf90SUlP3nQHW5WuzfjDOUhOEjyGQwaMadKzbqGa_sNJIoRZtMUfj0OUNGhBmOt-G3uMo0SDijClG4AQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=bd5b909f68f05e42c82b029a84f5b7a4a77c7bea94e48d4fa7fbcaf297f15f09";
 
 type Action = { type: 'setName', payload: string }
     | { type: 'setSurname', payload: string }
@@ -400,13 +400,33 @@ class UserView extends React.Component<any>  {
         }
 
     }
-    
+
     render() {
         return (
 
-            <div className="center"> 
+            <div className="center">
                 <div className="profile">
-                    <img src={userImage} className="user-image" alt="Jessica Potter" />
+                    <img src={userImage} className="user-image"/>
+                    <div className="image -box">
+                        <div>
+                            <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
+                            <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
+                            <label htmlFor="filePicker" className="file-label"> fileName</label>
+                            <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                                onChange={(e) => e.target.files != null ? "" : ""} />
+                        </div>
+                    </div>
+                    <a href="https://www.google.com" >{i18n.t('user.create')}</a>
+                    <div className="image -box">
+                        <div>
+                            <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
+                            <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
+                            <label htmlFor="filePicker" className="file-label"> fileName</label>
+                            <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                                onChange={(e) => e.target.files != null ? "" : ""} />
+                        </div>
+                    </div>
+
                 </div>
                 <div className="user-data">
                     {!this.state.editMode &&
@@ -491,7 +511,7 @@ class UserView extends React.Component<any>  {
                         <button className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
                 </div>
-            </div>
+            </div >
         );
     }
 }
