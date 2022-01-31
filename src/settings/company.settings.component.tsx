@@ -196,8 +196,8 @@ class CompanyView extends React.Component<any> {
     }
 
     loadData = () => {
-        const path  = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
-        
+        const path = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
+
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
             method: 'GET',
             headers: {
@@ -323,6 +323,20 @@ class CompanyView extends React.Component<any> {
             <div className="center">
                 <div className="profile">
                     <img src={companyImage} className="user-image" alt="Jessica Potter" />
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('company.addAttachment')}</label>
+                        <label htmlFor="filePicker" className="file-picker">{i18n.t('company.choose')}</label>
+                        <label htmlFor="filePicker" className="file-label"></label>
+                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files != null ? "" : ""} />
+                    </div>}
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('company.addImage')}</label>
+                        <label htmlFor="filePicker" className="file-picker">{i18n.t('company.choose')}</label>
+                        <label htmlFor="filePicker" className="file-label"></label>
+                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files != null ? "" : ""} />
+                    </div>}
                     {!this.state.editMode &&
                         <div>
                             <label className="user-label">{i18n.t('company.name')}</label>
@@ -339,6 +353,11 @@ class CompanyView extends React.Component<any> {
                             <textarea rows={10} className="user-input-edit" defaultValue={this.state.description} onChange={this.handleDescriptionInput} />
                         </div>
                     }
+                    {!this.state.editMode &&
+                        <div>
+                            <label className="user-label" >{i18n.t('company.files')}</label>
+                            <a className="main-file" href="https://www.google.com" >{i18n.t('company.mainFile')}</a>
+                        </div>}
                 </div>
 
                 <div className="company-tabs">
@@ -356,7 +375,7 @@ class CompanyView extends React.Component<any> {
                                 <div className="col col-1">{member.name}</div>
                                 <div className="col col-2">{member.surname}</div>
                                 <div className="col col-3">{member.email}</div>
-                                {this.state.editMode && this.state.ownCompany && 
+                                {this.state.editMode && this.state.ownCompany &&
                                     <button className="accept-user-button" onClick={() => this.deleteUser(member.id)} >{i18n.t('company.delete')}</button>}
                             </li>
                         ))}

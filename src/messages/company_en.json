@@ -9,5 +9,10 @@
     "accept" : "Confirm",
     "noData" : "No data",
     "delete" : "Delete user",
-    "null" : ""
+    "null" : "",
+    "addAttachment" : "Add/Change main file:",
+    "addImage" : "Add/Change image file:",
+    "mainFile" : "Main company's file",
+    "choose" : "Choose",
+    "files" : "File:"
 }

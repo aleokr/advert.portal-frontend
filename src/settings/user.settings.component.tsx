@@ -406,27 +406,26 @@ class UserView extends React.Component<any>  {
 
             <div className="center">
                 <div className="profile">
-                    <img src={userImage} className="user-image"/>
-                    <div className="image -box">
+                    <img src={userImage} className="user-image" />
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('user.addAttachment')}</label>
+                        <label htmlFor="filePicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="filePicker" className="file-label"></label>
+                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files != null ? "" : ""} />
+                    </div>}
+                    {!this.state.editMode &&
                         <div>
-                            <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
-                            <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
-                            <label htmlFor="filePicker" className="file-label"> fileName</label>
-                            <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                                onChange={(e) => e.target.files != null ? "" : ""} />
-                        </div>
-                    </div>
-                    <a href="https://www.google.com" >{i18n.t('user.create')}</a>
-                    <div className="image -box">
-                        <div>
-                            <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
-                            <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
-                            <label htmlFor="filePicker" className="file-label"> fileName</label>
-                            <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                                onChange={(e) => e.target.files != null ? "" : ""} />
-                        </div>
-                    </div>
-
+                            <label className="user-label" >{i18n.t('user.files')}</label>
+                            <a className="main-file" href="https://www.google.com" >{i18n.t('user.mainFile')}</a>
+                        </div>}
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('user.addImage')}</label>
+                        <label htmlFor="filePicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="filePicker" className="file-label"></label>
+                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files != null ? "" : ""} />
+                    </div>}
                 </div>
                 <div className="user-data">
                     {!this.state.editMode &&

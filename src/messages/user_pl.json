@@ -18,5 +18,10 @@
     "select" : "Wybierz...",
     "noOptions" : "Brak opcji",
     "or" : "lub",
-    "create" : "Dodaj nowy tag"
+    "create" : "Dodaj nowy tag",
+    "addAttachment" : "Dodaj/Edytuj plik główny",
+    "addImage" : "Dodaj/Edytuj zdjęcie",
+    "mainFile" : "Plik główny użytkownika",
+    "choose" : "Wybierz",
+    "files" : "Plik:"
 }

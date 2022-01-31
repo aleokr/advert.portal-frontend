@@ -18,5 +18,10 @@
     "select" : "Select...",
     "noOptions" : "No options",
     "or" : "or",
-    "create" : "Create New Tag"
+    "create" : "Create New Tag",
+    "addAttachment" : "Add/Change main file:",
+    "addImage" : "Add/Change image file:",
+    "mainFile" : "Main user's file",
+    "choose" : "Choose",
+    "files" : "File:"
 }
