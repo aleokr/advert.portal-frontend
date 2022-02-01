@@ -21,6 +21,10 @@ type State = {
     members: CompanyUser[];
     ownCompany: boolean;
     editMode: boolean;
+    attachment: FormData;
+    attachmentName: string;
+    image: FormData;
+    imageName: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -33,6 +37,10 @@ let initialState: State = {
     members: [],
     ownCompany: false,
     editMode: false,
+    attachment: new FormData(),
+    attachmentName: "",
+    image: new FormData(),
+    imageName: '',
     errorMessage: '',
     success: false
 }
@@ -187,6 +195,15 @@ class CompanyView extends React.Component<any> {
                         description: data.description
                     })
                 }
+                if (this.state.imageName !== "") {
+                    this.saveFile(this.state.image);
+                    this.setState({ imageName: "" });
+                }
+                if (this.state.attachmentName !== "") {
+                    this.saveFile(this.state.attachment);
+                    this.setState({ attachmentName: "" });
+
+                }
             });
 
         this.dispatch({
@@ -317,6 +334,42 @@ class CompanyView extends React.Component<any> {
             .finally(() => this.loadData())
     }
 
+    addAttachment = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+
+        formData.append('file', files[0]);
+        formData.append('contentType', 'application/pdf');
+        formData.append('type', 'ATTACHMENT');
+        formData.append('resourceType', 'COMPANY');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ attachmentName: files[0].name });
+        this.setState({ attachment: formData });
+    }
+
+    addImage = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('contentType', 'image/png');
+        formData.append('type', 'IMAGE');
+        formData.append('resourceType', 'COMPANY');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ imageName: files[0].name });
+        this.setState({ image: formData });
+    }
+
+    saveFile = (body: FormData) => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
+            method: 'POST',
+            body: body
+        });
+    }
+
     render() {
         return (
 
@@ -324,18 +377,18 @@ class CompanyView extends React.Component<any> {
                 <div className="profile">
                     <img src={companyImage} className="user-image" alt="Jessica Potter" />
                     {this.state.editMode && <div>
-                        <label className="file-label">{i18n.t('company.addAttachment')}</label>
-                        <label htmlFor="filePicker" className="file-picker">{i18n.t('company.choose')}</label>
-                        <label htmlFor="filePicker" className="file-label"></label>
-                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                            onChange={(e) => e.target.files != null ? "" : ""} />
+                        <label className="file-label">{i18n.t('user.addAttachment')}</label>
+                        <label htmlFor="attachmentPicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="attachmentPicker" className="file-label">{this.state.attachmentName}</label>
+                        <input type="file" id="attachmentPicker" accept="application/pdf" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addAttachment.bind(this)(e) : ""} />
                     </div>}
                     {this.state.editMode && <div>
-                        <label className="file-label">{i18n.t('company.addImage')}</label>
-                        <label htmlFor="filePicker" className="file-picker">{i18n.t('company.choose')}</label>
-                        <label htmlFor="filePicker" className="file-label"></label>
-                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                            onChange={(e) => e.target.files != null ? "" : ""} />
+                        <label className="file-label">{i18n.t('user.addImage')}</label>
+                        <label htmlFor="imagePicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="imagePicker" className="file-label">{this.state.imageName}</label>
+                        <input type="file" id="imagePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addImage.bind(this)(e) : ""} />
                     </div>}
                     {!this.state.editMode &&
                         <div>

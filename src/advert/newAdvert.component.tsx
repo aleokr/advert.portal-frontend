@@ -21,11 +21,6 @@ type State = {
     success: boolean;
 };
 
-type File = {
-    file: FormData;
-    fileName: string;
-
-};
 type Tag = {
     value: number;
     label: string;

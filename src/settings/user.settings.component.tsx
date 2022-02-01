@@ -25,6 +25,10 @@ type State = {
     tags: Tag[];
     tagsToSubscribe: Tag[];
     selectedIds: number[];
+    attachment: FormData;
+    attachmentName: string;
+    image: FormData;
+    imageName: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -45,10 +49,13 @@ let initialState: State = {
     tags: [],
     tagsToSubscribe: [],
     selectedIds: [],
+    attachment: new FormData(),
+    attachmentName: "",
+    image: new FormData(),
+    imageName: '',
     errorMessage: '',
     success: false
 }
-const path: string = "http://172.18.0.2:9000/adverts/T2fFgm9zemVuaWUgeiBvYnJhemtpZW0gdXBkYXRlYWR2ZXJ0czE2MzcwOTYzNDMyMDg%3D?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=W48TZWOPBJYAT6LMS2QK%2F20211128%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211128T173213Z&X-Amz-Expires=604799&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJXNDhUWldPUEJKWUFUNkxNUzJRSyIsImV4cCI6MTYzODEyNDMwNiwicG9saWN5IjoiY29uc29sZUFkbWluIn0.VWTarOLf90SUlP3nQHW5WuzfjDOUhOEjyGQwaMadKzbqGa_sNJIoRZtMUfj0OUNGhBmOt-G3uMo0SDijClG4AQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=bd5b909f68f05e42c82b029a84f5b7a4a77c7bea94e48d4fa7fbcaf297f15f09";
 
 type Action = { type: 'setName', payload: string }
     | { type: 'setSurname', payload: string }
@@ -394,11 +401,56 @@ class UserView extends React.Component<any>  {
                                 email: data.email,
                                 editMode: false
                             })
+                            if (this.state.imageName !== "") {
+                                this.saveFile(this.state.image);
+                                this.setState({ imageName: "" });
+                            }
+                            if (this.state.attachmentName !== "") {
+                                this.saveFile(this.state.attachment);
+                                this.setState({ attachmentName: "" });
+
+                            }
                         }
                     });
 
         }
 
+    }
+
+    addAttachment = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+
+        formData.append('file', files[0]);
+        formData.append('contentType', 'application/pdf');
+        formData.append('type', 'ATTACHMENT');
+        formData.append('resourceType', 'USER');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ attachmentName: files[0].name });
+        this.setState({ attachment: formData });
+    }
+
+    addImage = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('contentType', 'image/png');
+        formData.append('type', 'IMAGE');
+        formData.append('resourceType', 'USER');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ imageName: files[0].name });
+        this.setState({ image: formData });
+    }
+
+    saveFile = (body: FormData) => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
+            method: 'POST',
+            body: body
+        });
     }
 
     render() {
@@ -409,10 +461,10 @@ class UserView extends React.Component<any>  {
                     <img src={userImage} className="user-image" />
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addAttachment')}</label>
-                        <label htmlFor="filePicker" className="file-picker">{i18n.t('user.choose')}</label>
-                        <label htmlFor="filePicker" className="file-label"></label>
-                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                            onChange={(e) => e.target.files != null ? "" : ""} />
+                        <label htmlFor="attachmentPicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="attachmentPicker" className="file-label">{this.state.attachmentName}</label>
+                        <input type="file" id="attachmentPicker" accept="application/pdf" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addAttachment.bind(this)(e) : ""} />
                     </div>}
                     {!this.state.editMode &&
                         <div>
@@ -421,10 +473,10 @@ class UserView extends React.Component<any>  {
                         </div>}
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addImage')}</label>
-                        <label htmlFor="filePicker" className="file-picker">{i18n.t('user.choose')}</label>
-                        <label htmlFor="filePicker" className="file-label"></label>
-                        <input type="file" id="filePicker" accept="image/png" style={{ visibility: "hidden" }}
-                            onChange={(e) => e.target.files != null ? "" : ""} />
+                        <label htmlFor="imagePicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="imagePicker" className="file-label">{this.state.imageName}</label>
+                        <input type="file" id="imagePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addImage.bind(this)(e) : ""} />
                     </div>}
                 </div>
                 <div className="user-data">
