@@ -7,6 +7,11 @@ import advertOwnerImage from "../assets/company.png"
 import i18n from "../messages/i18n"
 
 
+type Tag = {
+    id: number;
+    name: string;
+};
+
 type State = {
     advertId: number;
     advertTitle: string;
@@ -21,6 +26,9 @@ type State = {
     applicationExists: boolean;
     canEdit: boolean;
     editMode: boolean;
+    archived: boolean;
+    tags: Tag[];
+    mainFilePath: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -39,6 +47,9 @@ let initialState: State = {
     applicationExists: true,
     canEdit: false,
     editMode: false,
+    archived: false,
+    tags: [],
+    mainFilePath: '',
     errorMessage: '',
     success: false
 }
@@ -96,7 +107,6 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
-
 
 class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
@@ -158,7 +168,10 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                         applicationExists: data.applicationExists,
                         advertCreatedAt: data.createdAt,
                         canEdit: data.canEdit,
-                        canApplicate: data.canApplicate
+                        archived: data.archived,
+                        canApplicate: data.canApplicate,
+                        tags: data.tags,
+                        mainFilePath: data.mainFilePath
                     })
                 }
             })
@@ -330,7 +343,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
     };
 
     ownerDetails = () => {
-        if(localStorage.getItem('access_token') === ''){
+        if (localStorage.getItem('access_token') === '') {
             this.props.history.push('/login');
         }
         else if (this.state.advertType === 'INDIVIDUAL') {
@@ -353,7 +366,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
                         <div className="application-advert">
                             {this.state.canApplicate && !this.state.applicationExists && <button className="detail-button" onClick={this.applicate.bind(this)} >{i18n.t('advertDetail.applicate')}</button>}
-                            {this.state.canEdit && !this.state.editMode && <button className="detail-button" onClick={this.editMode.bind(this)} >{i18n.t('advertDetail.edit')}</button>}
+                            {this.state.canEdit && !this.state.editMode && !this.state.archived && <button className="detail-button" onClick={this.editMode.bind(this)} >{i18n.t('advertDetail.edit')}</button>}
                             {this.state.editMode && <button className="detail-button" onClick={this.submitChanges.bind(this)}  >{i18n.t('advertDetail.save')}</button>}
                             {this.state.applicationExists && <button className="application-button" >{i18n.t('advertDetail.applicated')}</button>}
 
@@ -377,6 +390,12 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                                         <div className="detail-input">{i18n.t('categories.' + this.state.advertCategory)}</div>
                                         <label className="detail-label">{i18n.t('advertDetail.createdAt')}</label>
                                         <div className="detail-input">{this.state.advertCreatedAt}</div>
+
+                                        {this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
+                                            <div>
+                                                <label className="user-label" >{i18n.t('company.files')}</label>
+                                                <a className="main-file" target="_blank" rel="noopener noreferrer" href={this.state.mainFilePath} >{i18n.t('advertDetail.mainFile')}</a>
+                                            </div>}
                                     </div>
                                 }
                                 {this.state.editMode &&
@@ -402,12 +421,18 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                                 <img src={advertOwnerImage} className="owner-image" alt="Owner Image" onClick={this.ownerDetails.bind(this)} />
                                 <label className="detail-label">{i18n.t('advertDetail.ownerName')}</label>
                                 <div className="detail-input">{this.state.ownerName}</div>
+                                {this.state.tags.length > 0 && <div>
+                                    <div className="detail-name-label">{i18n.t('advertDetail.tags')}</div>
+                                    <div className="tags">{this.state.tags.map(tag => <div className="tag">{tag.name} </div>)}</div>
+                                </div>
+                                }
                             </div>
                         </div>
                     </div>
 
                 </body>
             </React.Fragment >
+
         );
     }
 

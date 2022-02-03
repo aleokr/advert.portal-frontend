@@ -8,5 +8,7 @@
     "addedBy" : "added by",
     "createdAt" : "added at",
     "category": "category",
-    "addedAt": "added at"
+    "addedAt": "added at",
+    "delete": "Delete advert",
+    "archive": "Archive advert"
 }

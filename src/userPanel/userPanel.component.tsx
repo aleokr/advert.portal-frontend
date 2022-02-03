@@ -14,6 +14,7 @@ type Advert = {
     shortDescription: string;
     createdAt: string;
     advertCategory: string;
+    archived: boolean;
 }
 
 type Application = {
@@ -95,6 +96,8 @@ function reducer(state: State, action: Action): State {
             };
     }
 }
+
+const token: boolean = localStorage.getItem('access_token') !== '';
 
 class UserPanelView extends React.Component<RouteComponentProps> {
 
@@ -315,7 +318,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                 }
             })
     }
-    loadCompany= () => {
+    loadCompany = () => {
         this.setState({
             tabIndex: 4
         }
@@ -357,145 +360,285 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         });
     };
 
+    deleteAdvert = (id: number) => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL +
+            '/api/v1/adverts/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    this.dispatch({
+                        type: 'setError',
+                        payload: 'UNAUTHORIZED'
+                    })
+                    fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/auth/refreshToken',
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')
+                            }
+                        })
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(result => {
+                            localStorage.setItem('access_token', result.access_token);
+                            localStorage.setItem('refresh_token', result.refresh_token);
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL +
+                                '/api/v1/adverts/' + id, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                                }
+                            })
+                                .then(result => {
+                                    if (result.status === 401) {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                        return response.json();
+                                    }
+                                    else {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                        return response.json();
+                                    }
+                                }
+                                )
+                        })
+                } else return response;
+            })
+            .then(() => {
+                if (this.state.errorMessage === '') {
+                    this.loadUserAdverts();
+                }
+            })
+    };
+
+    archiveAdvert = (id: number) => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL +
+            '/api/v1/adverts/archive/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    this.dispatch({
+                        type: 'setError',
+                        payload: 'UNAUTHORIZED'
+                    })
+                    fetch(process.env.REACT_APP_BACKEND_BASE_URL +
+                        '/api/v1/adverts/archive/' + id, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                        }
+                    })
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(result => {
+                            localStorage.setItem('access_token', result.access_token);
+                            localStorage.setItem('refresh_token', result.refresh_token);
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL +
+                                '/api/v1/adverts/' + id, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                                }
+                            })
+                                .then(result => {
+                                    if (result.status === 401) {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                        return response.json();
+                                    }
+                                    else {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                        return response.json();
+                                    }
+                                }
+                                )
+                        })
+                } else return response;
+            })
+            .then(() => {
+                if (this.state.errorMessage === '') {
+                    this.loadUserAdverts();
+                }
+            })
+    };
+
     render() {
         return (
             <div>
                 <NavBar />
-                <div className="panelListBody">
-                    <div className="panelTabs">
+                {token &&
+                    <div className="panelListBody">
+                        <div className="panelTabs">
 
-                        <label className="tab-2">
-                            <label htmlFor="tab2-1">{i18n.t('userPanel.firstTab')}</label>
-                            <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadUserAdverts} defaultChecked />
-                            {this.state.tabIndex === 1 &&
-                            <div>
-                                <ul className="responsive-table">
-                                    <li className="table-header">
-                                        <div className="col col-1">{i18n.t('userPanel.name')}</div>
-                                        <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
-                                        <div className="col col-3">{i18n.t('userPanel.createdAt')}</div>
-                                        <div className="col col-4">{i18n.t('userPanel.category')}</div>
-                                    </li>
-
-                                    {this.state.userAdverts.map(advert => (
-                                        <li className="table-row" onClick={() => this.advertDetails(advert.id)}>
-                                            <div className="col col-1">{advert.title}</div>
-                                            <div className="col col-2">{advert.shortDescription}</div>
-                                            <div className="col col-3">{advert.createdAt}</div>
-                                            <div className="col col-4">{i18n.t('categories.' + advert.advertCategory)}</div>
-                                        </li>
-                                    ))}
-                                </ul>
-                                {this.state.userAdvertsPagesCount > 1 &&
-                                    <ReactPaginate
-                                        previousLabel={i18n.t('pagination.previous')}
-                                        nextLabel={i18n.t('pagination.next')}
-                                        breakLabel={"..."}
-                                        breakClassName={"break-me"}
-                                        pageCount={this.state.userAdvertsPagesCount}
-                                        marginPagesDisplayed={1}
-                                        pageRangeDisplayed={2}
-                                        onPageChange={this.handleUserAdvertsPage}
-                                        containerClassName={"pagination"}
-                                        activeClassName={"active"} />
-                                }
-                            </div>}
-                        </label>
-                        <label className="tab-2">
-                            <div className="tab-2-2">
-                                <label htmlFor="tab2-2">{i18n.t('userPanel.secondTab')}</label>
-                                <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadUserAppliactions.bind(this)} />
-                                {this.state.tabIndex === 2 &&
-                                <div>
-                                    <ul className="responsive-table">
-                                        <li className="table-header">
-                                            <div className="col col-1">{i18n.t('userPanel.name')}</div>
-                                            <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
-                                            <div className="col col-3">{i18n.t('userPanel.category')}</div>
-                                            <div className="col col-4">{i18n.t('userPanel.addedAt')}</div>
-                                        </li>
-                                        {this.state.userApplications.map(application => (
-                                            <li className="table-row" onClick={() => this.advertDetails(application.advertId)}>
-                                                <div className="col col-1">{application.advertTitle}</div>
-                                                <div className="col col-2">{application.advertShortDescription}</div>
-                                                <div className="col col-3">{i18n.t('categories.' + application.advertCategory)}</div>
-                                                <div className="col col-3">{application.createdAt}</div>
+                            <label className="tab-2">
+                                <label htmlFor="tab2-1">{i18n.t('userPanel.firstTab')}</label>
+                                <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadUserAdverts} defaultChecked />
+                                {this.state.tabIndex === 1 &&
+                                    <div>
+                                        <ul className="responsive-table">
+                                            <li className="table-header">
+                                                <div className="col col-1">{i18n.t('userPanel.name')}</div>
+                                                <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
+                                                <div className="col col-3">{i18n.t('userPanel.createdAt')}</div>
+                                                <div className="col col-4">{i18n.t('userPanel.category')}</div>
+                                                <div className="col col-4"></div>
+                                                <div className="col col-4"></div>
                                             </li>
-                                        ))}
-                                    </ul>
-                                    {this.state.userApplicationsPagesCount > 1 &&
-                                        <ReactPaginate
-                                            previousLabel={i18n.t('pagination.previous')}
-                                            nextLabel={i18n.t('pagination.next')}
-                                            breakLabel={"..."}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.userApplicationsPagesCount}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handleUserApplicationsPage}
-                                            containerClassName={"pagination"}
-                                            activeClassName={"active"} />
-                                    }
-                                </div>}
-                            </div>
 
-
-                        </label>
-                        <label className="tab-2">
-
-                            <div className="tab-2-3">
-                                <label htmlFor="tab2-3">{i18n.t('userPanel.thirdTab')}</label>
-                                <input id="tab2-3" name="tabs-two" type="radio" onChange={this.loadUserResponses.bind(this)} />
-                                {this.state.tabIndex === 3 &&
-                                <div>
-                                    <ul className="responsive-table">
-                                        <li className="table-header">
-                                            <div className="col col-1">{i18n.t('userPanel.name')}</div>
-                                            <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
-                                            <div className="col col-3">{i18n.t('userPanel.addedAt')}</div>
-                                            <div className="col col-3">{i18n.t('userPanel.addedBy')}</div>
-                                        </li>
-                                        {this.state.userResponses.map(application => (
-                                            <li className="table-row" onClick={() => this.addedByDetails(application.userId, application.companyId, application.advertType)}>
-                                                <div className="col col-1">{application.advertTitle}</div>
-                                                <div className="col col-2">{application.advertShortDescription}</div>
-                                                <div className="col col-3">{application.createdAt}</div>
-                                                <div className="col col-4">{application.addedBy}</div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    {this.state.userResponsesPagesCount > 1 &&
-                                        <ReactPaginate
-                                            previousLabel={i18n.t('pagination.previous')}
-                                            nextLabel={i18n.t('pagination.next')}
-                                            breakLabel={"..."}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.userResponsesPagesCount}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handleUserResponsesPage}
-                                            containerClassName={"pagination"}
-                                            activeClassName={"active"} />
-                                    }
-                                </div>}
-                            </div>
-                        </label>
-                        {localStorage.getItem('company_id') !== null &&
-                            <div className="tab-2">
-                                <div className="tab-2-4">
-                                    <label htmlFor="tab2-4">{i18n.t('userPanel.fourthTab')}</label>
-                                    <input id="tab2-4" name="tabs-two" type="radio" onChange={this.loadCompany.bind(this)} />
-                                    {this.state.tabIndex === 4 &&
-                                    <CompanyView />}
+                                            {this.state.userAdverts.map(advert => (
+                                                advert.archived ?
+                                                    <li className="table-row-archived">
+                                                        <div className="col col-1" onClick={() => this.advertDetails(advert.id)}>{advert.title}</div>
+                                                        <div className="col col-2">{advert.shortDescription}</div>
+                                                        <div className="col col-3">{advert.createdAt}</div>
+                                                        <div className="col col-4">{i18n.t('categories.' + advert.advertCategory)}</div>
+                                                        <div className="col col-4"></div>
+                                                        <div className="col col-4"></div>
+                                                    </li> :
+                                                    <li className="table-row">
+                                                        <div className="col col-1" onClick={() => this.advertDetails(advert.id)}>{advert.title}</div>
+                                                        <div className="col col-2">{advert.shortDescription}</div>
+                                                        <div className="col col-3">{advert.createdAt}</div>
+                                                        <div className="col col-4">{i18n.t('categories.' + advert.advertCategory)}</div>
+                                                        <button className="user-panel-action-button col col-4" onClick={() => this.deleteAdvert(advert.id)} >{i18n.t('userPanel.delete')}</button>
+                                                        <button className="user-panel-action-button col col-4" onClick={() => this.archiveAdvert(advert.id)} >{i18n.t('userPanel.archive')}</button>
+                                                    </li>
+                                            ))}
+                                        </ul>
+                                        {this.state.userAdvertsPagesCount > 1 &&
+                                            <ReactPaginate
+                                                previousLabel={i18n.t('pagination.previous')}
+                                                nextLabel={i18n.t('pagination.next')}
+                                                breakLabel={"..."}
+                                                breakClassName={"break-me"}
+                                                pageCount={this.state.userAdvertsPagesCount}
+                                                marginPagesDisplayed={1}
+                                                pageRangeDisplayed={2}
+                                                onPageChange={this.handleUserAdvertsPage}
+                                                containerClassName={"pagination"}
+                                                activeClassName={"active"} />
+                                        }
+                                    </div>}
+                            </label>
+                            <label className="tab-2">
+                                <div className="tab-2-2">
+                                    <label htmlFor="tab2-2">{i18n.t('userPanel.secondTab')}</label>
+                                    <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadUserAppliactions.bind(this)} />
+                                    {this.state.tabIndex === 2 &&
+                                        <div>
+                                            <ul className="responsive-table">
+                                                <li className="table-header">
+                                                    <div className="col col-1">{i18n.t('userPanel.name')}</div>
+                                                    <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
+                                                    <div className="col col-3">{i18n.t('userPanel.category')}</div>
+                                                    <div className="col col-4">{i18n.t('userPanel.addedAt')}</div>
+                                                </li>
+                                                {this.state.userApplications.map(application => (
+                                                    <li className="table-row" onClick={() => this.advertDetails(application.advertId)}>
+                                                        <div className="col col-1">{application.advertTitle}</div>
+                                                        <div className="col col-2">{application.advertShortDescription}</div>
+                                                        <div className="col col-3">{i18n.t('categories.' + application.advertCategory)}</div>
+                                                        <div className="col col-3">{application.createdAt}</div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            {this.state.userApplicationsPagesCount > 1 &&
+                                                <ReactPaginate
+                                                    previousLabel={i18n.t('pagination.previous')}
+                                                    nextLabel={i18n.t('pagination.next')}
+                                                    breakLabel={"..."}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.userApplicationsPagesCount}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handleUserApplicationsPage}
+                                                    containerClassName={"pagination"}
+                                                    activeClassName={"active"} />
+                                            }
+                                        </div>}
                                 </div>
-                            </div>
-                        }
 
-                    </div>
-                </div>
+
+                            </label>
+                            <label className="tab-2">
+
+                                <div className="tab-2-3">
+                                    <label htmlFor="tab2-3">{i18n.t('userPanel.thirdTab')}</label>
+                                    <input id="tab2-3" name="tabs-two" type="radio" onChange={this.loadUserResponses.bind(this)} />
+                                    {this.state.tabIndex === 3 &&
+                                        <div>
+                                            <ul className="responsive-table">
+                                                <li className="table-header">
+                                                    <div className="col col-1">{i18n.t('userPanel.name')}</div>
+                                                    <div className="col col-2">{i18n.t('userPanel.shortDescription')}</div>
+                                                    <div className="col col-3">{i18n.t('userPanel.addedAt')}</div>
+                                                    <div className="col col-3">{i18n.t('userPanel.addedBy')}</div>
+                                                </li>
+                                                {this.state.userResponses.map(application => (
+                                                    <li className="table-row" onClick={() => this.addedByDetails(application.userId, application.companyId, application.advertType)}>
+                                                        <div className="col col-1">{application.advertTitle}</div>
+                                                        <div className="col col-2">{application.advertShortDescription}</div>
+                                                        <div className="col col-3">{application.createdAt}</div>
+                                                        <div className="col col-4">{application.addedBy}</div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            {this.state.userResponsesPagesCount > 1 &&
+                                                <ReactPaginate
+                                                    previousLabel={i18n.t('pagination.previous')}
+                                                    nextLabel={i18n.t('pagination.next')}
+                                                    breakLabel={"..."}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.userResponsesPagesCount}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handleUserResponsesPage}
+                                                    containerClassName={"pagination"}
+                                                    activeClassName={"active"} />
+                                            }
+                                        </div>}
+                                </div>
+                            </label>
+                            {localStorage.getItem('company_id') !== null &&
+                                <div className="tab-2">
+                                    <div className="tab-2-4">
+                                        <label htmlFor="tab2-4">{i18n.t('userPanel.fourthTab')}</label>
+                                        <input id="tab2-4" name="tabs-two" type="radio" onChange={this.loadCompany.bind(this)} />
+                                        {this.state.tabIndex === 4 &&
+                                            <CompanyView />}
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>}
             </div>
-            // </div>
-
         );
     }
 }

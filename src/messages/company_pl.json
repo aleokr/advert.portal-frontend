@@ -8,5 +8,10 @@
     "userEmail" : "email",
     "accept" : "Zatwierdź",
     "noData" : "Brak danych",
-    "delete" : "Usuń użytkownika"
+    "delete" : "Usuń użytkownika",
+    "addAttachment" : "Dodaj/Edytuj plik główny",
+    "addImage" : "Dodaj/Edytuj zdjęcie",
+    "mainFile" : "Plik główny firmy",
+    "choose" : "Wybierz",
+    "files" : "Plik:"
 }

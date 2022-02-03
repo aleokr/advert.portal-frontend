@@ -1,9 +1,7 @@
-import { Component } from "react";
 import "../css/user.component.css"
 import companyImage from "../assets/company.png"
 import i18n from "../messages/i18n"
 import React from "react";
-import ReactPaginate from "react-paginate";
 
 
 type CompanyUser = {
@@ -21,6 +19,12 @@ type State = {
     members: CompanyUser[];
     ownCompany: boolean;
     editMode: boolean;
+    attachment: FormData;
+    attachmentName: string;
+    image: FormData;
+    imageName: string;
+    imagePath: string;
+    mainFilePath: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -33,6 +37,12 @@ let initialState: State = {
     members: [],
     ownCompany: false,
     editMode: false,
+    attachment: new FormData(),
+    attachmentName: "",
+    image: new FormData(),
+    imageName: '',
+    imagePath: '',
+    mainFilePath: '',
     errorMessage: '',
     success: false
 }
@@ -187,6 +197,15 @@ class CompanyView extends React.Component<any> {
                         description: data.description
                     })
                 }
+                if (this.state.imageName !== "") {
+                    this.saveFile(this.state.image);
+                    this.setState({ imageName: "" });
+                }
+                if (this.state.attachmentName !== "") {
+                    this.saveFile(this.state.attachment);
+                    this.setState({ attachmentName: "" });
+
+                }
             });
 
         this.dispatch({
@@ -196,8 +215,8 @@ class CompanyView extends React.Component<any> {
     }
 
     loadData = () => {
-        const path  = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
-        
+        const path = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
+
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + path, {
             method: 'GET',
             headers: {
@@ -255,7 +274,9 @@ class CompanyView extends React.Component<any> {
                         id: data.id,
                         name: data.name,
                         description: data.description,
-                        members: data.members
+                        members: data.members,
+                        imagePath: data.imagePath,
+                        mainFilePath: data.mainFilePath
                     })
                 }
             })
@@ -317,12 +338,61 @@ class CompanyView extends React.Component<any> {
             .finally(() => this.loadData())
     }
 
+    addAttachment = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+
+        formData.append('file', files[0]);
+        formData.append('contentType', 'application/pdf');
+        formData.append('type', 'ATTACHMENT');
+        formData.append('resourceType', 'COMPANY');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ attachmentName: files[0].name });
+        this.setState({ attachment: formData });
+    }
+
+    addImage = (e: any): void => {
+        let files = e.target.files;
+        let formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('contentType', 'image/png');
+        formData.append('type', 'IMAGE');
+        formData.append('resourceType', 'COMPANY');
+        formData.append('resourceId', this.state.id.toString());
+        formData.append('fileName', files[0].name);
+
+        this.setState({ imageName: files[0].name });
+        this.setState({ image: formData });
+    }
+
+    saveFile = (body: FormData) => {
+        fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
+            method: 'POST',
+            body: body
+        });
+    }
     render() {
         return (
 
             <div className="center">
                 <div className="profile">
-                    <img src={companyImage} className="user-image" alt="Jessica Potter" />
+                    <img src={this.state.imagePath !== null && this.state.imagePath !== '' ? this.state.imagePath : companyImage} className="user-image" />
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('user.addAttachment')}</label>
+                        <label htmlFor="attachmentPicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="attachmentPicker" className="file-label">{this.state.attachmentName}</label>
+                        <input type="file" id="attachmentPicker" accept="application/pdf" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addAttachment.bind(this)(e) : ""} />
+                    </div>}
+                    {this.state.editMode && <div>
+                        <label className="file-label">{i18n.t('user.addImage')}</label>
+                        <label htmlFor="imagePicker" className="file-picker">{i18n.t('user.choose')}</label>
+                        <label htmlFor="imagePicker" className="file-label">{this.state.imageName}</label>
+                        <input type="file" id="imagePicker" accept="image/png" style={{ visibility: "hidden" }}
+                            onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addImage.bind(this)(e) : ""} />
+                    </div>}
                     {!this.state.editMode &&
                         <div>
                             <label className="user-label">{i18n.t('company.name')}</label>
@@ -339,6 +409,11 @@ class CompanyView extends React.Component<any> {
                             <textarea rows={10} className="user-input-edit" defaultValue={this.state.description} onChange={this.handleDescriptionInput} />
                         </div>
                     }
+                    {!this.state.editMode && this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
+                        <div>
+                            <label className="user-label" >{i18n.t('company.files')}</label>
+                            <a className="main-file" target="_blank" rel="noopener noreferrer"  href={this.state.mainFilePath} >{i18n.t('company.mainFile')}</a>
+                        </div>}
                 </div>
 
                 <div className="company-tabs">
@@ -356,7 +431,7 @@ class CompanyView extends React.Component<any> {
                                 <div className="col col-1">{member.name}</div>
                                 <div className="col col-2">{member.surname}</div>
                                 <div className="col col-3">{member.email}</div>
-                                {this.state.editMode && this.state.ownCompany && 
+                                {this.state.editMode && this.state.ownCompany &&
                                     <button className="accept-user-button" onClick={() => this.deleteUser(member.id)} >{i18n.t('company.delete')}</button>}
                             </li>
                         ))}

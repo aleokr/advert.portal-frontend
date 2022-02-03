@@ -4,5 +4,11 @@
     "longDescription" : "Long description",
     "category" : "Category",
     "addButton" : "Add",
-    "addAdvertTitle" : "New advert"
+    "addAdvertTitle" : "New advert",
+    "tags" : "Tags",
+    "select" : "Select...",
+    "noOptions" : "No options",
+    "image" : "Add image:",
+    "attachment" : "Add attachment:",
+    "choose": "Choose file"
 }

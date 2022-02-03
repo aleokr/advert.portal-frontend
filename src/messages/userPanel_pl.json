@@ -8,5 +8,7 @@
     "addedBy" : "dodano przez",
     "createdAt" : "data dodania",
     "category": "kategoria",
-    "addedAt": "dodano"
+    "addedAt": "dodano",
+    "delete": "Usuń ogłoszenie",
+    "archive": "Zarchiwizuj ogłoszenie"
 }

@@ -7,6 +7,7 @@
 }
  .profile {
 	position: relative;
+	align-items: center;
 	margin-top: 5%;
 	margin-left: 5%;
 }
@@ -17,17 +18,22 @@
     display: block;
     border-radius: 50%;
     background: #f5e8df;
+	margin-bottom: 5%;
 }
 
 .user-data{
 	position: relative;
-	margin-left: 5%;
-	margin-right: 10%;
+	margin-left: 1%;
+	margin-right: 5%;
 	margin-top: 5%;
 }
 .stats {
 	margin-top: 5%;
 	margin-bottom: 5%;
+	margin-right: 3%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
  .stats .box {
 	 box-sizing: border-box;
@@ -76,7 +82,6 @@
 	height: fit-content;
 	word-wrap: break-word;
     resize: none;
-	
 }
 
 .user-input-edit {
@@ -95,15 +100,22 @@
 	padding: 8px;
 }
 
-.statistic-label {
+.statistic-label, .tag-label {
 	position: relative;
 	margin-bottom: 20px;
-	margin-left: 100px;
+	margin-top: 10px;
+	text-align: center;
 	font-size: 20px;
 	font-weight: bold;
 }
 
-.setting-button {
+.tag-label {
+	font-size: 16px;
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.setting-button, .tag-button, .tag-ref{
 	position: relative;
     color: rgb(255, 255, 255);
     border: none;
@@ -112,18 +124,55 @@
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    margin-top: 10px;
-	margin-right: 20%;
     letter-spacing: 3px;
 	height: 50px;
 	background: #e6965d;
 }
+.setting-button {
+    margin-top: 10px;
+	margin-right: 10%;
+}
+.tag-button {
+	height: 30px;
+    font-size: 10px;
+	cursor: pointer;
+	align-self: center;
+	width: max-content;
+}
+.tag-ref {
+	cursor: pointer;
+    font-size: 10px;
+	padding: 8px 10px;
+	height: fit-content;
+}
 
-.setting-button:hover {
+.or-label {
+	padding: 8px 7px;
+	text-align: center;
+    font-size: 16px;
+}
+
+.setting-button:hover, .tag-button:hover, .tag-ref:hover {
     background: #d4610f;
     color: rgb(255, 255, 255);
     border-radius: 5px;
     box-shadow: 0 0 5px #d1545b,
                 0 0 25px #b65607,
                 0 0 50px #532805;
+  }
+
+  .tags {
+	  margin-bottom: 10%;
+  }
+
+  .main-file {
+	position: flex;
+	align-items: stretch;
+	border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;	
+	height: 50px;
+	/* background: #110c09; */
   }

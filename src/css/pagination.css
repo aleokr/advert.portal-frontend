@@ -3,7 +3,6 @@
     display: flex;
     list-style: none;
     width :fit-content;
-    /* text-align:center; */
   }
   .pagination > .active > a{
     background-color: #fafafa ;

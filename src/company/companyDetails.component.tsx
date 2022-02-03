@@ -5,14 +5,17 @@ import CompanyView from "../settings/company.settings.component"
 import "../css/companyDetails.component.css"
 
 
+const token: boolean = localStorage.getItem('access_token') !== '';
+
 class CompanyDeatilView extends React.Component<RouteComponentProps>{
     render() {
         return (
             <React.Fragment>
                 <NavBar />
-                <div className="company-view">
-                    <CompanyView ownCompany={false} id={(this.props.match.params as any)?.id} />
-                </div>
+                {token &&
+                    <div className="company-view">
+                        <CompanyView ownCompany={false} id={(this.props.match.params as any)?.id} />
+                    </div>}
             </React.Fragment>
         );
     }

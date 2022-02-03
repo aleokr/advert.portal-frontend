@@ -9,6 +9,7 @@ import SettingsView from "./settings/settings.component"
 import AdvertDetailsView from "./advert/advertDetails.component"
 import CompanyDetailView from "./company/companyDetails.component"
 import UserDetailView from "./user/userDetails.component"
+import NewTagView from "./tag/newTag.component"
 import { withTranslation } from "react-i18next";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route exact path='/settings' component={SettingsView} />
               <Route exact path='/company/:id' component={CompanyDetailView}  />
               <Route exact path='/user/:id' component={UserDetailView}  />
+              <Route exact path='/addTag' component={NewTagView}  />
             </Switch>
           </div>
         </div>
