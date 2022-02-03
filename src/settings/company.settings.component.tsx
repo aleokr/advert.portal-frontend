@@ -1,9 +1,7 @@
-import { Component } from "react";
 import "../css/user.component.css"
 import companyImage from "../assets/company.png"
 import i18n from "../messages/i18n"
 import React from "react";
-import ReactPaginate from "react-paginate";
 
 
 type CompanyUser = {
@@ -25,6 +23,8 @@ type State = {
     attachmentName: string;
     image: FormData;
     imageName: string;
+    imagePath: string;
+    mainFilePath: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -41,6 +41,8 @@ let initialState: State = {
     attachmentName: "",
     image: new FormData(),
     imageName: '',
+    imagePath: '',
+    mainFilePath: '',
     errorMessage: '',
     success: false
 }
@@ -272,7 +274,9 @@ class CompanyView extends React.Component<any> {
                         id: data.id,
                         name: data.name,
                         description: data.description,
-                        members: data.members
+                        members: data.members,
+                        imagePath: data.imagePath,
+                        mainFilePath: data.mainFilePath
                     })
                 }
             })
@@ -369,13 +373,12 @@ class CompanyView extends React.Component<any> {
             body: body
         });
     }
-
     render() {
         return (
 
             <div className="center">
                 <div className="profile">
-                    <img src={companyImage} className="user-image" alt="Jessica Potter" />
+                    <img src={this.state.imagePath !== null && this.state.imagePath !== '' ? this.state.imagePath : companyImage} className="user-image" />
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addAttachment')}</label>
                         <label htmlFor="attachmentPicker" className="file-picker">{i18n.t('user.choose')}</label>
@@ -406,10 +409,10 @@ class CompanyView extends React.Component<any> {
                             <textarea rows={10} className="user-input-edit" defaultValue={this.state.description} onChange={this.handleDescriptionInput} />
                         </div>
                     }
-                    {!this.state.editMode &&
+                    {!this.state.editMode && this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
                         <div>
                             <label className="user-label" >{i18n.t('company.files')}</label>
-                            <a className="main-file" href="https://www.google.com" >{i18n.t('company.mainFile')}</a>
+                            <a className="main-file" target="_blank" rel="noopener noreferrer"  href={this.state.mainFilePath} >{i18n.t('company.mainFile')}</a>
                         </div>}
                 </div>
 

@@ -28,6 +28,7 @@ type State = {
     editMode: boolean;
     archived: boolean;
     tags: Tag[];
+    mainFilePath: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -48,6 +49,7 @@ let initialState: State = {
     editMode: false,
     archived: false,
     tags: [],
+    mainFilePath: '',
     errorMessage: '',
     success: false
 }
@@ -166,9 +168,10 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                         applicationExists: data.applicationExists,
                         advertCreatedAt: data.createdAt,
                         canEdit: data.canEdit,
-                        archived: data.archived, 
+                        archived: data.archived,
                         canApplicate: data.canApplicate,
-                        tags: data.tags
+                        tags: data.tags,
+                        mainFilePath: data.mainFilePath
                     })
                 }
             })
@@ -387,6 +390,12 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                                         <div className="detail-input">{i18n.t('categories.' + this.state.advertCategory)}</div>
                                         <label className="detail-label">{i18n.t('advertDetail.createdAt')}</label>
                                         <div className="detail-input">{this.state.advertCreatedAt}</div>
+
+                                        {this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
+                                            <div>
+                                                <label className="user-label" >{i18n.t('company.files')}</label>
+                                                <a className="main-file" target="_blank" rel="noopener noreferrer" href={this.state.mainFilePath} >{i18n.t('advertDetail.mainFile')}</a>
+                                            </div>}
                                     </div>
                                 }
                                 {this.state.editMode &&
@@ -414,7 +423,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
                                 <div className="detail-input">{this.state.ownerName}</div>
                                 {this.state.tags.length > 0 && <div>
                                     <div className="detail-name-label">{i18n.t('advertDetail.tags')}</div>
-                                    <div className ="tags">{this.state.tags.map(tag => <div className = "tag">{tag.name} </div>)}</div>
+                                    <div className="tags">{this.state.tags.map(tag => <div className="tag">{tag.name} </div>)}</div>
                                 </div>
                                 }
                             </div>

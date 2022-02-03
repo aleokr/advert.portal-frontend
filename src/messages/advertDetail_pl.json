@@ -12,5 +12,6 @@
     "edit": "Edytuj",
     "save": "Zapisz zmiany",
     "applicated": "Zaaplikowano",
-    "tags": "Tagi ogłoszenia"
+    "tags": "Tagi ogłoszenia",
+    "mainFile" : "Plik główny ogłoszenia"
 }

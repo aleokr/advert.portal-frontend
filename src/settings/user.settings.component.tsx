@@ -3,6 +3,7 @@ import userImage from "../assets/user.png"
 import i18n from "../messages/i18n"
 import React from "react";
 import Select, { ValueType } from "react-select";
+import { Link } from "react-router-dom";
 
 type Tag = {
     id: number;
@@ -29,6 +30,8 @@ type State = {
     attachmentName: string;
     image: FormData;
     imageName: string;
+    imagePath: string;
+    mainFilePath: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -53,6 +56,8 @@ let initialState: State = {
     attachmentName: "",
     image: new FormData(),
     imageName: '',
+    imagePath: '',
+    mainFilePath: '',
     errorMessage: '',
     success: false
 }
@@ -195,7 +200,9 @@ class UserView extends React.Component<any>  {
                         advertsCount: data.advertsCount,
                         responsesCount: data.responsesCount,
                         applicationsCount: data.applicationsCount,
-                        tags: data.tags
+                        tags: data.tags,
+                        imagePath: data.imagePath,
+                        mainFilePath: data.mainFilePath
                     })
                 }
             })
@@ -455,10 +462,9 @@ class UserView extends React.Component<any>  {
 
     render() {
         return (
-
             <div className="center">
                 <div className="profile">
-                    <img src={userImage} className="user-image" />
+                    <img src={this.state.imagePath !== null && this.state.imagePath !== '' ? this.state.imagePath : userImage} className="user-image" />
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addAttachment')}</label>
                         <label htmlFor="attachmentPicker" className="file-picker">{i18n.t('user.choose')}</label>
@@ -466,10 +472,10 @@ class UserView extends React.Component<any>  {
                         <input type="file" id="attachmentPicker" accept="application/pdf" style={{ visibility: "hidden" }}
                             onChange={(e) => e.target.files !== null && e.target.files !== undefined ? this.addAttachment.bind(this)(e) : ""} />
                     </div>}
-                    {!this.state.editMode &&
+                    {!this.state.editMode && this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
                         <div>
                             <label className="user-label" >{i18n.t('user.files')}</label>
-                            <a className="main-file" href="https://www.google.com" >{i18n.t('user.mainFile')}</a>
+                            <a className="main-file" target="_blank" rel="noopener noreferrer"  href={this.state.mainFilePath} >{i18n.t('user.mainFile')}</a>
                         </div>}
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addImage')}</label>
