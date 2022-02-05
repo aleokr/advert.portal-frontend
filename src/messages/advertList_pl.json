@@ -5,5 +5,7 @@
     "createdAt" : "data dodania",
     "category": "kategoria",
     "firstTabName" : "ogłoszenia firmowe",
-    "secondTabName" : "ogłoszenia indywidualne"
+    "secondTabName" : "ogłoszenia indywidualne",
+    "serachByText" : "Wyszukaj ogłoszenia po tekście",
+    "searchBySimiliarity" : "Wyszukaj ogłoszenia na podstawie podobieństwa plików"
 }

@@ -156,3 +156,69 @@ h2 small {
                 0 0 25px #bd8456,
                 0 0 50px #6b4a2f;
   }
+  .check {
+	position: fixed;
+	background: #239201;
+	line-height: 0;
+}
+
+.check input[type="checkbox"],
+.check label,
+.check label::before,
+.check label::after,
+.check {
+	appearance: none;
+	display: inline-block;
+	border-radius: 1rem;
+	border: 0;
+	transition: .35s ease-in-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.check label {
+	width: 2.5rem;
+	height: 1.4rem;
+	background: #d7d7d7;
+	overflow: hidden;
+}
+
+.check input[type="checkbox"] {
+	position: absolute;
+	z-index: 1;
+	width: .8rem;
+	height: .8rem;
+	top: .1rem;
+	left: .1rem;
+	background: linear-gradient(45deg, #dedede, #ffffff);
+	box-shadow: 0 6px 7px rgba(0,0,0,0.3);
+	outline: none;
+}
+
+.check input[type="checkbox"]:checked {
+	left: 1.3rem;
+}
+
+.check input[type="checkbox"]:checked + label {
+	background: transparent;
+}
+
+.search-input {
+	position: relative;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	padding: 0.8rem 1.6rem 0.8rem;
+	background: rgba(255, 255, 255, 0.7);
+	font-size: 15px;
+	margin-bottom: 1%;
+  }
+  .search-label {
+	color: #ffffff;
+	/* display: block; */
+	/* font-size: 18px; */
+	text-transform: uppercase;
+	margin-right: 5px;
+	margin-top: 5%;
+	/* text-align: center; */
+  }
