@@ -1,20 +1,9 @@
 body {
 	background: linear-gradient(-45deg, #ce4d4d, #d66d4d, #e4842b, #dd9a5c);
-    background-size: 400% 400%;
-    animation: gradient 20s ease infinite;
-    color: rgb(53, 12, 6);
+	background-size: 400% 400%;
+	animation: gradient 20s ease infinite;
+	color: rgb(53, 12, 6);
 	font-family: 'Montserrat', sans-serif;
-    margin: 0 auto;
-    height: 100vh;
+	margin: 0 auto;
+	height: 100vh;
 }
-/* @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-} */

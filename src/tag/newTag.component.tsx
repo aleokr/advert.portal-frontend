@@ -152,7 +152,7 @@ class NewTagView extends Component {
                 }
                 {canSeePage &&
                     <div className="form-box">
-                        <img className="advertBlackLogo" src={logo} alt='logo' />
+                        <img className="advert-black-logo" src={logo} alt='logo' />
                         <h2>{i18n.t('tag.tagTitle')}</h2>
                         <form onSubmit={this.handleAddNewTag} >
                             <div className="user-box">

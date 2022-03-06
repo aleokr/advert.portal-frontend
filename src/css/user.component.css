@@ -1,32 +1,34 @@
-
- .center {
+.center {
 	display: flex;
 	margin-top: 20px;
 	background: rgba(255, 255, 255, 0.7);
 	border-radius: 10%;
 }
- .profile {
+
+.profile {
 	position: relative;
 	align-items: center;
 	margin-top: 5%;
 	margin-left: 5%;
 }
- .user-image {
+
+.user-image {
 	position: relative;
-    height: 300px;
-    width: 300px;
-    display: block;
-    border-radius: 50%;
-    background: #f5e8df;
+	height: 300px;
+	width: 300px;
+	display: block;
+	border-radius: 50%;
+	background: #f5e8df;
 	margin-bottom: 5%;
 }
 
-.user-data{
+.user-data {
 	position: relative;
 	margin-left: 1%;
 	margin-right: 5%;
 	margin-top: 5%;
 }
+
 .stats {
 	margin-top: 5%;
 	margin-bottom: 5%;
@@ -35,36 +37,43 @@
 	display: flex;
 	flex-direction: column;
 }
- .stats .box {
-	 box-sizing: border-box;
-	 width: 300px;
-	 height: 100px;
-	 margin-bottom: 10px;
-	 margin-top: 10px;
-	 background: #f5e8df;
-	 text-align: center;
-	 padding-top: 28px;
-	 transition: all 0.4s ease-in-out;
+
+.stats .box {
+	box-sizing: border-box;
+	width: 300px;
+	height: 100px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	background: #f5e8df;
+	text-align: center;
+	padding-top: 28px;
+	transition: all 0.4s ease-in-out;
 }
- .stats .box:hover {
+
+.stats .box:hover {
 	background: #786450;
 	color: #fff;
 }
- .stats .box:nth-child(2) {
-	 margin: 1px 0;
-}
- .stats span {
-	 display: block;
-}
- .stats .value {
-	 font-size: 18px;
-	 font-weight: 600;
-}
- .stats .parameter {
-	 font-size: 11px;
+
+.stats .box:nth-child(2) {
+	margin: 1px 0;
 }
 
-.user-input, .user-input-edit {
+.stats span {
+	display: block;
+}
+
+.stats .value {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.stats .parameter {
+	font-size: 11px;
+}
+
+.user-input,
+.user-input-edit {
 	position: relative;
 	display: flex;
 	flex-direction: row;
@@ -81,11 +90,11 @@
 	max-width: 250px;
 	height: fit-content;
 	word-wrap: break-word;
-    resize: none;
+	resize: none;
 }
 
 .user-input-edit {
-    color: rgba(39, 24, 24, 0.658);
+	color: rgba(39, 24, 24, 0.658);
 }
 
 .user-input {
@@ -96,11 +105,12 @@
 	position: relative;
 	margin-bottom: 10px;
 	font-weight: bold;
-    color: rgba(39, 24, 24, 0.658);
+	color: rgba(39, 24, 24, 0.658);
 	padding: 8px;
 }
 
-.statistic-label, .tag-label {
+.statistic-label,
+.tag-label {
 	position: relative;
 	margin-bottom: 20px;
 	margin-top: 10px;
@@ -115,33 +125,38 @@
 	font-weight: bold;
 }
 
-.setting-button, .tag-button, .tag-ref{
+.setting-button,
+.tag-button,
+.tag-ref {
 	position: relative;
-    color: rgb(255, 255, 255);
-    border: none;
+	color: rgb(255, 255, 255);
+	border: none;
 	border-radius: 10px;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+	font-size: 16px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 3px;
 	height: 50px;
 	background: #e6965d;
 }
+
 .setting-button {
-    margin-top: 10px;
+	margin-top: 10px;
 	margin-right: 10%;
 }
+
 .tag-button {
 	height: 30px;
-    font-size: 10px;
+	font-size: 10px;
 	cursor: pointer;
 	align-self: center;
 	width: max-content;
 }
+
 .tag-ref {
 	cursor: pointer;
-    font-size: 10px;
+	font-size: 10px;
 	padding: 8px 10px;
 	height: fit-content;
 }
@@ -149,29 +164,29 @@
 .or-label {
 	padding: 8px 7px;
 	text-align: center;
-    font-size: 16px;
+	font-size: 16px;
 }
 
-.setting-button:hover, .tag-button:hover, .tag-ref:hover {
-    background: #d4610f;
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    box-shadow: 0 0 5px #d1545b,
-                0 0 25px #b65607,
-                0 0 50px #532805;
-  }
+.setting-button:hover,
+.tag-button:hover,
+.tag-ref:hover {
+	background: #d4610f;
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	box-shadow: 0 0 5px #d1545b, 0 0 25px #b65607, 0 0 50px #532805;
+}
 
-  .tags {
-	  margin-bottom: 10%;
-  }
+.tags {
+	margin-bottom: 10%;
+}
 
-  .main-file {
+.main-file {
 	position: flex;
 	align-items: stretch;
 	border-radius: 10px;
-    font-size: 15px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;	
+	font-size: 15px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
 	height: 50px;
-  }
+}

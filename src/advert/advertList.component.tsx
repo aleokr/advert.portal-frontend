@@ -227,7 +227,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     render() {
         return (
-            <div className="listBody">
+            <div className="list-body">
                 <div className="tabs">
                     <div className="tab-2">
                         <label className="list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>

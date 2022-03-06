@@ -169,7 +169,7 @@ class NewCompanyView extends Component {
                 }
                 {canSeePage &&
                     <div className="form-box">
-                        <img className="advertBlackLogo" src={logo} alt='logo' />
+                        <img className="advert-black-logo" src={logo} alt='logo' />
                         <h2>{i18n.t('newCompany.addCompanyTitle')}</h2>
                         <form action="./addCompany" onSubmit={this.handleAddNewCompany} >
                             <div className="user-box">

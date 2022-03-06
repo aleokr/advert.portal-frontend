@@ -493,8 +493,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             <div>
                 <NavBar />
                 {token &&
-                    <div className="panelListBody">
-                        <div className="panelTabs">
+                    <div className="panel-list-body">
+                        <div className="panel-tabs">
 
                             <label className="tab-2">
                                 <label htmlFor="tab2-1">{i18n.t('userPanel.firstTab')}</label>

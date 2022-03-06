@@ -273,7 +273,7 @@ class NewAdvertView extends Component {
                 }
                 {token &&
                     <div className="form-box">
-                        <img className="advertBlackLogo" src={logo} alt='logo' />
+                        <img className="advert-black-logo" src={logo} alt='logo' />
                         <h2>{i18n.t('newAdvert.addAdvertTitle')}</h2>
                         <form action="./addAdvert" onSubmit={this.handleAddNewAdvert} >
                             <div className="select-box">

@@ -186,14 +186,14 @@ class CompanyView extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="companyPage">
+                <div className="company-page">
                     <div className="company-profile">
                         <img src={companyImage} className="company-image" alt="Company Profile Image" />
 
-                        <div className="companyLabel">{i18n.t('company.name')}</div>
-                        <div className="companyName">{this.state.name}</div>
-                        <div className="companyLabel">{i18n.t('company.description')}</div>
-                        <div className="companyDescription">{this.state.description}</div>
+                        <div className="company-label">{i18n.t('company.name')}</div>
+                        <div className="company-name">{this.state.name}</div>
+                        <div className="company-label">{i18n.t('company.description')}</div>
+                        <div className="company-description">{this.state.description}</div>
                     </div>
                     <div className="company-tabs">
 

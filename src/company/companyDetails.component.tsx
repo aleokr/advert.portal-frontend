@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import NavBar from "../navigation/navBar.component";
-import CompanyView from "../settings/company.settings.component"
+import CompanyView from "./companyView.component"
 import "../css/companyDetails.component.css"
 
 

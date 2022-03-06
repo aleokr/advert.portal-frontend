@@ -1,5 +1,5 @@
-import { Link, Redirect } from "react-router-dom";
-import '../css/form.css'
+import { Link, Redirect, RouteComponentProps } from "react-router-dom";
+import "../css/form.css";
 import { Component } from "react";
 import React from "react";
 import i18n from "../messages/i18n"
@@ -57,7 +57,7 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-class LoginView extends Component {
+class LoginView extends React.Component<RouteComponentProps> {
     state = initialState;
 
     dispatch(action: Action) {
@@ -78,6 +78,7 @@ class LoginView extends Component {
         });
     };
 
+    /* istanbul ignore next */ 
     handleSubmitLogin = (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -138,6 +139,9 @@ class LoginView extends Component {
             })
 
     }
+    goToRegister = () => {
+        this.props.history.push('/register');
+    };
 
 
     render() {
@@ -150,28 +154,30 @@ class LoginView extends Component {
                     <Redirect to='/' />
                 }
                 {!this.state.success && this.state.errorMessage !== '' &&
-                    <div className="error_message">
+                    <div className="error-message">
                         {i18n.t('login.error')}
                     </div>}
                 <div className="form-box">
-                    <img className="advertBlackLogo" src={logo} alt='logo' />
+                    <img className="advert-black-logo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitLogin}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} maxLength={100} required />
+                            <input type="text" id="loginInput" onChange={this.handleUsernameInput} maxLength={100} required />
                             <label>{i18n.t('login.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="password" onChange={this.handlePasswordInput} maxLength={100} required />
+                            <input type="password" id="passwordInput" onChange={this.handlePasswordInput} maxLength={100} required />
                             <label>{i18n.t('login.password')}</label>
                         </div>
                         <button className="form-button" type="submit">{i18n.t('login.loginButton')}</button>
                         <h3>{i18n.t('login.or')}</h3>
-                        <Link className="form-button" to="/register" >{i18n.t('login.registerButton')}</Link>
+                        <button className="form-button" onClick={this.goToRegister}>{i18n.t('login.registerButton')}</button>
                     </form>
                 </div >
             </React.Fragment>
         );
     }
 }
+
+export { initialState, reducer };
 
 export default LoginView;

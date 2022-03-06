@@ -1,92 +1,84 @@
-.menuContainer {
-    position: fixed;
-    width: 100%;
-    height: inherit;
-    background: linear-gradient(-45deg,  #da6542, #e27610, #e29954);
-    
+.menu-container {
+	position: fixed;
+	width: 100%;
+	height: inherit;
+	background: linear-gradient(-45deg, #da6542, #e27610, #e29954);
 }
 
-.navMenu {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  height: 80%;
+.nav-menu {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	height: 80%;
 }
 
-.navMenu a {
-    padding: 15px 15px;
-    color: #ffffff;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 10%;
-    text-transform: uppercase;
-    margin-right: 20px;
-    margin-left: 20px;
+.nav-menu a {
+	padding: 15px 15px;
+	color: #ffffff;
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 10%;
+	text-transform: uppercase;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
-.navMenu a:hover {
-    background: #ca5a1a;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #d1545b,
-                0 0 25px #b65607,
-                0 0 50px #884209;
+.nav-menu a:hover {
+	background: #ca5a1a;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #d1545b, 0 0 25px #b65607, 0 0 50px #884209;
 }
 
-.nav-logout{
-    position: fixed;
-    color: #ffffff;
-    background: transparent;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    left: 90%;
+.nav-logout {
+	position: fixed;
+	color: #ffffff;
+	background: transparent;
+	border: none;
+	padding: 10px 20px;
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	left: 90%;
 }
 
-.nav-login{
-    position: fixed;
-    color: #ffffff;
-    background: transparent;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    left: 90%;
+.nav-login {
+	position: fixed;
+	color: #ffffff;
+	background: transparent;
+	border: none;
+	padding: 10px 20px;
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	left: 90%;
 }
 
-.menuContainer button:hover {
-    background: #ca5a1a;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #c5abac,
-                0 0 25px #b65607,
-                0 0 50px #884209;
-
+.menu-container button:hover {
+	background: #ca5a1a;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #c5abac, 0 0 25px #b65607, 0 0 50px #884209;
 }
 
-.advertLogo {
-    width: max-content;
-    height: 50px;
+.advert-logo {
+	width: max-content;
+	height: 50px;
 }
 
 .icon {
-    height: 40px;
-    position: relative;
-    cursor: pointer;
-    
+	height: 40px;
+	position: relative;
+	cursor: pointer;
 }
 
-.disableLink{
-    pointer-events: none;
-    opacity: 0.4;
-    
+.disable-link {
+	pointer-events: none;
+	opacity: 0.4;
 }

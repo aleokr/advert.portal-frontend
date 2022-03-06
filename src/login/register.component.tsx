@@ -245,11 +245,11 @@ class RegisterView extends Component {
                     <Redirect to='/login' />}
 
                 {this.state.errorMessage !== '' &&
-                    <div className="error_message">
+                    <div className="error-message">
                         {i18n.t('register.error')}
                     </div>}
                 <div className="form-box">
-                    <img className="advertBlackLogo" src={logo} alt='logo' />
+                    <img className="advert-black-logo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
                             <input type="text" onChange={this.handleNameInput} maxLength={100} required />

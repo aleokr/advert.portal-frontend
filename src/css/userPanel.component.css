@@ -1,10 +1,10 @@
-.panelListBody {
+.panel-list-body {
 	background: transparent;
 	padding: 50px;
 	height: max-content;
 }
 
-.panelTabs {
+.panel-tabs {
 	display: block;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -16,8 +16,8 @@
 	overflow: hidden;
 }
 
-.panelTabs [class^="tab"] label,
-.panelTabs [class*=" tab"] label {
+.panel-tabs [class^="tab"] label,
+.panel-tabs [class*=" tab"] label {
 	color: #ffffff;
 	cursor: pointer;
 	display: block;
@@ -28,8 +28,8 @@
 	text-align: center;
 }
 
-.panelTabs [class^="tab"] [type="radio"],
-.panelTabs [class*=" tab"] [type="radio"] {
+.panel-tabs [class^="tab"] [type="radio"],
+.panel-tabs [class*=" tab"] [type="radio"] {
 	border-bottom: 1px solid rgba(163, 120, 84, 0.5);
 	cursor: pointer;
 	-webkit-appearance: none;
@@ -43,25 +43,25 @@
 	transition: all 0.3s ease-in-out;
 }
 
-.panelTabs [class^="tab"] [type="radio"]:hover,
-.panelTabs [class^="tab"] [type="radio"]:focus,
-.panelTabs [class*=" tab"] [type="radio"]:hover,
-.panelTabs [class*=" tab"] [type="radio"]:focus {
+.panel-tabs [class^="tab"] [type="radio"]:hover,
+.panel-tabs [class^="tab"] [type="radio"]:focus,
+.panel-tabs [class*=" tab"] [type="radio"]:hover,
+.panel-tabs [class*=" tab"] [type="radio"]:focus {
 	border-bottom: 1px solid #d84d0c;
 }
 
-.panelTabs [class^="tab"] [type="radio"]:checked,
-.panelTabs [class*=" tab"] [type="radio"]:checked {
+.panel-tabs [class^="tab"] [type="radio"]:checked,
+.panel-tabs [class*=" tab"] [type="radio"]:checked {
 	border-bottom: 2px solid #d84d0c;
 }
 
-.panelTabs [class^="tab"] [type="radio"]:checked+div,
-.panelTabs [class*=" tab"] [type="radio"]:checked+div {
+.panel-tabs [class^="tab"] [type="radio"]:checked+div,
+.panel-tabs [class*=" tab"] [type="radio"]:checked+div {
 	opacity: 1;
 }
 
-.panelTabs [class^="tab"] [type="radio"]+div,
-.panelTabs [class*=" tab"] [type="radio"]+div {
+.panel-tabs [class^="tab"] [type="radio"]+div,
+.panel-tabs [class*=" tab"] [type="radio"]+div {
 	opacity: 0;
 	padding: 2rem 0;
 	width: 90%;
@@ -71,11 +71,11 @@
 	transition: all 0.3s ease-in-out;
 }
 
-.panelTabs .tab-2 {
+.panel-tabs .tab-2 {
 	width: 25%;
 }
 
-.panelTabs .tab-2 [type="radio"]+div {
+.panel-tabs .tab-2 [type="radio"]+div {
 	width: 400%;
 }
 
@@ -90,7 +90,6 @@
 .tab-2-4 [type="radio"]:checked+div {
 	margin-left: -300%;
 }
-
 
 h2 {
 	font-size: 26px;
@@ -172,7 +171,5 @@ h2 small {
 	background: #d47944;
 	color: #fff;
 	border-radius: 5px;
-	box-shadow: 0 0 5px #d1545b,
-		0 0 10px #b65607,
-		0 0 15px #884209;
+	box-shadow: 0 0 5px #d1545b, 0 0 10px #b65607, 0 0 15px #884209;
 }
