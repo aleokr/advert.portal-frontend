@@ -2,14 +2,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginView from "./login/login.component";
 import RegisterView from "./login/register.component";
 import Dashboard from "./dashboard/dashboard.component";
-import NewAdvertView from "./advert/newAdvert.component";
-import NewCompanyView from "./company/newCompany.component";
+import NewAdvertView from "./advert/newAdvertView.component";
+import NewCompanyView from "./company/newCompanyView.component";
 import UserPanelView from "./userPanel/userPanel.component"
 import SettingsView from "./settings/settings.component"
 import AdvertDetailsView from "./advert/advertDetails.component"
 import CompanyDetailView from "./company/companyDetails.component"
 import UserDetailView from "./user/userDetails.component"
-import NewTagView from "./tag/newTag.component"
+import NewTagView from "./tag/newTagView.component"
 import { withTranslation } from "react-i18next";
 
 function App() {

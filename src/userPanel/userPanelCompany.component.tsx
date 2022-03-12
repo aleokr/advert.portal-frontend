@@ -52,14 +52,17 @@ function reducer(state: State, action: Action): State {
 class CompanyView extends Component {
     state = initialState;
 
+    /* istanbul ignore next */ 
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */ 
     componentDidMount() {
         this.loadData();
     }
 
+    /* istanbul ignore next */ 
     loadData = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/', {
             method: 'GET',
@@ -127,6 +130,7 @@ class CompanyView extends Component {
             })
     };
 
+    /* istanbul ignore next */ 
     acceptUserRequest = (id: number) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/activate/' + id, {
             method: 'PUT',
@@ -245,4 +249,5 @@ class CompanyView extends Component {
     }
 }
 
+export { initialState, reducer };
 export default CompanyView;

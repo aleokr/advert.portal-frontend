@@ -114,6 +114,7 @@ function reducer(state: State, action: Action): State {
         case 'registerFailed':
             return {
                 ...state,
+                success: false,
                 errorMessage: action.payload
             };
         case 'setError':
@@ -132,6 +133,7 @@ class RegisterView extends Component {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/list')
             .then(response => response.json())
@@ -199,6 +201,7 @@ class RegisterView extends Component {
         });
     };
 
+    /* istanbul ignore next */
     handleSubmitRegister = (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -302,4 +305,5 @@ class RegisterView extends Component {
 
 }
 
+export { initialState, reducer };
 export default RegisterView;

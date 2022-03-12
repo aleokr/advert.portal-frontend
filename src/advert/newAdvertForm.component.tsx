@@ -5,7 +5,6 @@ import i18n from "../messages/i18n"
 import logo from '../assets/logo_black.png';
 import React from "react";
 import { Redirect } from "react-router-dom";
-import NavBar from "../navigation/navBar.component"
 
 type State = {
     title: string;
@@ -34,7 +33,7 @@ let initialState: State = {
     categories: [],
     tags: [],
     attachment: new FormData(),
-    fileName: "",
+    fileName: '',
     selectTagIds: [],
     errorMessage: '',
     success: false
@@ -79,6 +78,7 @@ function reducer(state: State, action: Action): State {
         case 'addFailed':
             return {
                 ...state,
+                success: false, 
                 errorMessage: action.payload
             };
         case 'setError':
@@ -92,7 +92,7 @@ function reducer(state: State, action: Action): State {
 
 const token: boolean = localStorage.getItem('access_token') !== '';
 
-class NewAdvertView extends Component {
+class NewAdvertForm extends Component {
     state = initialState;
 
     handleTitleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +137,7 @@ class NewAdvertView extends Component {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */ 
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/categories')
             .then(response => response.json())
@@ -152,6 +153,7 @@ class NewAdvertView extends Component {
 
     }
 
+    /* istanbul ignore next */ 
     saveFile = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
             method: 'POST',
@@ -159,6 +161,7 @@ class NewAdvertView extends Component {
           });
     }
 
+    /* istanbul ignore next */ 
     handleAddNewAdvert = (event: React.FormEvent) => {
         event.preventDefault();
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/save', {
@@ -263,8 +266,6 @@ class NewAdvertView extends Component {
         return (
 
             <React.Fragment>
-                <NavBar />
-
                 {this.state.errorMessage === '' && this.state.success === true &&
                     <Redirect to='/userPanel' />
                 }
@@ -332,6 +333,7 @@ class NewAdvertView extends Component {
 
 }
 
-export default NewAdvertView;
+export { initialState, reducer };
+export default NewAdvertForm;
 
 

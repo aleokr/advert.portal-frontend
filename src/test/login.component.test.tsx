@@ -20,8 +20,9 @@ function initializeComponent() {
 }
 const location = createLocation(path.replace(':id', '1'));
 describe('Login component reducer function', function () {
+    const inst = initializeComponent();
+
     it('initial state', function () {
-        const inst = initializeComponent();
         expect(inst.state.username).toEqual('');
         expect(inst.state.password).toEqual('');
         expect(inst.state.success).toEqual(false);
@@ -29,8 +30,6 @@ describe('Login component reducer function', function () {
     });
 
     it('set values', function () {
-        const inst = initializeComponent();
-
         expect(inst.state.username).toEqual('');
         let state = reducer(inst.state, {
             type: 'setUsername',
@@ -75,22 +74,23 @@ describe('Login component reducer function', function () {
 });
 
 describe('Put some value to the form', function () {
+    const inst = initializeComponent();
+
     it('change password input', () => {
-        const inst = initializeComponent();
         inst.handlePasswordInput({ target: { value: "newPassword" } });
         expect(inst.state.password).toEqual("newPassword");
     });
 
     it('change username input', () => {
-        const inst = initializeComponent();
         inst.handleUsernameInput({ target: { value: "newUsername" } })
         expect(inst.state.username).toEqual("newUsername");
     });
 });
 
 describe('Change page', function () {
+    const inst = initializeComponent();
+    
     it('go to register', () => {
-        const inst = initializeComponent();
         inst.goToRegister();
         expect(inst.props.history.location.pathname).toEqual("/register");
     });

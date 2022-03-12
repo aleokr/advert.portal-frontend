@@ -125,16 +125,19 @@ class UserView extends React.Component<any>  {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */ 
     componentDidMount() {
         this.setParams(this.props)
         this.loadData();
     }
 
+    /* istanbul ignore next */ 
     setParams = (props: any) => {
         this.state.id = props.id;
         this.state.ownData = props.ownData;
     };
 
+    /* istanbul ignore next */ 
     loadData = () => {
         const path = this.state.ownData ? '/api/v1/users/loggedUser' : '/api/v1/users/' + this.state.id;
 
@@ -218,6 +221,7 @@ class UserView extends React.Component<any>  {
                 this.setState({ tagsToSubscribe: data });
             });
     };
+
     editMode() {
         this.dispatch({
             type: 'setEditMode',
@@ -272,6 +276,7 @@ class UserView extends React.Component<any>  {
         this.setState({ selectedIds: tags });
     }
 
+    /* istanbul ignore next */ 
     subscribeTags = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/addResourceTag', {
             method: 'POST',
@@ -325,6 +330,7 @@ class UserView extends React.Component<any>  {
 
     };
 
+    /* istanbul ignore next */ 
     submitChanges() {
         {
             this.state.password === this.state.confirmPassword &&
@@ -453,6 +459,7 @@ class UserView extends React.Component<any>  {
         this.setState({ image: formData });
     }
 
+    /* istanbul ignore next */ 
     saveFile = (body: FormData) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
             method: 'POST',
@@ -573,4 +580,5 @@ class UserView extends React.Component<any>  {
     }
 }
 
+export { initialState, reducer };
 export default UserView;
