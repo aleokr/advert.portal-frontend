@@ -78,7 +78,7 @@ function reducer(state: State, action: Action): State {
         case 'addFailed':
             return {
                 ...state,
-                success: false, 
+                success: false,
                 errorMessage: action.payload
             };
         case 'setError':
@@ -137,7 +137,7 @@ class NewAdvertForm extends Component {
         this.setState(state => reducer(this.state, action));
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/categories')
             .then(response => response.json())
@@ -153,15 +153,15 @@ class NewAdvertForm extends Component {
 
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     saveFile = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
             method: 'POST',
             body: this.state.attachment
-          });
+        });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     handleAddNewAdvert = (event: React.FormEvent) => {
         event.preventDefault();
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/save', {
@@ -235,7 +235,7 @@ class NewAdvertForm extends Component {
             })
             .then(data => {
                 if (this.state.errorMessage === '') {
-                    this.setState({resourceId : data.id});
+                    this.setState({ resourceId: data.id });
                     this.state.attachment.append('resourceId', data.id);
                     this.dispatch({
                         type: 'addSuccess',
@@ -244,7 +244,7 @@ class NewAdvertForm extends Component {
                     this.saveFile();
                 }
             })
-            
+
     }
 
     addAttachment = (e: any): void => {
@@ -316,7 +316,7 @@ class NewAdvertForm extends Component {
                                 <div>
                                     <label className="file-label">{i18n.t('newAdvert.attachment')}</label>
                                     <label htmlFor="filePicker" className="file-picker">{i18n.t('newAdvert.choose')}</label>
-                                    <label htmlFor="filePicker"  className="file-label"> {this.state.fileName}</label>
+                                    <label htmlFor="filePicker" className="file-label"> {this.state.fileName}</label>
                                     <input type="file" id="filePicker" accept="application/pdf" style={{ visibility: "hidden" }}
                                         onChange={(e) => e.target.files != null ? this.addAttachment.bind(this)(e) : ""} />
                                 </div>

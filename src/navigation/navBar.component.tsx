@@ -1,4 +1,3 @@
-import { Component } from "react";
 import React from 'react';
 import { Container } from "react-bootstrap";
 import '../css/navBar.component.css'
@@ -64,10 +63,8 @@ class NavBar extends React.Component<RouteComponentProps> {
                 }
 
             </React.Fragment>
-
         );
     }
 }
-
 
 export default withRouter(NavBar);

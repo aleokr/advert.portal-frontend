@@ -80,7 +80,7 @@ class NewCompanyForm extends Component {
         });
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     handleAddNewCompany = (event: React.FormEvent) => {
         event.preventDefault();
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/companies/addCompany', {
@@ -187,8 +187,6 @@ class NewCompanyForm extends Component {
             </React.Fragment>
         );
     }
-
-
 }
 
 export { initialState, reducer };

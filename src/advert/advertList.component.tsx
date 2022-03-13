@@ -1,11 +1,9 @@
-import { Component } from "react";
 import i18n from "../messages/i18n";
 import '../css/advertList.component.css'
 import '../css/pagination.css'
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import { FormCheck } from "react-bootstrap";
 type AdvertType = {
     id: number;
     title: string;
@@ -55,12 +53,10 @@ let initialState: State = {
 }
 type Action = { type: 'setIndividaulPageNumber', payload: number }
     | { type: 'setCompanyPageNumber', payload: number }
-    | { type: 'setIndividualAdverts', payload: [] }
-    | { type: 'setComapanyAdverts', payload: [] }
     | { type: 'registerSuccess', payload: string }
     | { type: 'registerFailed', payload: string }
     | { type: 'setError', payload: string }
-    | { type: 'setSearchText', payload: string};
+    | { type: 'setSearchText', payload: string };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -70,20 +66,9 @@ function reducer(state: State, action: Action): State {
                 individualPageNumber: action.payload
             };
         case 'setCompanyPageNumber':
-            console.log('sssssssssssssssss' + action.payload)
             return {
                 ...state,
                 companyPageNumber: action.payload
-            };
-        case 'setIndividualAdverts':
-            return {
-                ...state,
-                individualAdverts: action.payload
-            };
-        case 'setComapanyAdverts':
-            return {
-                ...state,
-                companyAdverts: action.payload
             };
         case 'registerSuccess':
             return {
@@ -94,6 +79,7 @@ function reducer(state: State, action: Action): State {
         case 'registerFailed':
             return {
                 ...state,
+                success: false,
                 errorMessage: action.payload
             };
         case 'setError':
@@ -113,10 +99,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     state = initialState;
 
-    dispatch(action: Action) {
-        this.setState(state => reducer(this.state, action));
-    }
-
+    /* istanbul ignore next */
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/list')
             .then(response => response.json())
@@ -132,12 +115,13 @@ class AdvertListView extends React.Component<RouteComponentProps> {
         this.loadCompanyAdverts();
     }
 
+    /* istanbul ignore next */
     loadIndividualAdverts() {
-        let params : string = '&limit=10&type=INDIVIDUAL';
-        if(this.state.similarFiles){
+        let params: string = '&limit=10&type=INDIVIDUAL';
+        if (this.state.similarFiles) {
             params = params + '&similarFiles=true';
         }
-        if(this.state.searchText !== ''){
+        if (this.state.searchText !== '') {
             params = params + '&searchText=' + this.state.searchText;
         }
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
@@ -157,13 +141,14 @@ class AdvertListView extends React.Component<RouteComponentProps> {
             });
     }
 
+    /* istanbul ignore next */
     loadCompanyAdverts() {
-        let params : string = '&limit=10&type=COMPANY';
+        let params: string = '&limit=10&type=COMPANY';
 
-        if(this.state.similarFiles){
+        if (this.state.similarFiles) {
             params = params + '&similarFiles=true';
         }
-        if(this.state.searchText !== ''){
+        if (this.state.searchText !== '') {
             params = params + '&searchText=' + this.state.searchText;
         }
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
@@ -235,7 +220,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                         <div>
                             <div>
                                 <label className="search-label">{i18n.t('advertList.serachByText')}</label>
-                                <input className="search-input" value={this.state.searchText} onChange={this.handleChangeSearchText.bind(this)}/>
+                                <input className="search-input" value={this.state.searchText} onChange={this.handleChangeSearchText.bind(this)} />
                             </div>
                             <div>
                                 <label className="search-label">{i18n.t('advertList.searchBySimiliarity')}</label>
@@ -332,4 +317,5 @@ class AdvertListView extends React.Component<RouteComponentProps> {
     }
 }
 
-export default withRouter(AdvertListView);
+export { initialState, reducer };
+export default AdvertListView;

@@ -1,6 +1,5 @@
 import '../css/form.css'
 import React from "react";
-import NavBar from "../navigation/navBar.component"
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import "../css/advertDetails.component.css"
 import advertOwnerImage from "../assets/company.png"
@@ -108,14 +107,17 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-class AdvertDetailsView extends React.Component<RouteComponentProps>{
+class AdvertDetails extends React.Component<RouteComponentProps> {
 
     state = initialState;
+
+    /* istanbul ignore next */
     componentDidMount() {
         this.setId(this.props.match.params);
         this.loadData();
     }
 
+    /* istanbul ignore next */
     setId = (params: any) => {
         this.state.advertId = params.id;
     };
@@ -145,6 +147,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
         });
     };
 
+    /* istanbul ignore next */
     loadData = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/' + this.state.advertId, {
             method: 'GET',
@@ -184,6 +187,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
         });
     };
 
+    /* istanbul ignore next */
     submitChanges() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/adverts/update', {
             method: 'PUT',
@@ -269,7 +273,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
         });
     }
 
-
+    /* istanbul ignore next */
     applicate() {
         if (localStorage.getItem('access_token') === '') {
             window.location.reload();
@@ -356,10 +360,7 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
     render() {
         return (
-
             <React.Fragment>
-                <NavBar />
-
                 <body className="advert-details-body">
                     <div className="advert-detail-data" >
                         <div className="advert-detail-title">{i18n.t('advertDetail.advertDetailPageTitle')}</div>
@@ -432,11 +433,9 @@ class AdvertDetailsView extends React.Component<RouteComponentProps>{
 
                 </body>
             </React.Fragment >
-
         );
     }
-
-
 }
 
-export default withRouter(AdvertDetailsView)
+export { initialState, reducer };
+export default AdvertDetails;

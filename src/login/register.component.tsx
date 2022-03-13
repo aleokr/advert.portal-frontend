@@ -301,8 +301,6 @@ class RegisterView extends Component {
             </React.Fragment>
         );
     }
-
-
 }
 
 export { initialState, reducer };

@@ -1,12 +1,11 @@
 import '../css/form.css'
 import '../css/userPanel.component.css'
-
 import i18n from "../messages/i18n"
 import React from "react";
-import NavBar from "../navigation/navBar.component"
 import CompanyView from "./userPanelCompany.component"
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+
 type Advert = {
     id: number;
     title: string;
@@ -98,7 +97,7 @@ function reducer(state: State, action: Action): State {
 
 const token: boolean = localStorage.getItem('access_token') !== '';
 
-class UserPanelView extends React.Component<RouteComponentProps> {
+class UserPanel extends React.Component<RouteComponentProps> {
 
     state = initialState;
 
@@ -107,14 +106,13 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         this.setState(state => reducer(this.state, action));
     }
 
-
     /* istanbul ignore next */
     componentDidMount() {
         this.loadUserAdverts();
     }
 
-    /* istanbul ignore next */ 
-    loadUserAdverts = () => {
+    /* istanbul ignore next */
+    loadUserAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.userAdvertsPage + '&limit=10', {
             method: 'GET',
@@ -183,8 +181,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
     }
 
-    /* istanbul ignore next */ 
-    loadUserAppliactions = () => {
+    /* istanbul ignore next */
+    loadUserAppliactions() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userApplications?offset=' + 10 * this.state.userApplicationsPage + '&limit=10', {
             method: 'GET',
@@ -253,8 +251,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
     }
 
-    /* istanbul ignore next */ 
-    loadUserResponses = () => {
+    /* istanbul ignore next */
+    loadUserResponses() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userResponses?offset=' + 10 * this.state.userResponsesPage + '&limit=10', {
             method: 'GET',
@@ -325,19 +323,16 @@ class UserPanelView extends React.Component<RouteComponentProps> {
     }
 
 
-    /* istanbul ignore next */
     loadCompany = () => {
         this.setState({
             tabIndex: 4
         });
     }
 
-    /* istanbul ignore next */
     advertDetails = (id: number) => {
         this.props.history.push('/details/' + id);
     };
 
-    /* istanbul ignore next */
     addedByDetails = (userId: number, companyId: number, advertType: string) => {
         if (advertType === 'INDIVIDUAL' && companyId !== null) {
             this.props.history.push('/company/' + companyId);
@@ -347,7 +342,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         }
     };
 
-    /* istanbul ignore next */
     handleUserAdvertsPage = (e: any) => {
         this.setState({
             userAdvertsPage: e.selected,
@@ -356,7 +350,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         });
     };
 
-    /* istanbul ignore next */
     handleUserApplicationsPage = (e: any) => {
         this.setState({
             userApplicationsPage: e.selected,
@@ -365,8 +358,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         });
     };
 
-    
-    /* istanbul ignore next */
+
     handleUserResponsesPage = (e: any) => {
         this.setState({
             userResponsesPage: e.selected,
@@ -508,7 +500,6 @@ class UserPanelView extends React.Component<RouteComponentProps> {
     render() {
         return (
             <div>
-                <NavBar />
                 {token &&
                     <div className="panel-list-body">
                         <div className="panel-tabs">
@@ -660,4 +651,4 @@ class UserPanelView extends React.Component<RouteComponentProps> {
     }
 }
 export { initialState, reducer };
-export default withRouter(UserPanelView);
+export default UserPanel;

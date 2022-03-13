@@ -5,7 +5,7 @@ import NewTagForm from '../tag/newTagForm.component';
 
 function initializeComponent() {
     const wrapper = renderer.create(
-        <NewTagForm/>
+        <NewTagForm />
     );
 
 

@@ -78,13 +78,11 @@ function reducer(state: State, action: Action): State {
         case 'setError':
             return {
                 ...state,
-                success: false, 
+                success: false,
                 errorMessage: action.payload
             };
     }
 }
-
-
 
 class CompanyView extends React.Component<any> {
 
@@ -127,7 +125,7 @@ class CompanyView extends React.Component<any> {
         });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     submitChanges() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/companies/update', {
             method: 'PUT',
@@ -218,7 +216,7 @@ class CompanyView extends React.Component<any> {
         });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     loadData = () => {
         const path = this.state.ownCompany ? '/api/v1/companies/' : '/api/v1/companies/' + this.state.id;
 
@@ -287,7 +285,7 @@ class CompanyView extends React.Component<any> {
             })
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     deleteUser = (id: number) => {
         console.log('delee')
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/' + id, {
@@ -373,7 +371,7 @@ class CompanyView extends React.Component<any> {
         this.setState({ image: formData });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     saveFile = (body: FormData) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
             method: 'POST',
@@ -419,7 +417,7 @@ class CompanyView extends React.Component<any> {
                     {!this.state.editMode && this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
                         <div>
                             <label className="user-label" >{i18n.t('company.files')}</label>
-                            <a className="main-file" target="_blank" rel="noopener noreferrer"  href={this.state.mainFilePath} >{i18n.t('company.mainFile')}</a>
+                            <a className="main-file" target="_blank" rel="noopener noreferrer" href={this.state.mainFilePath} >{i18n.t('company.mainFile')}</a>
                         </div>}
                 </div>
 
@@ -462,8 +460,6 @@ class CompanyView extends React.Component<any> {
 
         );
     }
-
-
 }
 
 export { initialState, reducer };

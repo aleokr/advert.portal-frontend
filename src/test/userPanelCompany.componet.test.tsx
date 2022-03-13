@@ -5,7 +5,7 @@ import React from 'react';
 function initializeComponent() {
     const spy = jest.spyOn(CompanyView.prototype, 'componentDidMount').mockImplementation();
     const wrapper = renderer.create(
-        <CompanyView/>
+        <CompanyView />
     );
 
 

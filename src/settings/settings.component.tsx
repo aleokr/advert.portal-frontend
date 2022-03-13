@@ -34,8 +34,6 @@ class SettingsView extends React.Component {
             </React.Fragment>
         );
     }
-
-
 }
 
 export default SettingsView;

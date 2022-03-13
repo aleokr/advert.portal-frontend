@@ -1,7 +1,7 @@
 import { Component } from "react";
 import i18n from "../messages/i18n"
 import "../css/company.component.css"
-import companyImage from "../assets/company1.png"
+import companyImage from "../assets/company.png"
 import React from "react";
 
 type CompanyUser = {
@@ -52,17 +52,17 @@ function reducer(state: State, action: Action): State {
 class CompanyView extends Component {
     state = initialState;
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     componentDidMount() {
         this.loadData();
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     loadData = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/', {
             method: 'GET',
@@ -130,7 +130,7 @@ class CompanyView extends Component {
             })
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     acceptUserRequest = (id: number) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/activate/' + id, {
             method: 'PUT',

@@ -5,7 +5,7 @@ import React from 'react';
 function initializeComponent() {
     const spy = jest.spyOn(UserView.prototype, 'componentDidMount').mockImplementation();
     const wrapper = renderer.create(
-        <UserView/>
+        <UserView />
     );
 
 
@@ -154,13 +154,13 @@ describe('UserView component form input values', function () {
 
     it('addAttachment test', function () {
         expect(inst.state.attachmentName).toEqual('');
-        inst.addAttachment(({ target: { files: [{name : "attachmentName"}] } }));
+        inst.addAttachment(({ target: { files: [{ name: "attachmentName" }] } }));
         expect(inst.state.attachmentName).toEqual("attachmentName");
     });
 
     it('addImage test', function () {
         expect(inst.state.imageName).toEqual('');
-        inst.addImage(({ target: { files: [{name : "imageName"}] } }));
+        inst.addImage(({ target: { files: [{ name: "imageName" }] } }));
         expect(inst.state.imageName).toEqual("imageName");
     });
 });

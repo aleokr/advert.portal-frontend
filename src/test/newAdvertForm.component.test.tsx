@@ -6,7 +6,7 @@ import NewAdvertForm from '../advert/newAdvertForm.component';
 function initializeComponent() {
     const spy = jest.spyOn(NewAdvertForm.prototype, 'componentDidMount').mockImplementation();
     const wrapper = renderer.create(
-        <NewAdvertForm/>
+        <NewAdvertForm />
     );
     const inst = wrapper.getInstance();
     inst.state = initialState;
@@ -120,7 +120,7 @@ describe('NewAdvertForm component form input values', function () {
 
     it('addAttachment test', function () {
         expect(inst.state.fileName).toEqual('');
-        inst.addAttachment(({ target: { files: [{name : "newName"}] } }));
+        inst.addAttachment(({ target: { files: [{ name: "newName" }] } }));
         expect(inst.state.fileName).toEqual("newName");
     });
 });

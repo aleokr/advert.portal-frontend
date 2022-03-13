@@ -4,7 +4,7 @@ import React from 'react';
 
 function initializeComponent() {
     const wrapper = renderer.create(
-        <NewCompanyForm/>
+        <NewCompanyForm />
     );
 
 

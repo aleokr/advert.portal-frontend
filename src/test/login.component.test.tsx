@@ -73,7 +73,7 @@ describe('Login component reducer function', function () {
     });
 });
 
-describe('Put some value to the form', function () {
+describe('Login put some value to the form', function () {
     const inst = initializeComponent();
 
     it('change password input', () => {
@@ -87,9 +87,9 @@ describe('Put some value to the form', function () {
     });
 });
 
-describe('Change page', function () {
+describe('Login change page', function () {
     const inst = initializeComponent();
-    
+
     it('go to register', () => {
         inst.goToRegister();
         expect(inst.props.history.location.pathname).toEqual("/register");

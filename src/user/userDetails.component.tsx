@@ -18,8 +18,6 @@ class UserDeatilView extends React.Component<RouteComponentProps>{
             </React.Fragment>
         );
     }
-
-
 }
 
 export default withRouter(UserDeatilView);

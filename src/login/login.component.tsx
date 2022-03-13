@@ -1,6 +1,5 @@
-import { Link, Redirect, RouteComponentProps } from "react-router-dom";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import "../css/form.css";
-import { Component } from "react";
 import React from "react";
 import i18n from "../messages/i18n"
 import logo from '../assets/logo_black.png';
@@ -78,7 +77,7 @@ class LoginView extends React.Component<RouteComponentProps> {
         });
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     handleSubmitLogin = (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -179,5 +178,4 @@ class LoginView extends React.Component<RouteComponentProps> {
 }
 
 export { initialState, reducer };
-
 export default LoginView;

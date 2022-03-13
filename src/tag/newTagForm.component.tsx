@@ -64,7 +64,7 @@ class NewTagForm extends Component {
         });
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     handleAddNewTag = (event: React.FormEvent) => {
         event.preventDefault();
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/addTag', {
@@ -165,8 +165,6 @@ class NewTagForm extends Component {
             </React.Fragment>
         );
     }
-
-
 }
 
 export { initialState, reducer };

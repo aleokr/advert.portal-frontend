@@ -3,7 +3,6 @@ import userImage from "../assets/user.png"
 import i18n from "../messages/i18n"
 import React from "react";
 import Select, { ValueType } from "react-select";
-import { Link } from "react-router-dom";
 
 type Tag = {
     id: number;
@@ -116,8 +115,6 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-
-
 class UserView extends React.Component<any>  {
     state = initialState;
 
@@ -125,19 +122,19 @@ class UserView extends React.Component<any>  {
         this.setState(state => reducer(this.state, action));
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     componentDidMount() {
         this.setParams(this.props)
         this.loadData();
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     setParams = (props: any) => {
         this.state.id = props.id;
         this.state.ownData = props.ownData;
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     loadData = () => {
         const path = this.state.ownData ? '/api/v1/users/loggedUser' : '/api/v1/users/' + this.state.id;
 
@@ -276,7 +273,7 @@ class UserView extends React.Component<any>  {
         this.setState({ selectedIds: tags });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     subscribeTags = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/tags/addResourceTag', {
             method: 'POST',
@@ -330,7 +327,7 @@ class UserView extends React.Component<any>  {
 
     };
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     submitChanges() {
         {
             this.state.password === this.state.confirmPassword &&
@@ -459,7 +456,7 @@ class UserView extends React.Component<any>  {
         this.setState({ image: formData });
     }
 
-    /* istanbul ignore next */ 
+    /* istanbul ignore next */
     saveFile = (body: FormData) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/files/save', {
             method: 'POST',
@@ -482,7 +479,7 @@ class UserView extends React.Component<any>  {
                     {!this.state.editMode && this.state.mainFilePath !== null && this.state.mainFilePath !== '' &&
                         <div>
                             <label className="user-label" >{i18n.t('user.files')}</label>
-                            <a className="main-file" target="_blank" rel="noopener noreferrer"  href={this.state.mainFilePath} >{i18n.t('user.mainFile')}</a>
+                            <a className="main-file" target="_blank" rel="noopener noreferrer" href={this.state.mainFilePath} >{i18n.t('user.mainFile')}</a>
                         </div>}
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addImage')}</label>
