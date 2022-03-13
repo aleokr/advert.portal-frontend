@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import NavBar from "../navigation/navBar.component";
-import UserView from "../settings/user.settings.component"
+import UserView from "./userView.component"
 import "../css/companyDetails.component.css"
 
 const token: boolean = localStorage.getItem('access_token') !== '';
@@ -18,8 +18,6 @@ class UserDeatilView extends React.Component<RouteComponentProps>{
             </React.Fragment>
         );
     }
-
-
 }
 
 export default withRouter(UserDeatilView);

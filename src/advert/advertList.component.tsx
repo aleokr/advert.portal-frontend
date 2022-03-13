@@ -1,9 +1,8 @@
-import { Component } from "react";
 import i18n from "../messages/i18n";
 import '../css/advertList.component.css'
 import '../css/pagination.css'
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 type AdvertType = {
     id: number;
@@ -32,6 +31,8 @@ type State = {
     individualPagesCount: number;
     categories: CategoryType[];
     companies: CompaniesData[];
+    similarFiles: boolean;
+    searchText: string;
     errorMessage?: string;
     success: boolean;
 };
@@ -45,16 +46,17 @@ let initialState: State = {
     individualPagesCount: 0,
     categories: [],
     companies: [],
+    similarFiles: false,
+    searchText: '',
     errorMessage: '',
     success: false
 }
 type Action = { type: 'setIndividaulPageNumber', payload: number }
     | { type: 'setCompanyPageNumber', payload: number }
-    | { type: 'setIndividualAdverts', payload: [] }
-    | { type: 'setComapanyAdverts', payload: [] }
     | { type: 'registerSuccess', payload: string }
     | { type: 'registerFailed', payload: string }
-    | { type: 'setError', payload: string };
+    | { type: 'setError', payload: string }
+    | { type: 'setSearchText', payload: string };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -64,20 +66,9 @@ function reducer(state: State, action: Action): State {
                 individualPageNumber: action.payload
             };
         case 'setCompanyPageNumber':
-            console.log('sssssssssssssssss' + action.payload)
             return {
                 ...state,
                 companyPageNumber: action.payload
-            };
-        case 'setIndividualAdverts':
-            return {
-                ...state,
-                individualAdverts: action.payload
-            };
-        case 'setComapanyAdverts':
-            return {
-                ...state,
-                companyAdverts: action.payload
             };
         case 'registerSuccess':
             return {
@@ -88,12 +79,18 @@ function reducer(state: State, action: Action): State {
         case 'registerFailed':
             return {
                 ...state,
+                success: false,
                 errorMessage: action.payload
             };
         case 'setError':
             return {
                 ...state,
                 errorMessage: action.payload
+            };
+        case 'setSearchText':
+            return {
+                ...state,
+                searchText: action.payload
             };
     }
 }
@@ -102,10 +99,7 @@ class AdvertListView extends React.Component<RouteComponentProps> {
 
     state = initialState;
 
-    dispatch(action: Action) {
-        this.setState(state => reducer(this.state, action));
-    }
-
+    /* istanbul ignore next */
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/list')
             .then(response => response.json())
@@ -121,9 +115,17 @@ class AdvertListView extends React.Component<RouteComponentProps> {
         this.loadCompanyAdverts();
     }
 
+    /* istanbul ignore next */
     loadIndividualAdverts() {
+        let params: string = '&limit=10&type=INDIVIDUAL';
+        if (this.state.similarFiles) {
+            params = params + '&similarFiles=true';
+        }
+        if (this.state.searchText !== '') {
+            params = params + '&searchText=' + this.state.searchText;
+        }
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.individualPageNumber + '&limit=10&type=INDIVIDUAL', {
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.individualPageNumber + params, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
@@ -139,17 +141,26 @@ class AdvertListView extends React.Component<RouteComponentProps> {
             });
     }
 
+    /* istanbul ignore next */
     loadCompanyAdverts() {
+        let params: string = '&limit=10&type=COMPANY';
+
+        if (this.state.similarFiles) {
+            params = params + '&similarFiles=true';
+        }
+        if (this.state.searchText !== '') {
+            params = params + '&searchText=' + this.state.searchText;
+        }
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
-            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + '&limit=10&type=COMPANY', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-                }
-            })
+            '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.companyPageNumber + params, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
             .then(response => response.json())
             .then(data => {
-                if(data !== null){
+                if (data !== null) {
                     this.setState({
                         companyAdverts: data.adverts,
                         companyPageNumber: data.paging !== undefined ? data.paging.page : 0,
@@ -179,14 +190,44 @@ class AdvertListView extends React.Component<RouteComponentProps> {
         });
     };
 
+    handleChangeSimiliarFiles = (e: any) => {
+        let currentValue: boolean = this.state.similarFiles;
+        this.setState({
+            similarFiles: !currentValue,
+        }, () => {
+            this.loadIndividualAdverts();
+            this.loadCompanyAdverts();
+        });
+
+    }
+
+    handleChangeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            searchText: e.target.value,
+        }, () => {
+            this.loadIndividualAdverts();
+            this.loadCompanyAdverts();
+        });
+    }
+
     render() {
         return (
-            <div className="listBody">
+            <div className="list-body">
                 <div className="tabs">
                     <div className="tab-2">
                         <label className="list-label" htmlFor="tab2-1">{i18n.t('advertList.firstTabName')}</label>
                         <input id="tab2-1" name="tabs-two" type="radio" onChange={this.loadCompanyAdverts.bind(this)} defaultChecked />
                         <div>
+                            <div>
+                                <label className="search-label">{i18n.t('advertList.serachByText')}</label>
+                                <input className="search-input" value={this.state.searchText} onChange={this.handleChangeSearchText.bind(this)} />
+                            </div>
+                            <div>
+                                <label className="search-label">{i18n.t('advertList.searchBySimiliarity')}</label>
+                                <div className="check">
+                                    <input id="check" type="checkbox" onClick={this.handleChangeSimiliarFiles.bind(this)} checked={this.state.similarFiles} />
+                                    <label htmlFor="check"></label>
+                                </div></div>
                             <ul className="responsive-table">
                                 <li className="table-header">
                                     <div className="col col-1">{i18n.t('advertList.name')}</div>
@@ -226,6 +267,16 @@ class AdvertListView extends React.Component<RouteComponentProps> {
                         <label className="list-label" htmlFor="tab2-2">{i18n.t('advertList.secondTabName')}</label>
                         <input id="tab2-2" name="tabs-two" type="radio" onChange={this.loadIndividualAdverts.bind(this)} />
                         <div>
+                            <div>
+                                <label className="search-label">{i18n.t('advertList.serachByText')}</label>
+                                <input className="search-input" onChange={this.handleChangeSearchText.bind(this)} value={this.state.searchText} />
+                            </div>
+                            <div>
+                                <label className="search-label">{i18n.t('advertList.searchBySimiliarity')}</label>
+                                <div className="check">
+                                    <input id="check" type="checkbox" onClick={this.handleChangeSimiliarFiles.bind(this)} checked={this.state.similarFiles} />
+                                    <label htmlFor="check"></label>
+                                </div></div>
                             <ul className="responsive-table">
                                 <li className="table-header">
                                     <div className="col col-1">{i18n.t('advertList.name')}</div>
@@ -266,4 +317,5 @@ class AdvertListView extends React.Component<RouteComponentProps> {
     }
 }
 
-export default withRouter(AdvertListView);
+export { initialState, reducer };
+export default AdvertListView;

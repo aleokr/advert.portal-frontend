@@ -1,34 +1,47 @@
 .pagination {
-    margin-bottom: 15px;
-    display: flex;
-    list-style: none;
-    width :fit-content;
-  }
-  .pagination > .active > a{
-    background-color: #fafafa ;
-    border-color: #ffffff ;
-    color: #fff;
-  }
-  .pagination > li > a{
-    display:inline-block;
-    border: 1px solid #dd917a ;
-    background-color: rgb(255, 255, 255, 0.7);
-    padding: 5px 10px;
-    letter-spacing: 1px;
-    font-size: 15px;
+	margin-bottom: 15px;
+	display: flex;
+	list-style: none;
+	width: fit-content;
+}
+
+.pagination>.active>a {
+	background-color: #fafafa;
+	border-color: #ffffff;
+	color: #fff;
+}
+
+.pagination>li>a {
+	display: inline-block;
+	border: 1px solid #dd917a;
+	background-color: rgb(255, 255, 255, 0.7);
+	padding: 5px 10px;
+	letter-spacing: 1px;
+	font-size: 15px;
 	font-family: 'Montserrat', sans-serif;
-    outline: none;
-    cursor: pointer;
-  }
-  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-    background-color: #a02e0b ;
-    border-color: #deb647;
-    outline: none ;
-  }
-  .pagination > li > a, .pagination > li > span{
-    
-    color: rgb(53, 12, 6);
-  }
-  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
-    border-radius: unset
-  }
+	outline: none;
+	cursor: pointer;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+	background-color: #a02e0b;
+	border-color: #deb647;
+	outline: none;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+	color: rgb(53, 12, 6);
+}
+
+.pagination>li:first-child>a,
+.pagination>li:first-child>span,
+.pagination>li:last-child>a,
+.pagination>li:last-child>span {
+	border-radius: unset
+}

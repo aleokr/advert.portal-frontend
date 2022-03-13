@@ -1,13 +1,11 @@
-import { Component } from "react";
 import '../css/form.css'
 import '../css/userPanel.component.css'
-
 import i18n from "../messages/i18n"
 import React from "react";
-import NavBar from "../navigation/navBar.component"
 import CompanyView from "./userPanelCompany.component"
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+
 type Advert = {
     id: number;
     title: string;
@@ -99,19 +97,22 @@ function reducer(state: State, action: Action): State {
 
 const token: boolean = localStorage.getItem('access_token') !== '';
 
-class UserPanelView extends React.Component<RouteComponentProps> {
+class UserPanel extends React.Component<RouteComponentProps> {
 
     state = initialState;
 
+    /* istanbul ignore next */
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */
     componentDidMount() {
         this.loadUserAdverts();
     }
 
-    loadUserAdverts = () => {
+    /* istanbul ignore next */
+    loadUserAdverts() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/adverts/getAdverts?offset=' + 10 * this.state.userAdvertsPage + '&limit=10', {
             method: 'GET',
@@ -180,7 +181,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
     }
 
-    loadUserAppliactions = () => {
+    /* istanbul ignore next */
+    loadUserAppliactions() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userApplications?offset=' + 10 * this.state.userApplicationsPage + '&limit=10', {
             method: 'GET',
@@ -249,7 +251,8 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
     }
 
-    loadUserResponses = () => {
+    /* istanbul ignore next */
+    loadUserResponses() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/applications/userResponses?offset=' + 10 * this.state.userResponsesPage + '&limit=10', {
             method: 'GET',
@@ -318,12 +321,14 @@ class UserPanelView extends React.Component<RouteComponentProps> {
                 }
             })
     }
+
+
     loadCompany = () => {
         this.setState({
             tabIndex: 4
-        }
-        );
+        });
     }
+
     advertDetails = (id: number) => {
         this.props.history.push('/details/' + id);
     };
@@ -336,6 +341,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             this.props.history.push('/user/' + userId);
         }
     };
+
     handleUserAdvertsPage = (e: any) => {
         this.setState({
             userAdvertsPage: e.selected,
@@ -352,6 +358,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         });
     };
 
+
     handleUserResponsesPage = (e: any) => {
         this.setState({
             userResponsesPage: e.selected,
@@ -360,6 +367,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         });
     };
 
+    /* istanbul ignore next */
     deleteAdvert = (id: number) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/adverts/' + id, {
@@ -424,6 +432,7 @@ class UserPanelView extends React.Component<RouteComponentProps> {
             })
     };
 
+    /* istanbul ignore next */
     archiveAdvert = (id: number) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL +
             '/api/v1/adverts/archive/' + id, {
@@ -491,10 +500,9 @@ class UserPanelView extends React.Component<RouteComponentProps> {
     render() {
         return (
             <div>
-                <NavBar />
                 {token &&
-                    <div className="panelListBody">
-                        <div className="panelTabs">
+                    <div className="panel-list-body">
+                        <div className="panel-tabs">
 
                             <label className="tab-2">
                                 <label htmlFor="tab2-1">{i18n.t('userPanel.firstTab')}</label>
@@ -642,4 +650,5 @@ class UserPanelView extends React.Component<RouteComponentProps> {
         );
     }
 }
-export default withRouter(UserPanelView);
+export { initialState, reducer };
+export default UserPanel;

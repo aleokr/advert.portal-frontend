@@ -1,7 +1,7 @@
 import { Component } from "react";
 import i18n from "../messages/i18n"
 import "../css/company.component.css"
-import companyImage from "../assets/company1.png"
+import companyImage from "../assets/company.png"
 import React from "react";
 
 type CompanyUser = {
@@ -52,14 +52,17 @@ function reducer(state: State, action: Action): State {
 class CompanyView extends Component {
     state = initialState;
 
+    /* istanbul ignore next */
     dispatch(action: Action) {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */
     componentDidMount() {
         this.loadData();
     }
 
+    /* istanbul ignore next */
     loadData = () => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/', {
             method: 'GET',
@@ -127,6 +130,7 @@ class CompanyView extends Component {
             })
     };
 
+    /* istanbul ignore next */
     acceptUserRequest = (id: number) => {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/activate/' + id, {
             method: 'PUT',
@@ -186,14 +190,14 @@ class CompanyView extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="companyPage">
+                <div className="company-page">
                     <div className="company-profile">
                         <img src={companyImage} className="company-image" alt="Company Profile Image" />
 
-                        <div className="companyLabel">{i18n.t('company.name')}</div>
-                        <div className="companyName">{this.state.name}</div>
-                        <div className="companyLabel">{i18n.t('company.description')}</div>
-                        <div className="companyDescription">{this.state.description}</div>
+                        <div className="company-label">{i18n.t('company.name')}</div>
+                        <div className="company-name">{this.state.name}</div>
+                        <div className="company-label">{i18n.t('company.description')}</div>
+                        <div className="company-description">{this.state.description}</div>
                     </div>
                     <div className="company-tabs">
 
@@ -245,4 +249,5 @@ class CompanyView extends Component {
     }
 }
 
+export { initialState, reducer };
 export default CompanyView;

@@ -114,6 +114,7 @@ function reducer(state: State, action: Action): State {
         case 'registerFailed':
             return {
                 ...state,
+                success: false,
                 errorMessage: action.payload
             };
         case 'setError':
@@ -132,6 +133,7 @@ class RegisterView extends Component {
         this.setState(state => reducer(this.state, action));
     }
 
+    /* istanbul ignore next */
     componentDidMount() {
         fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/companies/list')
             .then(response => response.json())
@@ -199,6 +201,7 @@ class RegisterView extends Component {
         });
     };
 
+    /* istanbul ignore next */
     handleSubmitRegister = (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -245,11 +248,11 @@ class RegisterView extends Component {
                     <Redirect to='/login' />}
 
                 {this.state.errorMessage !== '' &&
-                    <div className="error_message">
+                    <div className="error-message">
                         {i18n.t('register.error')}
                     </div>}
                 <div className="form-box">
-                    <img className="advertBlackLogo" src={logo} alt='logo' />
+                    <img className="advert-black-logo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
                             <input type="text" onChange={this.handleNameInput} maxLength={100} required />
@@ -298,8 +301,7 @@ class RegisterView extends Component {
             </React.Fragment>
         );
     }
-
-
 }
 
+export { initialState, reducer };
 export default RegisterView;

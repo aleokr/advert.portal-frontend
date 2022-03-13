@@ -1,7 +1,7 @@
-.listBody {
+.list-body {
 	background: transparent;
 	padding: 50px;
-    height: max-content;
+	height: max-content;
 }
 
 .tabs {
@@ -92,67 +92,139 @@
 }
 
 h2 {
-    font-size: 26px;
-    margin: 20px 0;
-    text-align: center;
+	font-size: 26px;
+	margin: 20px 0;
+	text-align: center;
 }
+
 h2 small {
-    font-size: 0.5em;
+	font-size: 0.5em;
 }
+
 .responsive-table {
-    height: 100%;
+	height: 100%;
 }
+
 .responsive-table li {
-    border-radius: 3px;
-    padding: 25px 30px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
+	border-radius: 3px;
+	padding: 25px 30px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 25px;
 }
+
 .responsive-table .table-header {
-    background-color: transparent;
-    color: white;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+	background-color: transparent;
+	color: white;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
 }
+
 .responsive-table .table-row {
-    background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.8);
 	cursor: pointer;
 }
+
 .responsive-table .col-1 {
-    flex-basis: 20%;
+	flex-basis: 20%;
 }
+
 .responsive-table .col-2 {
-    flex-basis: 35%;
+	flex-basis: 35%;
 }
+
 .responsive-table .col-3 {
-    flex-basis: 15%;
+	flex-basis: 15%;
 }
+
 .responsive-table .col-4 {
-    flex-basis: 15%;
+	flex-basis: 15%;
 }
+
 .responsive-table .col-5 {
-    flex-basis: 15%;
+	flex-basis: 15%;
 }
 
 .advert-link {
 	position: relative;
-    color: rgb(53, 12, 6);
-    border: none;
+	color: rgb(53, 12, 6);
+	border: none;
 	padding: 3px 5px;
-    color: rgb(53, 12, 6);
-
-    text-decoration: none;
-    text-transform: uppercase;
-    background: transparent;
+	color: rgb(53, 12, 6);
+	text-decoration: none;
+	text-transform: uppercase;
+	background: transparent;
 }
-  
-  .advert-link:hover {
-    background: #e98d4c;
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    box-shadow: 0 0 5px #cc7c80,
-                0 0 25px #bd8456,
-                0 0 50px #6b4a2f;
-  }
+
+.advert-link:hover {
+	background: #e98d4c;
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	box-shadow: 0 0 5px #cc7c80, 0 0 25px #bd8456, 0 0 50px #6b4a2f;
+}
+
+.check {
+	position: fixed;
+	background: #239201;
+	line-height: 0;
+}
+
+.check input[type="checkbox"],
+.check label,
+.check label::before,
+.check label::after,
+.check {
+	appearance: none;
+	display: inline-block;
+	border-radius: 1rem;
+	border: 0;
+	transition: .35s ease-in-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.check label {
+	width: 2.5rem;
+	height: 1.4rem;
+	background: #d7d7d7;
+	overflow: hidden;
+}
+
+.check input[type="checkbox"] {
+	position: absolute;
+	z-index: 1;
+	width: .8rem;
+	height: .8rem;
+	top: .1rem;
+	left: .1rem;
+	background: linear-gradient(45deg, #dedede, #ffffff);
+	box-shadow: 0 6px 7px rgba(0, 0, 0, 0.3);
+	outline: none;
+}
+
+.check input[type="checkbox"]:checked {
+	left: 1.3rem;
+}
+
+.check input[type="checkbox"]:checked+label {
+	background: transparent;
+}
+
+.search-input {
+	position: relative;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	padding: 0.8rem 1.6rem 0.8rem;
+	background: rgba(255, 255, 255, 0.7);
+	font-size: 15px;
+	margin-bottom: 1%;
+}
+
+.search-label {
+	color: #ffffff;
+	text-transform: uppercase;
+	margin-right: 5px;
+	margin-top: 5%;
+}

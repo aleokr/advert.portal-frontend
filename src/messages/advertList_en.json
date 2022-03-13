@@ -5,5 +5,7 @@
     "createdAt" : "created at",
     "category": "category",
     "firstTabName" : "Company adverts",
-    "secondTabName" : "Individual adverts"
+    "secondTabName" : "Individual adverts",
+    "serachByText" : "Find adverts by text",
+    "searchBySimiliarity" : "Find adverts by files similiarity"
 }

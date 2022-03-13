@@ -1,4 +1,3 @@
-import { Component } from "react";
 import React from 'react';
 import { Container } from "react-bootstrap";
 import '../css/navBar.component.css'
@@ -26,22 +25,22 @@ class NavBar extends React.Component<RouteComponentProps> {
         return (
             <React.Fragment>
                 {localStorage.getItem('access_token') !== '' && localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null &&
-                    <Container className="menuContainer">
-                        <nav className="navMenu">
-                            <img className="advertLogo" src={logo} alt='logo' />
+                    <Container className="menu-container">
+                        <nav className="nav-menu">
+                            <img className="advert-logo" src={logo} alt='logo' />
                             <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
                             <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
-                            <a className="disableLink" href="/">{i18n.t('navBar.home')}</a>
-                            <a className="disableLink" href="/userPanel">{i18n.t('navBar.user')}</a>
-                            <a className="disableLink" href="/addAdvert">{i18n.t('navBar.advert')}</a>
-                            <a className="disableLink" href="/settings">{i18n.t('navBar.settings')}</a>
+                            <a className="disable-link" href="/">{i18n.t('navBar.home')}</a>
+                            <a className="disable-link" href="/userPanel">{i18n.t('navBar.user')}</a>
+                            <a className="disable-link" href="/addAdvert">{i18n.t('navBar.advert')}</a>
+                            <a className="disable-link" href="/settings">{i18n.t('navBar.settings')}</a>
                             <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
                         </nav>
                     </Container>}
                 {localStorage.getItem('access_token') !== '' && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
-                    <Container className="menuContainer">
-                        <nav className="navMenu">
-                            <img className="advertLogo" src={logo} alt='logo' />
+                    <Container className="menu-container">
+                        <nav className="nav-menu">
+                            <img className="advert-logo" src={logo} alt='logo' />
                             <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
                             <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
                             <a className="links" href="/">{i18n.t('navBar.home')}</a>
@@ -52,9 +51,9 @@ class NavBar extends React.Component<RouteComponentProps> {
                         </nav>
                     </Container>}
                 {localStorage.getItem('access_token') === '' &&
-                    <Container className="menuContainer">
-                        <nav className="navMenu">
-                            <img className="advertLogo" src={logo} alt='logo' />
+                    <Container className="menu-container">
+                        <nav className="nav-menu">
+                            <img className="advert-logo" src={logo} alt='logo' />
                             <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
                             <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
                             <a className="links" href="/">{i18n.t('navBar.home')}</a>
@@ -64,10 +63,8 @@ class NavBar extends React.Component<RouteComponentProps> {
                 }
 
             </React.Fragment>
-
         );
     }
 }
-
 
 export default withRouter(NavBar);

@@ -1,8 +1,8 @@
 import i18n from "../messages/i18n"
 import React from "react";
 import NavBar from "../navigation/navBar.component"
-import UserView from "./user.settings.component"
-import CompanyView from "./company.settings.component"
+import UserView from "../user/userView.component"
+import CompanyView from "../company/companyView.component"
 import "../css/settings.component.css"
 
 const token: boolean = localStorage.getItem('access_token') !== '';
@@ -13,8 +13,8 @@ class SettingsView extends React.Component {
             <React.Fragment>
                 <NavBar />
                 {token &&
-                    <body className="settingsListBody">
-                        <div className="settingsTabs">
+                    <body className="settings-list-body">
+                        <div className="settings-tabs">
                             <div className="tab-2">
                                 <label className="settings-label" htmlFor="tab2-1">{i18n.t('settings.userTab')}</label>
                                 <input id="tab2-1" name="tabs-two" type="radio" defaultChecked />
@@ -34,8 +34,6 @@ class SettingsView extends React.Component {
             </React.Fragment>
         );
     }
-
-
 }
 
 export default SettingsView;
