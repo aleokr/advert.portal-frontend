@@ -279,7 +279,7 @@ class NewAdvertForm extends Component {
                         <form action="./addAdvert" onSubmit={this.handleAddNewAdvert} >
                             <div className="select-box">
                                 <label>{i18n.t('newAdvert.category')}</label>
-                                <select onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
+                                <select id="categorySelect" onChange={e => this.handleAdvertCategoryInput(e)} value={this.state.category}>
                                     {this.state.categories.map(category => (
                                         <option key={category} value={category}>
                                             {i18n.t('categories.' + category)}
@@ -289,7 +289,7 @@ class NewAdvertForm extends Component {
                             </div>
                             <div className="select-box">
                                 <label>{i18n.t('newAdvert.tags')}</label>
-                                <Select className="multi-select"
+                                <Select id="tagSelect" className="multi-select"
                                     closeMenuOnSelect={false}
                                     placeholder={i18n.t('newAdvert.select')}
                                     noOptionsMessage={() => i18n.t('newAdvert.noOptions')}
@@ -299,17 +299,17 @@ class NewAdvertForm extends Component {
                                 />
                             </div>
                             <div className="user-box">
-                                <input type="text" maxLength={100} onChange={this.handleTitleInput} required />
+                                <input id="titleInput" type="text" maxLength={100} onChange={this.handleTitleInput} required />
                                 <label>{i18n.t('newAdvert.title')}</label>
                             </div>
                             <div className="user-box">
-                                <input type="text" maxLength={100} onChange={this.handleShortDescriptionInput} required />
+                                <input id="shortDescriptionInput" type="text" maxLength={100} onChange={this.handleShortDescriptionInput} required />
                                 <label>{i18n.t('newAdvert.shortDescription')}</label>
                             </div>
 
                             <div className="user-box">
                                 <label>{i18n.t('newAdvert.longDescription')}</label>
-                                <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleLongDescriptionInput} required />
+                                <textarea id="longDescriptionInput" rows={10} className="advert-area" maxLength={1000} onChange={this.handleLongDescriptionInput} required />
                             </div>
 
                             <div className="file-box">

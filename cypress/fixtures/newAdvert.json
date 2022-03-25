@@ -1,0 +1,7 @@
+{
+    "advertTitle" : "Cypress test advert",
+    "advertShortDescription" : "Cypress test advert short description",
+    "advertLongDescription" : "Cypress test advert long description",
+    "login" : "cypress",
+    "password" : "Abc@1234"
+}

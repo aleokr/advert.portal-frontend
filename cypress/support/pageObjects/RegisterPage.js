@@ -1,22 +1,22 @@
 class RegisterPage {
 
-    getInputName() {
+    getNameInput() {
         return cy.get('#nameInput')
     }
 
-    getInputSurname() {
+    getSurnameInput() {
         return cy.get('#surnameInput')
-
     }
-    getInputUsername() {
+
+    getUsernameInput() {
         return cy.get('#usernameInput')
     }
 
-    getInputEmail() {
+    getEmailInput() {
         return cy.get('#emailInput')
     }
 
-    getInputPassword() {
+    getPasswordInput() {
         return cy.get('#passwordInput')
     }
 
@@ -28,7 +28,7 @@ class RegisterPage {
         return cy.get('#typeSelect')
     }
 
-    getSelectCompany() {
+    getCompanySelect() {
         return cy.get('#companySelect')
     }
 
