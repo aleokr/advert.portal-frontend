@@ -1,12 +1,12 @@
 .center {
-	display: flex;
+	display: inline-flex;
 	margin-top: 20px;
 	background: rgba(255, 255, 255, 0.7);
 	border-radius: 10%;
 }
 
 .profile {
-	position: relative;
+	position: inherit;
 	align-items: center;
 	margin-top: 5%;
 	margin-left: 5%;
@@ -128,7 +128,7 @@
 .setting-button,
 .tag-button,
 .tag-ref {
-	position: relative;
+	position: absolute;
 	color: rgb(255, 255, 255);
 	border: none;
 	border-radius: 10px;

@@ -495,7 +495,7 @@ class UserView extends React.Component<any>  {
                             <label className="user-label">{i18n.t('user.name')}</label>
                             <div className="user-input">{this.state.name}</div>
                             <label className="user-label">{i18n.t('user.surname')}</label>
-                            <div className="user-input">{this.state.surname}</div>
+                            <div id ="surnameLabel" className="user-input">{this.state.surname}</div>
                             <label className="user-label">{i18n.t('user.email')}</label>
                             <div className="user-input">{this.state.email}</div>
                             {this.state.ownData &&
@@ -511,7 +511,7 @@ class UserView extends React.Component<any>  {
                             <label className="user-label" >{i18n.t('user.name')}</label>
                             <input className="user-input-edit" type="text" defaultValue={this.state.name} onChange={this.handleNameInput} />
                             <label className="user-label">{i18n.t('user.surname')}</label>
-                            <input className="user-input-edit" type="text" defaultValue={this.state.surname} onChange={this.handleSurnameInput} />
+                            <input id ="surnameInput" className="user-input-edit" type="text" defaultValue={this.state.surname} onChange={this.handleSurnameInput} />
                             <label className="user-label">{i18n.t('user.email')}</label>
                             <input className="user-input-edit" type="text" defaultValue={this.state.email} onChange={this.handleEmailInput} />
                             <label className="user-label">{i18n.t('user.login')}</label>
@@ -565,11 +565,10 @@ class UserView extends React.Component<any>  {
                 </div>
                 <div>
                     {!this.state.editMode && this.state.ownData &&
-                        <button className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
+                        <button id="editModeButton" className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
                     }
                     {this.state.editMode && this.state.ownData &&
-
-                        <button className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
+                        <button id="submitButton" className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
                 </div>
             </div >

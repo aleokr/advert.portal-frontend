@@ -1,0 +1,6 @@
+{
+    "login" : "cypress3",
+    "password": "Abc@1234",
+    "userOldSurname" : "Test",
+    "userNewSurname" : "new surname"
+}

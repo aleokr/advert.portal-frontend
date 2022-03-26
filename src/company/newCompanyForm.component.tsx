@@ -146,12 +146,13 @@ class NewCompanyForm extends Component {
                         })
                 } else return response.json();
             })
-            .then(() => {
+            .then((data) => {
                 if (this.state.errorMessage === '') {
                     this.dispatch({
                         type: 'addCompanySuccess',
                         payload: ''
                     })
+                    localStorage.setItem('company_id', data.id)
                 }
             })
     }
@@ -173,12 +174,12 @@ class NewCompanyForm extends Component {
                         <h2>{i18n.t('newCompany.addCompanyTitle')}</h2>
                         <form action="./addCompany" onSubmit={this.handleAddNewCompany} >
                             <div className="user-box">
-                                <input type="text" maxLength={100} onChange={this.handleNameInput} required />
+                                <input id = "nameInput" type="text" maxLength={100} onChange={this.handleNameInput} required />
                                 <label>{i18n.t('newCompany.name')}</label>
                             </div>
                             <div className="user-box">
                                 <label>{i18n.t('newCompany.description')}</label>
-                                <textarea rows={10} className="advert-area" maxLength={1000} onChange={this.handleDescriptionInput} required />
+                                <textarea id = "descriptionInput" rows={10} className="advert-area" maxLength={1000} onChange={this.handleDescriptionInput} required />
                             </div>
                             <button className="form-button" type="submit">{i18n.t('newCompany.addButton')}</button>
                         </form>
