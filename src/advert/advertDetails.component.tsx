@@ -366,10 +366,10 @@ class AdvertDetails extends React.Component<RouteComponentProps> {
                         <div className="advert-detail-title">{i18n.t('advertDetail.advertDetailPageTitle')}</div>
 
                         <div className="application-advert">
-                            {this.state.canApplicate && !this.state.applicationExists && <button className="detail-button" onClick={this.applicate.bind(this)} >{i18n.t('advertDetail.applicate')}</button>}
+                            {this.state.canApplicate && !this.state.applicationExists && <button id = "applicateButton" className="detail-button" onClick={this.applicate.bind(this)} >{i18n.t('advertDetail.applicate')}</button>}
                             {this.state.canEdit && !this.state.editMode && !this.state.archived && <button className="detail-button" onClick={this.editMode.bind(this)} >{i18n.t('advertDetail.edit')}</button>}
                             {this.state.editMode && <button className="detail-button" onClick={this.submitChanges.bind(this)}  >{i18n.t('advertDetail.save')}</button>}
-                            {this.state.applicationExists && <button className="application-button" >{i18n.t('advertDetail.applicated')}</button>}
+                            {this.state.applicationExists && <button id = "applicatedButton" className="application-button" >{i18n.t('advertDetail.applicated')}</button>}
 
                         </div>
                         <div className="advert-data">

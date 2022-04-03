@@ -1,0 +1,17 @@
+{
+    "individualName" : "Jan",
+    "individualSurname" : "Piasek",
+    "individualUsername" : "jasek",
+    "individualEmail" : "jan.piasek@portal.pl",
+    "password": "Abc@1234",
+
+    "adminName" : "Anna",
+    "adminSurname" : "Lis",
+    "adminUsername" : "anial",
+    "adminEmail" : "anna.lis@portal.pl",
+
+    "companyUserName" : "Karol",
+    "companyUserSurname" : "Krajewski",
+    "companyUserUsername" : "karolkraj",
+    "companyUserEmail" : "karol.krajewski@portal.pl"
+}

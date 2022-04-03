@@ -4,7 +4,7 @@ import RegisterView from "./login/register.component";
 import Dashboard from "./dashboard/dashboard.component";
 import NewAdvertView from "./advert/newAdvertView.component";
 import NewCompanyView from "./company/newCompanyView.component";
-import UserPanelView from "./userPanel/userPanel.component"
+import UserPanelView from "./userPanel/userPanelView.component"
 import SettingsView from "./settings/settings.component"
 import AdvertDetailsView from "./advert/advertDetailsView.component"
 import CompanyDetailView from "./company/companyDetails.component"

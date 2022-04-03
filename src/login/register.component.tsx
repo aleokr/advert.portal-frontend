@@ -11,6 +11,7 @@ type CompaniesData = {
 }
 
 type UserType = {
+    id: number;
     name: string;
 }
 
@@ -255,27 +256,27 @@ class RegisterView extends Component {
                     <img className="advert-black-logo" src={logo} alt='logo' />
                     <form action="./login" onSubmit={this.handleSubmitRegister}>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleNameInput} maxLength={100} required />
+                            <input id = "nameInput" type="text" onChange={this.handleNameInput} maxLength={100} required />
                             <label>{i18n.t('register.name')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleSurnameInput} maxLength={100} required />
+                            <input id = "surnameInput" type="text" onChange={this.handleSurnameInput} maxLength={100} required />
                             <label>{i18n.t('register.surname')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="text" onChange={this.handleUsernameInput} maxLength={100} required />
+                            <input id = "usernameInput" type="text" onChange={this.handleUsernameInput} maxLength={100} required />
                             <label>{i18n.t('register.username')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="email" onChange={this.handleEmailInput} maxLength={100} required />
+                            <input id = "emailInput" type="email" onChange={this.handleEmailInput} maxLength={100} required />
                             <label>{i18n.t('register.email')}</label>
                         </div>
                         <div className="user-box">
-                            <input type="password" name="" onChange={this.handlePasswordInput} maxLength={100} required />
+                            <input id = "passwordInput" type="password" name="" onChange={this.handlePasswordInput} maxLength={100} required />
                             <label>{i18n.t('register.password')}</label>
                         </div>
                         <div className="select-box">
-                            <select onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
+                            <select id = "typeSelect" onChange={e => this.handleUserTypeInput(e)} value={this.state.userType}>
                                 {this.state.userTypes.map(type => (
                                     <option key={type.name} value={type.name}>
                                         {i18n.t('register.' + type.name)}
@@ -285,7 +286,7 @@ class RegisterView extends Component {
                         </div>
                         {this.state.companyUser &&
                             <div className="select-box">
-                                <select onChange={e => this.handleCompanyIdInput(e)} value={this.state.companyId}>
+                                <select id = "companySelect" onChange={e => this.handleCompanyIdInput(e)} value={this.state.companyId}>
                                     {this.state.companies.map(company => (
                                         <option key={company.name} value={company.id}>
                                             {company.name}
