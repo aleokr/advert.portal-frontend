@@ -37,7 +37,8 @@ class NavBar extends React.Component<RouteComponentProps> {
                             <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
                         </nav>
                     </Container>}
-                {localStorage.getItem('access_token') !== '' && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
+                {localStorage.getItem('access_token') !== '' && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) && 
+                    !(localStorage.getItem('user_type') === 'COMPANY_USER' && localStorage.getItem('company_id') === null) &&
                     <Container className="menu-container">
                         <nav className="nav-menu">
                             <img className="advert-logo" src={logo} alt='logo' />
@@ -50,7 +51,17 @@ class NavBar extends React.Component<RouteComponentProps> {
                             <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
                         </nav>
                     </Container>}
-                {localStorage.getItem('access_token') === '' &&
+                    {localStorage.getItem('access_token') !== '' &&  (localStorage.getItem('user_type') === 'COMPANY_USER' && localStorage.getItem('company_id') === null) &&
+                    <Container className="menu-container">
+                        <nav className="nav-menu">
+                            <img className="advert-logo" src={logo} alt='logo' />
+                            <img className="icon" src={pl_icon} alt='pl_icon' onClick={() => this.changeLanguage('pl')} />
+                            <img className="icon" src={en_icon} alt='en_icon' onClick={() => this.changeLanguage('en')} />
+                            <a className="links" href="/">{i18n.t('navBar.home')}</a>
+                            <button className="nav-logout" onClick={this.logOut}>{i18n.t('navBar.logout')}</button>
+                        </nav>
+                    </Container>}
+                { localStorage.getItem('access_token') === '' &&
                     <Container className="menu-container">
                         <nav className="nav-menu">
                             <img className="advert-logo" src={logo} alt='logo' />

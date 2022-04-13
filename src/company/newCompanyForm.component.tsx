@@ -3,7 +3,7 @@ import '../css/form.css'
 import i18n from "../messages/i18n"
 import logo from '../assets/logo_black.png'
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 
 type State = {
     name: string;
@@ -59,7 +59,7 @@ function reducer(state: State, action: Action): State {
 
 const canSeePage: boolean = localStorage.getItem('access_token') !== '' && localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null;
 
-class NewCompanyForm extends Component {
+class NewCompanyForm extends React.Component<RouteComponentProps>  {
     state = initialState;
 
     dispatch(action: Action) {
@@ -148,6 +148,47 @@ class NewCompanyForm extends Component {
             })
             .then((data) => {
                 if (this.state.errorMessage === '') {
+                    fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/api/v1/auth/refreshToken',
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')
+                            }
+                        })
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(result => {
+                            localStorage.setItem('access_token', result.access_token);
+                            localStorage.setItem('refresh_token', result.refresh_token);
+                            fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/companies/addCompany', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                                },
+                                body: JSON.stringify({
+                                    name: this.state.name,
+                                    description: this.state.description
+                                })
+                            })
+                                .then(result => {
+                                    if (result.status === 401) {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                    }
+                                    else {
+                                        this.dispatch({
+                                            type: 'setError',
+                                            payload: 'UNAUTHORIZED'
+                                        })
+                                    }
+                                }
+                                )
+                        })
                     this.dispatch({
                         type: 'addCompanySuccess',
                         payload: ''
@@ -156,7 +197,6 @@ class NewCompanyForm extends Component {
                 }
             })
     }
-
 
     render() {
         return (
