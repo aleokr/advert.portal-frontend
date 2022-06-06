@@ -4,12 +4,15 @@ import '../css/form.css'
 import NavBar from "../navigation/navBar.component"
 import UserPanel from "./userPanel.component";
 
+const access: boolean = localStorage.getItem('access_token') !== '' && (!(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) && 
+                    !(localStorage.getItem('user_type') === 'COMPANY_USER' && localStorage.getItem('company_id') === null));
+
 class UserPanelView extends React.Component<RouteComponentProps> {
     render() {
         return (
             <div>
                 <NavBar />
-                <UserPanel {...this.props} />
+                {access && <UserPanel {...this.props} />}
             </div>
         );
     }

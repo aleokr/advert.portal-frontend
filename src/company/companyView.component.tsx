@@ -381,8 +381,8 @@ class CompanyView extends React.Component<any> {
     render() {
         return (
 
-            <div className="center">
-                <div className="profile">
+            <div className="company-page">
+                <div className="company-profile">
                     <img src={this.state.imagePath !== null && this.state.imagePath !== '' ? this.state.imagePath : companyImage} className="user-image" />
                     {this.state.editMode && <div>
                         <label className="file-label">{i18n.t('user.addAttachment')}</label>

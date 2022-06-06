@@ -24,9 +24,10 @@
 
 .user-data {
 	position: relative;
-	margin-left: 1%;
+	margin-left: 5%;
 	margin-right: 5%;
 	margin-top: 5%;
+	width: 25%;
 }
 
 .stats {
@@ -36,11 +37,11 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	width: 25%;
 }
 
 .stats .box {
 	box-sizing: border-box;
-	width: 300px;
 	height: 100px;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -128,7 +129,7 @@
 .setting-button,
 .tag-button,
 .tag-ref {
-	position: absolute;
+	position: relative;
 	color: rgb(255, 255, 255);
 	border: none;
 	border-radius: 10px;

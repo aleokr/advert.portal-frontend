@@ -142,12 +142,16 @@ class LoginView extends React.Component<RouteComponentProps> {
         this.props.history.push('/register');
     };
 
+    goToAddCompany = () => {
+        this.props.history.push('/addCompany');
+        window.location.reload()
+    };
 
     render() {
         return (
             <React.Fragment>
                 {this.state.success && localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null &&
-                    <Redirect to='/addCompany' />
+                    this.goToAddCompany()
                 }
                 {this.state.success && !(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
                     <Redirect to='/' />

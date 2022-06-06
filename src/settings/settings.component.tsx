@@ -5,14 +5,15 @@ import UserView from "../user/userView.component"
 import CompanyView from "../company/companyView.component"
 import "../css/settings.component.css"
 
-const token: boolean = localStorage.getItem('access_token') !== '';
+const access: boolean = localStorage.getItem('access_token') !== '' && (!(localStorage.getItem('user_type') === 'COMPANY_ADMIN' && localStorage.getItem('company_id') === null) &&
+    !(localStorage.getItem('user_type') === 'COMPANY_USER' && localStorage.getItem('company_id') === null));
 class SettingsView extends React.Component {
 
     render() {
         return (
             <React.Fragment>
                 <NavBar />
-                {token &&
+                {access &&
                     <body className="settings-list-body">
                         <div className="settings-tabs">
                             <div className="tab-2">

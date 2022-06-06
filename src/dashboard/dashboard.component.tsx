@@ -4,7 +4,6 @@ import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 class Dashboard extends React.Component<RouteComponentProps>  {
-
     render() {
         return (
             <div>

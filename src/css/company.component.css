@@ -9,7 +9,7 @@
 
 .company-profile {
 	padding: 1.5rem;
-	width: 30%;
+	width: max-content;
 }
 
 .company-table {
@@ -75,7 +75,7 @@
 	margin-bottom: 20px;
 	margin-top: 20px;
 	text-align: center;
-	width: 90%;
+	width: 100%;
 	color: #ffff;
 }
 

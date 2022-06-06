@@ -330,6 +330,9 @@ class UserView extends React.Component<any>  {
     /* istanbul ignore next */
     submitChanges() {
         {
+            if(this.state.password !== this.state.confirmPassword){
+                return;
+            }
             this.state.password === this.state.confirmPassword &&
                 fetch(process.env.REACT_APP_BACKEND_BASE_URL + '/management/api/v1/users/update', {
                     method: 'PUT',
@@ -343,7 +346,7 @@ class UserView extends React.Component<any>  {
                         surname: this.state.surname,
                         login: this.state.login,
                         email: this.state.email,
-                        password: this.state.password
+                        password: this.state.password === '' ? null : this.state.password
                     })
                 })
                     .then(response => {
@@ -466,7 +469,7 @@ class UserView extends React.Component<any>  {
 
     render() {
         return (
-            <div className="center">
+            <div className="company-page">
                 <div className="profile">
                     <img src={this.state.imagePath !== null && this.state.imagePath !== '' ? this.state.imagePath : userImage} className="user-image" />
                     {this.state.editMode && <div>
@@ -556,13 +559,14 @@ class UserView extends React.Component<any>  {
                         onChange={e => this.handleTagInputChange(e)}
                         options={this.state.tagsToSubscribe}
                     />
-                    <button className="tag-button" onClick={this.subscribeTags}>{i18n.t('user.subscribe')}</button>
                     <div>
                         <h3 className="or-label">{i18n.t('user.or')} </h3>
                     </div>
-                    <a className="tag-ref" href="/addTag" >{i18n.t('user.create')}</a>
+                    <div>
+                        <a className="tag-ref" href="/addTag" >{i18n.t('user.create')}</a>
+                    </div>
 
-                </div>
+                    
                 <div>
                     {!this.state.editMode && this.state.ownData &&
                         <button id="editModeButton" className="setting-button" onClick={this.editMode.bind(this)}>{i18n.t('user.edit')}</button>
@@ -570,6 +574,7 @@ class UserView extends React.Component<any>  {
                     {this.state.editMode && this.state.ownData &&
                         <button id="submitButton" className="setting-button" onClick={this.submitChanges.bind(this)}>{i18n.t('user.submit')}</button>
                     }
+                </div>
                 </div>
             </div >
         );
